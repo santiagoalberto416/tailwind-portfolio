@@ -9,11 +9,19 @@ const Header: FC<{}> = () => {
     <nav className="w-100">
       <div className="flex w-100 p-4 shadow-lg text-center">
         <div className="flex-1 text-left">SK.dev</div>
-        <ul className="space-x-4 mr-4 lg:block hidden">
-          <a href="/home">Home</a>
-          <a href="/about">About</a>
-          <a href="/projects">Projects</a>
-          <a href="/contact">Contact</a>
+        <ul className="mr-4 lg:flex hidden space-x-4">
+          <li>
+            <a href="/home">Home</a>
+          </li>
+          <li>
+            <a href="/about">About</a>
+          </li>
+          <li>
+            <a href="/projects">Projects</a>
+          </li>
+          <li>
+            <a href="/contact">Contact</a>
+          </li>
         </ul>
 
         <div className="cursor-pointer lg:hidden" onClick={() => setShow(true)}>

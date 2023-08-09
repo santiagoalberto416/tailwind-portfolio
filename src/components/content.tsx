@@ -54,6 +54,7 @@ const Content: FC<{}> = () => {
               src="/profile-picture.jpg"
               width={300}
               height={300}
+              unoptimized
               alt="profile-pic"
             />
           </div>
