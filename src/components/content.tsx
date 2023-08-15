@@ -6,12 +6,67 @@ import TechCard from "./tech-card";
 import Link from "next/link";
 
 const techIcons = [
-  "css3-icon.svg",
-  "html-icon.svg",
-  "js-icon.svg",
-  "react-icon.svg",
-  "sass-icon.svg",
-  "ts-icon.svg",
+  {
+    icon: "css3-icon.svg",
+    description: (
+      <>
+        <strong>{"(CSS)"}</strong> is a style sheet language used for describing
+        the presentation of a document written in a markup language such as HTML
+        or XML
+      </>
+    ),
+  },
+  {
+    icon: "html-icon.svg",
+    description: (
+      <>
+        <html>
+          Hypertext Markup Language <strong>{"(HTML)"}</strong>, a standardized
+          system for tagging text files to achieve font, color, graphic, and
+          hyperlink effects on World Wide Web pages.
+        </html>
+      </>
+    ),
+  },
+  {
+    icon: "js-icon.svg",
+    description: (
+      <>
+        JavaScript <strong>{"(JS)"}</strong> is a dynamic programming language
+        that&apos;s used for web development, in web applications, for game
+        development, and lots more.
+      </>
+    ),
+  },
+  {
+    icon: "react-icon.svg",
+    description: (
+      <>
+        More commonly known as <strong>React</strong>, is a free, open-source
+        JavaScript library. It works best to build user interfaces by combining
+        sections of code
+      </>
+    ),
+  },
+  {
+    icon: "sass-icon.svg",
+    description: (
+      <>
+        <strong>Sass</strong> is the most mature, stable, and powerful
+        professional grade CSS extension language in the world.
+      </>
+    ),
+  },
+  {
+    icon: "ts-icon.svg",
+    description: (
+      <>
+        <strong>TypeScript</strong> is a free and open-source high-level
+        programming language developed by Microsoft that adds static typing with
+        optional type annotations to JavaScript.
+      </>
+    ),
+  },
 ];
 
 const Content: FC<{}> = () => {
@@ -64,9 +119,9 @@ const Content: FC<{}> = () => {
       <div className="container lg:pt-14 pt-10 mx-auto flex flex-col justify-center items-center">
         <h1 className="text-xl pt-6 text-center ">Tech Stack</h1>
         <div className="border mt-2 w-5 border-gray-500" />
-        <div className="flex justify-center mt-4 lg:pb-14 pb-10 gap-3">
+        <div className="flex justify-center mt-4 lg:mb-14 mb-10 gap-3 tech-stack-container">
           {techIcons.map((icon) => (
-            <TechCard key={icon} icon={icon} />
+            <TechCard key={icon.icon} {...icon} />
           ))}
         </div>
       </div>
