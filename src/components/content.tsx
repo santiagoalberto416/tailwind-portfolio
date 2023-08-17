@@ -5,14 +5,14 @@ import { FC } from "react";
 import TechCard from "./tech-card";
 import Link from "next/link";
 
-const techIcons = [
+const techIcons: { description: string | JSX.Element; icon: string }[] = [
   {
     icon: "css3-icon.svg",
     description: (
       <>
-        <strong>{"(CSS)"}</strong> is a style sheet language used for describing
-        the presentation of a document written in a markup language such as HTML
-        or XML
+        <strong>{"CSS:"}</strong> I have been working in a few projects using
+        plain css and also preprocessors, so I&apos;m familiar with the basics
+        of styling
       </>
     ),
   },
@@ -20,11 +20,9 @@ const techIcons = [
     icon: "html-icon.svg",
     description: (
       <>
-        <html>
-          Hypertext Markup Language <strong>{"(HTML)"}</strong>, a standardized
-          system for tagging text files to achieve font, color, graphic, and
-          hyperlink effects on World Wide Web pages.
-        </html>
+        <strong>{"HTML:"}</strong> I couldn&apos;t call me developer if I
+        didn&apos;t know html, JK. I&apos;m familiar with plain html but I
+        prefer to use it in jsx or tsx depending of the project.
       </>
     ),
   },
@@ -32,9 +30,9 @@ const techIcons = [
     icon: "js-icon.svg",
     description: (
       <>
-        JavaScript <strong>{"(JS)"}</strong> is a dynamic programming language
-        that&apos;s used for web development, in web applications, for game
-        development, and lots more.
+        <strong>{"(JS:)"}</strong> I have been using JavaScript for arround 3
+        years mainly for front end but I also used for other projects. For
+        example a cli and a library for bank operations.
       </>
     ),
   },
@@ -42,9 +40,8 @@ const techIcons = [
     icon: "react-icon.svg",
     description: (
       <>
-        More commonly known as <strong>React</strong>, is a free, open-source
-        JavaScript library. It works best to build user interfaces by combining
-        sections of code
+        <strong>React:</strong> I&apos;ve been using react for 3 years, using
+        different frameworks/tools like Redux, Next.js using JS and Typescript
       </>
     ),
   },
@@ -71,7 +68,7 @@ const techIcons = [
 
 const Content: FC<{}> = () => {
   return (
-    <div className="flex flex-col justify-center lg:pt-14 pt-10 bg-gray-100">
+    <div className="hidden-section flex flex-col justify-center lg:pt-14 pt-10 pb-24 h-screen">
       <div className="container mx-auto flex justify-center">
         <div className="max-w-screen-md flex lg:flex-row flex-col-reverse lg:gap-40">
           <div className="flex content-center items-center max-w-sm">
@@ -80,9 +77,8 @@ const Content: FC<{}> = () => {
                 Front-End React Developer
               </h1>
               <p className="lg:text-left text-center">
-                {" "}
-                Hi I{"'"}m Santiago Kirk, A passionate Front-end React Developer
-                based in Tijuana, Mexico.{" "}
+                Hi I&apos;m Santiago Kirk, A passionate Front-end React
+                Developer based in Tijuana, Mexico.
               </p>
 
               <div className="pt-6 w-full flex lg:justify-normal justify-center">
@@ -121,7 +117,11 @@ const Content: FC<{}> = () => {
         <div className="border mt-2 w-5 border-gray-500" />
         <div className="flex justify-center mt-4 lg:mb-14 mb-10 gap-3 tech-stack-container">
           {techIcons.map((icon) => (
-            <TechCard key={icon.icon} {...icon} />
+            <TechCard
+              key={icon.icon}
+              icon={icon.icon}
+              description={icon.description}
+            />
           ))}
         </div>
       </div>

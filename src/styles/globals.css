@@ -7,6 +7,27 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
+/* It starts animation section */
+@media (prefers-reduced-motion) {
+  .hidden-section {
+    transition: none;
+  }
+}
+
+.hidden-section {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateX(-100%);
+  transition: all 1s;
+}
+
+.show-section {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0);
+}
+
+/* It ends animation section */
 
 @media (prefers-color-scheme: dark) {
   :root {
