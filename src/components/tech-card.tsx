@@ -6,7 +6,7 @@ const TechCard: FC<{ icon: string; description: string | JSX.Element }> = ({
   description,
 }) => {
   return (
-    <div className="tech-item">
+    <div className="tech-item mx-2">
       <div className="hover:shadow-lg shadow-md p-4 rounded-full bg-white growing-tech-item">
         <Image alt="tech" className="" src={icon} width={48} height={48} />
       </div>

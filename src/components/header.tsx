@@ -6,7 +6,7 @@ const Header: FC<{}> = () => {
   const [show, setShow] = useState<undefined | boolean>(undefined);
   const className = show === undefined ? "" : show ? "slide-in" : "slide-out";
   return (
-    <nav className="w-100 shadow-md">
+    <nav className="w-100 main-nav">
       <div className="flex w-100 p-4 shadow-lg text-center">
         <div className="flex-1 text-left">SK.dev</div>
         <ul className="lg:flex hidden space-x-4">

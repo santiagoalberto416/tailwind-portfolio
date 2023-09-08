@@ -68,9 +68,9 @@ const techIcons: { description: string | JSX.Element; icon: string }[] = [
 
 const Content: FC<{}> = () => {
   return (
-    <div className="hidden-section flex flex-col justify-center lg:pt-14 pt-10 pb-24 h-screen">
+    <div className="flex flex-col justify-center min-h-screen lg:pt-0 pt-15">
       <div className="container mx-auto flex justify-center">
-        <div className="max-w-screen-md flex lg:flex-row flex-col-reverse lg:gap-40">
+        <div className="max-w-screen-md flex lg:flex-row flex-col-reverse justify-center items-center lg:mt-0 mt-20 lg:gap-40">
           <div className="flex content-center items-center max-w-sm">
             <div className="flex-direction-column">
               <h1 className="text-4xl mb-2 lg:text-left text-center">
@@ -87,21 +87,29 @@ const Content: FC<{}> = () => {
                   className="mr-4"
                   aria-label="See my linkedin profile"
                 >
-                  <FontAwesomeIcon icon={faLinkedin} size="2x" />
+                  <FontAwesomeIcon
+                    icon={faLinkedin}
+                    size="2x"
+                    className="contact-me-icon"
+                  />
                 </Link>
 
                 <Link
                   href="https://github.com/santiagoalberto416"
                   aria-label="See my github profile"
                 >
-                  <FontAwesomeIcon icon={faGithub} size="2x" />
+                  <FontAwesomeIcon
+                    icon={faGithub}
+                    size="2x"
+                    className="contact-me-icon"
+                  />
                 </Link>
               </div>
             </div>
           </div>
           <div className="w-100 flex justify-center lg:mb-0 mb-4">
             <Image
-              className="rounded-full border-black border-4"
+              className="rounded-full"
               src="/profile-picture.jpg"
               width={300}
               height={300}
@@ -112,17 +120,19 @@ const Content: FC<{}> = () => {
         </div>
       </div>
 
-      <div className="container lg:pt-14 pt-10 mx-auto flex flex-col justify-center items-center">
+      <div className="lg:pt-14 pt-10 flex flex-col text-center items-center w-full">
         <h1 className="text-xl pt-6 text-center ">Tech Stack</h1>
         <div className="border mt-2 w-5 border-gray-500" />
-        <div className="flex justify-center mt-4 lg:mb-14 mb-10 gap-3 tech-stack-container">
-          {techIcons.map((icon) => (
-            <TechCard
-              key={icon.icon}
-              icon={icon.icon}
-              description={icon.description}
-            />
-          ))}
+        <div className="w-full justify-center flex mt-4 lg:mb-14 tech-stack-container">
+          <div className="flex max-w-x-lg pb-4 overflow-x-auto">
+            {techIcons.map((icon) => (
+              <TechCard
+                key={icon.icon}
+                icon={icon.icon}
+                description={icon.description}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
