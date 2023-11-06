@@ -23,7 +23,7 @@ const MainPage: FC<{}> = () => {
   }, []);
 
   return (
-    <div className="h-screen">
+    <div className="root">
       <Head>
         <title>Santiago Kirk Portfolio</title>
         <meta

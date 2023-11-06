@@ -14,6 +14,10 @@
   }
 }
 
+.root {
+  background: linear-gradient(315deg, #02efee 0%, #01017c 100%);
+}
+
 .hidden-section {
   opacity: 0;
   filter: blur(5px);
@@ -84,6 +88,7 @@
 
 .rounded-full {
   border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a drop shadow */
 }
 
 @keyframes slide-in {
@@ -120,6 +125,8 @@
   box-shadow: 0 -6px 54px rgba(0, 0, 0, 0.1);
   background: #fff;
   position: fixed; /* Make the header fixed */
+  background-color: #000063;
+  color: white;
   width: 100%;
   z-index: 999;
 }

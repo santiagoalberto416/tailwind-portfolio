@@ -68,9 +68,9 @@ const techIcons: { description: string | JSX.Element; icon: string }[] = [
 
 const Content: FC<{}> = () => {
   return (
-    <div className="flex flex-col justify-center min-h-screen lg:pt-0 pt-15">
+    <div className="flex text-white flex-col justify-center min-h-screen lg:pt-0 pt-15">
       <div className="container mx-auto flex justify-center">
-        <div className="max-w-screen-md flex lg:flex-row flex-col-reverse justify-center items-center lg:mt-0 mt-20 lg:gap-40">
+        <div className="max-w-screen-md flex lg:flex-row flex-col-reverse justify-center items-center lg:mt-0 mt-20 lg:gap-24">
           <div className="flex content-center items-center max-w-sm">
             <div className="flex-direction-column">
               <h1 className="text-4xl mb-2 lg:text-left text-center">
@@ -122,9 +122,9 @@ const Content: FC<{}> = () => {
 
       <div className="lg:pt-14 pt-10 flex flex-col text-center items-center w-full">
         <h1 className="text-xl pt-6 text-center ">Tech Stack</h1>
-        <div className="border mt-2 w-5 border-gray-500" />
+        <div className="border mt-2 w-5 border-white-500" />
         <div className="w-full justify-center flex mt-4 lg:mb-14 tech-stack-container">
-          <div className="flex max-w-x-lg pb-4 overflow-x-auto">
+          <div className="flex max-w-x-lg pb-5 pl-4 pt-2 overflow-x-auto">
             {techIcons.map((icon) => (
               <TechCard
                 key={icon.icon}
