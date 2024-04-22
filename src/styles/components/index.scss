@@ -1,0 +1,12 @@
+@import "jobCard";
+@import "hero2";
+@import "techStackContainer";
+@import "navBar";
+
+.about-section {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}

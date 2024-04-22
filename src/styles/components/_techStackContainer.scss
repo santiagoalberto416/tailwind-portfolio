@@ -1,0 +1,37 @@
+
+.tech-stack-container .tech-item {
+  height: 70px;
+  width: 70px;
+  text-align: center;
+}
+
+.tech-stack-container .tech-item .description {
+  opacity: 0;
+  margin-top: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.tech-stack-container .tech-item:hover .description {
+  opacity: 1;
+  margin-top: 10px;
+  /* on large resolution increase the margin top */
+}
+
+@media (min-width: 1024px) {
+  .tech-stack-container .tech-item:hover .description {
+    margin-top: 40px;
+  }
+}
+
+.tech-stack-container .growing-tech-item {
+  height: 70px;
+  width: 70px;
+  transition: all 0.2s ease-in-out;
+}
+
+.tech-stack-container .growing-tech-item:hover {
+  width: 75px;
+  height: 75px;
+  margin-left: -2.5px;
+  margin-top: -2.5px;
+}
