@@ -30,7 +30,7 @@ const Header: FC<{}> = () => {
       </div>
 
       <div
-        className={`w-full mobile-menu ${className} h-screen bg-white z-10 lg:hidden flex flex-col center shadow-lg absolute top-0`}
+        className={`w-full main-nav mobile-menu ${className} h-screen bg-white z-10 lg:hidden flex flex-col center shadow-lg absolute top-0`}
       >
         <div className="w-100 flex justify-end p-4">
           <Close onClick={() => setShow(false)} />

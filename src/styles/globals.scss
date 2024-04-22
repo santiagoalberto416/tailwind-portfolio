@@ -37,6 +37,13 @@ p {
   }
 }
 
+// link style, which has underline blue color and hover effect
+.link-style {
+  color: #0077cc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
 
 .mobile-menu {
   transform: translateY(-100%);

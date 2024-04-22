@@ -2,12 +2,12 @@ import { FC } from "react";
 import Image from "next/image";
 import { R2_BUCKET } from "@/utils/resources";
 
-const Hero2: FC<{}> = () => {
+const Hero3: FC<{}> = () => {
   return (
     <div className="hero-2 transform duration-500 hover:scale-105">
-      <div className="w-auto p-7 rounded-lg border bg-white shadow-lg">
+      <div className="w-auto rounded-lg bg-white shadow-lg overflow-clip">
         <div className="flex items-start lg:flex-row flex-col">
-          <div className="pr-7">
+          <div className="p-7 lg:pr-16">
             <h1 className="text-2xl lg:mt-0 mt-4 lg:text-left text-center mb-2">
               About Me
             </h1>
@@ -23,23 +23,19 @@ const Hero2: FC<{}> = () => {
               for project success.
             </p>
           </div>
-          <div
-            style={{ minWidth: "200px" }}
-            className="d-flex items-center h-full"
-          >
-            <Image
-              className="border-4 rounded-lg"
-              src={R2_BUCKET + "/profile-pic-2.png"}
-              width={300}
-              height={300}
-              unoptimized
-              alt="profile-pic"
-            />
-          </div>
+
+          <Image
+            className="lg:block hidden"
+            src={R2_BUCKET + "/profile-pic-3.jpg"}
+            width={220}
+            height={386}
+            unoptimized
+            alt="profile-pic"
+          />
         </div>
       </div>
     </div>
   );
 };
 
-export default Hero2;
+export default Hero3;

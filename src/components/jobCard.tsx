@@ -12,7 +12,7 @@ type JobCardProps = {
 
 const JobCard: FC<JobCardProps> = (props) => {
   return (
-    <div className="job-card rounded-lg border bg-white shadow-lg overflow-clip">
+    <div className="transform duration-500 hover:scale-105 job-card rounded-lg bg-white shadow-lg overflow-clip ">
       <div className="px-7 pt-7">
         <h1 className="text-2xl lg:mt-0 mt-4 lg:text-left text-center mb-2">
           {props.title}
@@ -23,6 +23,7 @@ const JobCard: FC<JobCardProps> = (props) => {
         className="job-image-container flex justify-center items-center"
         style={{
           backgroundImage: `url("${R2_BUCKET}${props.image}")`,
+          backgroundSize: "cover",
         }}
       >
         <div className="job-icon-container">

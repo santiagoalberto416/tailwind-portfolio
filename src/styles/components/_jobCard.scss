@@ -3,11 +3,12 @@
   height: 390px;
 
   .job-image-container {
-    height: 200px;
+    height: 205px;
     width: 100%;
-    background-image: url("https://pub-ea7a2c20aa3640aaacc191568aca07bd.r2.dev/arkus-background-image.jpg");
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+
 
     .job-icon-container {
       // black background with alpa 0.4

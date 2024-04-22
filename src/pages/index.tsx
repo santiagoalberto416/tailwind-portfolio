@@ -4,6 +4,7 @@ import Content from "@/components/content";
 import { FC, useEffect } from "react";
 import Hero2 from "@/components/hero2";
 import JobCard from "@/components/jobCard";
+import Hero3 from "@/components/hero3";
 
 // job card info
 const JobInfo = {
@@ -15,7 +16,7 @@ const JobInfo = {
         href="https://www.arkusnexus.com/"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-primary"
+        className="text-primary link-style"
       >
         ArkusNexus
       </a>
@@ -36,7 +37,7 @@ const EducationInfo = {
         href="https://uttijuana.edu.mx/"
         target="_blank"
         rel="noopener noreferrer"
-        className=""
+        className="link-style"
       >
         Universidad Tecnológica de Tijuana UTT
       </a>
@@ -81,7 +82,7 @@ const MainPage: FC<{}> = () => {
           style={{ maxWidth: "1000px" }}
           className="about-section mx-auto pb-10 "
         >
-          <Hero2 />
+          <Hero3 />
           <JobCard {...JobInfo} />
           <JobCard {...EducationInfo} />
           <Hero2 />
