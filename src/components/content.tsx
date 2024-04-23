@@ -31,9 +31,9 @@ const techIcons: { description: string | JSX.Element; icon: string }[] = [
     icon: "js-icon.svg",
     description: (
       <>
-        <strong>{"(JS:)"}</strong> I have been using JavaScript for arround 3
-        years mainly for front end but I also used for other projects. For
-        example a cli and a library for bank operations.
+        <strong>{"JS:"}</strong> I have been using JavaScript for around 3 years
+        mainly for front end but I also used for other projects. For example a
+        cli and a library for bank operations.
       </>
     ),
   },
