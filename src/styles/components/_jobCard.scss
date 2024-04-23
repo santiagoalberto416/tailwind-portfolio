@@ -2,13 +2,20 @@
   width: 300px;
   height: 390px;
 
+  // under lg screen, width will be 100%
+  @media (max-width: 992px) {
+    width: 100%;
+    height: 100%;
+    margin: 0 10px;
+  }
+
+
   .job-image-container {
     height: 205px;
     width: 100%;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
 
     .job-icon-container {
       // black background with alpa 0.4

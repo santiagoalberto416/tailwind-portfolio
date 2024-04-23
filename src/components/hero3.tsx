@@ -4,19 +4,19 @@ import { R2_BUCKET } from "@/utils/resources";
 
 const Hero3: FC<{}> = () => {
   return (
-    <div className="hero-2 transform duration-500 hover:scale-105">
-      <div className="w-auto rounded-lg bg-white shadow-lg overflow-clip">
+    <div className="transform duration-500 hover:scale-105">
+      <div className="hero-2 w-auto rounded-lg bg-white shadow-lg overflow-clip">
         <div className="flex items-start lg:flex-row flex-col">
           <div className="p-7 lg:pr-16">
             <h1 className="text-2xl lg:mt-0 mt-4 lg:text-left text-center mb-2">
               About Me
             </h1>
-            <p className="w-80 flex align-bottom lg:text-left text-center">
+            <p className="lg:w-80 flex align-bottom text-left">
               Santiago Kirk, a front-end software developer based in Tijuana,
               Mexico, brings expertise in React, TypeScript, and CSS frameworks
               like Tailwind and Bootstrap to create engaging web applications.
             </p>
-            <p className="w-80 flex align-bottom lg:text-left text-center">
+            <p className="lg:w-80 flex align-bottom text-left">
               With a background in mobile development in Java and Kotlin, as a
               former tech lead, I&apos;ve been dedicated to delivering
               exceptional user experiences and providing technical leadership

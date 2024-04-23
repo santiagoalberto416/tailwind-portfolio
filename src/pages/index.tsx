@@ -79,8 +79,8 @@ const MainPage: FC<{}> = () => {
       <Content />
       <div className="mx-auto container w-100 mt-48 gap-5">
         <div
-          style={{ maxWidth: "1000px" }}
-          className="about-section mx-auto pb-10 "
+          style={{ maxWidth: "1000px", height: "fit-content" }}
+          className="about-section mx-auto pb-5"
         >
           <Hero3 />
           <JobCard {...JobInfo} />

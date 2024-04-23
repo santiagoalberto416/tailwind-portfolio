@@ -1,4 +1,11 @@
 .hero-2 {
   max-width: 648px;
-  height: 390px;
+  min-height: 100%;
+
+    // under lg screen, width will be 100%
+    @media (max-width: 992px) {
+      width: 100%;
+      height: 100%;
+      margin: 0 10px;
+    }
 }
