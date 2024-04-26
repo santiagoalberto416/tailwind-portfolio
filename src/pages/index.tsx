@@ -5,6 +5,7 @@ import { FC, useEffect } from "react";
 import Hero2 from "@/components/hero2";
 import JobCard from "@/components/jobCard";
 import Hero3 from "@/components/hero3";
+import Experience from "@/components/experience";
 
 // job card info
 const JobInfo = {
@@ -88,6 +89,7 @@ const MainPage: FC<{}> = () => {
           <Hero2 />
         </div>
       </div>
+      <Experience />
     </div>
   );
 };
