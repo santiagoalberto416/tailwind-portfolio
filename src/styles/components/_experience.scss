@@ -15,8 +15,8 @@
   table {
     // black with 10% opacity
     background: rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    collapse: collapse;
+    max-width: 1024px;
+    overflow: clip;
 
     thead {
       tr {
@@ -25,7 +25,7 @@
         th {
           color: #FFF;
           text-align: left;
-          padding: 10px 10px;
+          padding: 20px 16px;
           font-size: 14px;
           font-weight: 500;
           border-bottom: 1px solid #FFF;

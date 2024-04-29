@@ -69,47 +69,50 @@ const experiences: WorkExperience[] = [
 const Experience = () => {
   return (
     <div className="container mx-auto experience text">
-      <h1 className="text-center my-10">Experience</h1>
-      <table className=" mx-auto">
-        <thead>
-          <tr>
-            <th>Year</th>
-            <th>Project</th>
-            <th>Position</th>
-            <th>Company</th>
-            <th>Tech Stack</th>
-            <th>Link</th>
-            {/*<th>Description</th>*/}
-          </tr>
-        </thead>
-        <tbody>
-          {experiences.map((experience, index) => (
-            <tr key={index}>
-              <td>{experience.year}</td>
-              <td>{experience.project}</td>
-              <td>{experience.position}</td>
-              <td>{experience.company}</td>
-              <td>
-                {experience.techStack.map((tech) => (
-                  <span key={tech} className="tech-pill">
-                    {tech}
-                  </span>
-                ))}
-              </td>
-              <td>
-                {experience.link ? (
-                  <a href={experience.link} target="_blank" rel="noreferrer">
-                    Link
-                  </a>
-                ) : (
-                  "-"
-                )}
-              </td>
-              {/*<td className="max-w-80">{experience.description}</td>*/}
+      <h1 className="text-4xl text-white text-center mb-10">Experience</h1>
+      <p className="max-w-3xl text-center mx-auto text-white mb-10">
+        {description}
+      </p>
+      <div className="w-full overflow-x-auto">
+        <table className="mx-auto rounded-lg overflow-x-clip overflow-y-clip">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Project</th>
+              <th>Position</th>
+              <th>Company</th>
+              <th className="max-w-40">Tech Stack</th>
+              <th>Link</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {experiences.map((experience, index) => (
+              <tr key={index}>
+                <td>{experience.year}</td>
+                <td>{experience.project}</td>
+                <td>{experience.position}</td>
+                <td>{experience.company}</td>
+                <td>
+                  {experience.techStack.map((tech) => (
+                    <span key={tech} className="tech-pill">
+                      {tech}
+                    </span>
+                  ))}
+                </td>
+                <td>
+                  {experience.link ? (
+                    <a href={experience.link} target="_blank" rel="noreferrer">
+                      Link
+                    </a>
+                  ) : (
+                    "-"
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
