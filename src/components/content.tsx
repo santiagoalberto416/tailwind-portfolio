@@ -5,6 +5,7 @@ import { FC } from "react";
 import TechCard from "./tech-card";
 import Link from "next/link";
 import { R2_BUCKET } from "@/utils/resources";
+import { SectionsIds } from "@/components/header";
 
 const techIcons: { description: string | JSX.Element; icon: string }[] = [
   {
@@ -69,7 +70,10 @@ const techIcons: { description: string | JSX.Element; icon: string }[] = [
 
 const Content: FC<{}> = () => {
   return (
-    <div className="flex text-white flex-col justify-center lg:pt-52">
+    <div
+      id={SectionsIds.Home}
+      className="flex text-white flex-col justify-center lg:pt-52"
+    >
       <div className="container mx-auto flex justify-center">
         <div className=" flex lg:flex-row flex-col-reverse justify-center items-center lg:mt-0 mt-20 lg:gap-24">
           <div className="flex content-center items-center max-w-sm">

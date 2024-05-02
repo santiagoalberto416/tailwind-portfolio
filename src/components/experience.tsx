@@ -1,3 +1,5 @@
+import { SectionsIds } from "@/components/header";
+
 type WorkExperience = {
   year: number;
   project: string;
@@ -68,7 +70,10 @@ const experiences: WorkExperience[] = [
 
 const Experience = () => {
   return (
-    <div className="container mx-auto experience text">
+    <div
+      id={SectionsIds.Experience}
+      className="container mx-auto px-20 experience text"
+    >
       <h1 className="text-4xl text-white text-center mb-10">Experience</h1>
       <p className="max-w-3xl text-center mx-auto text-white mb-10">
         {description}
