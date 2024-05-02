@@ -1,10 +1,10 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 @import "components/index";
 
-html{
-  scroll-behavior: smooth;;
+html {
+  scroll-behavior: smooth;
 }
 
 :root {
@@ -47,7 +47,6 @@ p {
   text-decoration: none;
   transition: color 0.3s;
 }
-
 
 .mobile-menu {
   transform: translateY(-100%);
