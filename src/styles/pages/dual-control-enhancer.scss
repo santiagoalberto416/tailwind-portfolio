@@ -1,0 +1,54 @@
+.dual-control-enhancer {
+  text-align: center;
+  .game-grid {
+    margin: 0 auto;
+    max-width: 1024px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 1rem;
+  }
+
+  .game-card.red {
+    background-color: #ff0000;
+  }
+
+  .game-card.blue {
+    background-color: #0000ff;
+  }
+
+  .game-card-container {
+    display: flex;
+  }
+
+  .game-card-container.position-middle {
+    justify-self: center;
+  }
+  .game-card-container.position-left {
+    justify-self: start;
+  }
+  .game-card-container.position-right {
+    justify-self: end;
+  }
+  .game-card-container.position-top {
+    align-self: start;
+  }
+  .game-card-container.position-bottom {
+    align-self: end;
+  }
+
+
+  .game-card {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s;
+  }
+
+
+}
