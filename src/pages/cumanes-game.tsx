@@ -150,7 +150,7 @@ const CumanesGame = () => {
   }, []);
 
   return (
-    <div className="dual-control-enhancer flex items-center flex-col pt-6">
+    <div className="dual-control-enhancer flex items-center flex-col pt-6 ">
       <div className="flex items-center gap-5">
         <div className="flex flex-1 flex-col justify-start text-left">
           <h1 className="text-2xl">Memoria dual</h1>
@@ -200,7 +200,7 @@ const CumanesGame = () => {
         {cards.map((card) => (
           <div
             key={card.id}
-            className={`game-card-container ${card.padding} position-${card.position}`}
+            className={`game-card-container lg:${card.padding} position-${card.position}`}
           >
             <div
               className={`game-card ${card.color} `}
