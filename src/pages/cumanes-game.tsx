@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { is } from "immutable";
 
 type GameCard = {
   id: number;
@@ -91,6 +92,8 @@ const CumanesGame = () => {
   const [showError, setShowError] = useState(false);
   const [biggestNumber, setBiggestNumber] = useState(0);
   const [showInstructions, setShowInstructions] = useState(false);
+  const [closingInstructions, setClosingInstructions] = useState(false);
+  const [totalCards, setTotalCards] = useState(4);
 
   const onError = () => {
     setTouchedCards([]);
@@ -107,8 +110,28 @@ const CumanesGame = () => {
     }, 1000);
   };
 
-  const handleClickInstructions = () => {
+  const handleClickInstructions = (event: any) => {
+    event.stopPropagation();
+    if (closingInstructions) return;
+    const isClosing = showInstructions && !closingInstructions;
+    if (isClosing) {
+      setClosingInstructions(true);
+      setTimeout(() => {
+        setShowInstructions(false);
+        setClosingInstructions(false);
+      }, 500);
+      return;
+    }
     setShowInstructions(!showInstructions);
+  };
+
+  const nextLevel = () => {
+    const newTotalCards = totalCards + 2;
+    setCards(generateGameCards(newTotalCards));
+    setTotalCards(newTotalCards);
+    setTouchedCards([]);
+    setShowError(false);
+    setShowCorrect(false);
   };
 
   // this is the handler for the click event in the cards
@@ -146,7 +169,7 @@ const CumanesGame = () => {
   }, [touchedCards]);
 
   useEffect(() => {
-    setCards(generateGameCards(25));
+    setCards(generateGameCards(totalCards));
   }, []);
 
   return (
@@ -174,21 +197,52 @@ const CumanesGame = () => {
         </button>
       </div>
       {showInstructions && (
-        <div className="instruction-modal flex justify-center items-center">
-          <div className="flex flex-col items-center bg-white rounded p-5">
+        <div
+          className={`flex instruction-modal`} // add the class to animate the modal
+          onClick={handleClickInstructions}
+        >
+          <div
+            onClick={(event) => event.stopPropagation()}
+            className={`flex flex-col bg-white rounded p-5 text-left  ${
+              closingInstructions && "fade-out"
+            } `}
+          >
             <div className="flex w-full items-center border-b-2 py-2">
               <div className="text-2xl flex-1 ">Instrucciones</div>
               <div
                 onClick={handleClickInstructions}
                 className="close bg-blue-500 w-8 h-8 text-white text-center flex items-center justify-center rounded-full"
               >
-                X
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="white"
+                >
+                  <path d="M13.414 12l5.293-5.293a1 1 0 0 0-1.414-1.414L12 10.586 6.707 5.293a1 1 0 0 0-1.414 1.414L10.586 12l-5.293 5.293a1 1 0 1 0 1.414 1.414L12 13.414l5.293 5.293a1 1 0 0 0 1.414-1.414L13.414 12z"></path>
+                </svg>
               </div>
             </div>
-            <div className="text-xl">Ordena los números</div>
-            <div className="text-xl">Haz clic en los números en orden</div>
-            <div className="text-xl">Haz clic en el número 1 para comenzar</div>
+            {/* instructions with caret*/}
+            <div className="pt-2">
+              <div className="text-xl text-left">
+                &#x2022; Ordena los números
+              </div>
+              <div className="text-xl text-left">
+                &#x2022; Haz clic en los números en orden
+              </div>
+              <div className="text-xl text-left">
+                &#x2022; Haz clic en el número 1 para comenzar
+              </div>
+            </div>
           </div>
+        </div>
+      )}
+
+      {showError && (
+        <div className="error-message text-white p-2 rounded">
+          Intentalo de nuevo desde el comienzo
         </div>
       )}
 
@@ -197,13 +251,32 @@ const CumanesGame = () => {
           showCorrect ? "glow" : ""
         } p-4 border-2`}
       >
+        {touchedCards.length === totalCards && (
+          <>
+            <div className="absolute top-0 left-0 w-full h-full bg-gray-900 opacity-50" />
+            <div className="success-message flex flex-col items-center justify-center">
+              <h1 className="text-white">¡Felicidades!</h1>
+              <p className="text-white">Has completado el juego con éxito</p>
+              <button
+                onClick={nextLevel}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 mb-2 px-4 rounded flex w-fit h-fit"
+              >
+                Jugar de nuevo (2 circulos mas)
+              </button>
+            </div>
+          </>
+        )}
+
         {cards.map((card) => (
           <div
             key={card.id}
             className={`game-card-container lg:${card.padding} position-${card.position}`}
           >
+            {/* if card is touched set a touched classname*/}
             <div
-              className={`game-card ${card.color} `}
+              className={`game-card ${card.color} ${
+                touchedCards.includes(card) ? "game-card-counted" : ""
+              }`}
               onClick={() => {
                 handleCardClick(card);
               }}
@@ -212,20 +285,6 @@ const CumanesGame = () => {
             </div>
           </div>
         ))}
-        {/* display temporally the touched cards */}
-      </div>
-      <div className="touched-cards flex flex-col justify-center w-full text-center">
-        {showCorrect && <div className="correct">Correcto!</div>}
-        <div className="flex justify-center w-full">
-          {touchedCards.map((card) => (
-            <div
-              key={card.id}
-              className={`game-card ${card.color} game-card-counted`}
-            >
-              {card.number}
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );
