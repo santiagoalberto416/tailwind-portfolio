@@ -173,7 +173,7 @@ const CumanesGame = () => {
   }, []);
 
   return (
-    <div className="dual-control-enhancer flex items-center flex-col pt-6 ">
+    <div className="dual-control-enhancer flex items-center flex-col pt-6 px-4 ">
       <div className="flex items-center gap-5">
         <div className="flex flex-1 flex-col justify-start text-left">
           <h1 className="text-2xl">Memoria dual</h1>
