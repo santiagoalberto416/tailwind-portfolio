@@ -1,5 +1,11 @@
-import { useEffect, useState } from "react";
-import { is } from "immutable";
+import React, { useEffect, useRef, useState } from "react";
+import { STRINGS } from "@/constants/cumanes-game";
+import useTimer from "@/utils/hooks/useTimer";
+import SuccessMessage from "@/components/cumanesGame/successMessage";
+import InstructionsModal from "@/components/cumanesGame/instructionsModal";
+import GameCard from "@/components/cumanesGame/gameCard";
+
+const IDIOM = "spanish";
 
 type GameCard = {
   id: number;
@@ -9,20 +15,29 @@ type GameCard = {
   padding?: string;
 };
 
-// the game is based in the test "Cumanes" this test is to help kids to do multiple task at the same time
-// the numbers are in random positions in the grid, the kids have to click the numbers in order
-// but interpolating the colors, so they have to click a red number and then a blue number
-// example of the game:
-// right order : 1(red), 2(blue), 3(red), 4(blue), 5(red), 6(blue), 7(red), 8(blue), 9(red), 10(blue)
-// wrong order : 1(red), 2(red) (wrong color)
-// so tu generate the game cards we need to generate with random colors and random numbers in the grid
-// conditions:
-// - the cards are unique by color + number, and numbers can be repeated but not in the same color
-// - the first card is always 1
-// - the colors are random
-// - the numbers are random
-// - the position is random (top, bottom, left, right, middle)
-// - the padding is a composed random ex: "pl-(1-4) pr-(1-4)"
+/**
+ * The game is based on the "Cumanes" test. This test is designed to help kids perform multiple tasks simultaneously.
+ * The numbers are placed in random positions on the grid. The kids have to click the numbers in order, but with alternating colors.
+ * They have to click a red number and then a blue number.
+ *
+ * Example of the game:
+ * - Right order: 1(red), 2(blue), 3(red), 4(blue), 5(red), 6(blue), 7(red), 8(blue), 9(red), 10(blue)
+ * - Wrong order: 1(red), 2(red) (wrong color)
+ *
+ * To generate the game cards, we need to generate random colors and random numbers on the grid.
+ *
+ * Conditions:
+ * - The cards are unique by color + number. Numbers can be repeated but not in the same color.
+ * - The first card is always 1.
+ * - The colors are random.
+ * - The numbers are random.
+ * - The position is random (top, bottom, left, right, middle).
+ * - The padding is a composed random ex: "pl-(1-4) pr-(1-4)".
+ *
+ * Additional rules:
+ * - The game ends when all cards have been clicked in the correct order.
+ * - If a card is clicked out of order, the game resets.
+ */
 const generateGameCards = (count: number): GameCard[] => {
   const cards: GameCard[] = [];
   const usedNumbersRed: number[] = [];
@@ -84,6 +99,8 @@ const generateGameCards = (count: number): GameCard[] => {
   return cards;
 };
 
+const INITIAL_CARDS = 4;
+
 const CumanesGame = () => {
   const [cards, setCards] = useState<GameCard[]>([]);
   // all this will be the cards already touched in the right order
@@ -93,7 +110,14 @@ const CumanesGame = () => {
   const [biggestNumber, setBiggestNumber] = useState(0);
   const [showInstructions, setShowInstructions] = useState(false);
   const [closingInstructions, setClosingInstructions] = useState(false);
-  const [totalCards, setTotalCards] = useState(4);
+  const [totalCards, setTotalCards] = useState(INITIAL_CARDS);
+  const [level, setLevel] = useState(1);
+  const [time, resetTimer] = useTimer();
+  const [levelScore, setLevelScore] = useState({
+    time: "0:00",
+    currentLevel: 1,
+  });
+  const strings = STRINGS[IDIOM];
 
   const onError = () => {
     setTouchedCards([]);
@@ -127,11 +151,22 @@ const CumanesGame = () => {
 
   const nextLevel = () => {
     const newTotalCards = totalCards + 2;
+    setLevel((curr) => curr + 1);
+    resetTimer();
     setCards(generateGameCards(newTotalCards));
     setTotalCards(newTotalCards);
     setTouchedCards([]);
     setShowError(false);
     setShowCorrect(false);
+  };
+
+  const setScore = (touchedCards: GameCard[]) => {
+    if (touchedCards.length === totalCards) {
+      setLevelScore({
+        time: time || "0:00",
+        currentLevel: level,
+      });
+    }
   };
 
   // this is the handler for the click event in the cards
@@ -150,7 +185,9 @@ const CumanesGame = () => {
       const lastColor = lastCard?.color;
       if (card.number === lastNumber + 1 && card.color !== lastColor) {
         // if the card is the next in the order, we add it to the touched cards
-        setTouchedCards([...touchedCards, card]);
+        const newTouchedCards = [...touchedCards, card];
+        setTouchedCards(newTouchedCards);
+        setScore(newTouchedCards);
         onCorrect();
       } else {
         // if the card is not the next in the order, we reset the touched cards
@@ -176,14 +213,14 @@ const CumanesGame = () => {
     <div className="dual-control-enhancer flex items-center flex-col pt-6 px-4 ">
       <div className="flex items-center gap-5">
         <div className="flex flex-1 flex-col justify-start text-left">
-          <h1 className="text-2xl">Memoria dual</h1>
-          <p>Mejora tu memoria y tu habilidad para hacer dos tareas a la vez</p>
+          <h1 className="text-2xl">{strings.MEMORY_DUAL}</h1>
+          <p>{strings.IMPROVE_YOUR_MEMORY}</p>
         </div>
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 mb-2 px-4 rounded flex w-fit h-fit"
           onClick={handleClickInstructions}
         >
-          <span className="mr-2">Instrucciones</span>
+          <span className="mr-2">{strings.INSTRUCTIONS.TITLE}</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -197,52 +234,15 @@ const CumanesGame = () => {
         </button>
       </div>
       {showInstructions && (
-        <div
-          className={`flex instruction-modal`} // add the class to animate the modal
-          onClick={handleClickInstructions}
-        >
-          <div
-            onClick={(event) => event.stopPropagation()}
-            className={`flex flex-col bg-white rounded p-5 text-left  ${
-              closingInstructions && "fade-out"
-            } `}
-          >
-            <div className="flex w-full items-center border-b-2 py-2">
-              <div className="text-2xl flex-1 ">Instrucciones</div>
-              <div
-                onClick={handleClickInstructions}
-                className="close bg-blue-500 w-8 h-8 text-white text-center flex items-center justify-center rounded-full"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  height="24"
-                  fill="white"
-                >
-                  <path d="M13.414 12l5.293-5.293a1 1 0 0 0-1.414-1.414L12 10.586 6.707 5.293a1 1 0 0 0-1.414 1.414L10.586 12l-5.293 5.293a1 1 0 1 0 1.414 1.414L12 13.414l5.293 5.293a1 1 0 0 0 1.414-1.414L13.414 12z"></path>
-                </svg>
-              </div>
-            </div>
-            {/* instructions with caret*/}
-            <div className="pt-2">
-              <div className="text-xl text-left">
-                &#x2022; Ordena los números
-              </div>
-              <div className="text-xl text-left">
-                &#x2022; Haz clic en los números en orden
-              </div>
-              <div className="text-xl text-left">
-                &#x2022; Haz clic en el número 1 para comenzar
-              </div>
-            </div>
-          </div>
-        </div>
+        <InstructionsModal
+          showInstructions={showInstructions}
+          closingInstructions={closingInstructions}
+          handleClickInstructions={handleClickInstructions}
+        />
       )}
-
       {showError && (
         <div className="error-message text-white p-2 rounded">
-          Intentalo de nuevo desde el comienzo
+          {strings.TRY_AGAIN}
         </div>
       )}
 
@@ -252,38 +252,24 @@ const CumanesGame = () => {
         } p-4 border-2`}
       >
         {touchedCards.length === totalCards && (
-          <>
-            <div className="absolute top-0 left-0 w-full h-full bg-gray-900 opacity-50" />
-            <div className="success-message flex flex-col items-center justify-center">
-              <h1 className="text-white">¡Felicidades!</h1>
-              <p className="text-white">Has completado el juego con éxito</p>
-              <button
-                onClick={nextLevel}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 mb-2 px-4 rounded flex w-fit h-fit"
-              >
-                Jugar de nuevo (2 circulos mas)
-              </button>
-            </div>
-          </>
+          <SuccessMessage levelScore={levelScore} nextLevel={nextLevel} />
         )}
+        <div className="w-full flex justify-center gap-5 bg-gray-500 rounded col-span-5">
+          <div className="text-lg text-white">
+            {strings.TIME}: {time as string}
+          </div>
+          <div className="text-lg text-white">
+            {strings.CURRENT_LEVEL}: {level}
+          </div>
+        </div>
 
         {cards.map((card) => (
-          <div
+          <GameCard
             key={card.id}
-            className={`game-card-container lg:${card.padding} position-${card.position}`}
-          >
-            {/* if card is touched set a touched classname*/}
-            <div
-              className={`game-card ${card.color} ${
-                touchedCards.includes(card) ? "game-card-counted" : ""
-              }`}
-              onClick={() => {
-                handleCardClick(card);
-              }}
-            >
-              {card.number}
-            </div>
-          </div>
+            card={card}
+            handleCardClick={handleCardClick}
+            isCounted={touchedCards.includes(card)}
+          />
         ))}
       </div>
     </div>
