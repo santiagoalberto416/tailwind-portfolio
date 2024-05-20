@@ -17,10 +17,7 @@ const InstructionsModal: React.FC<InstructionsModalProps> = ({
 }) => {
   return (
     showInstructions && (
-      <div
-        className={`flex instruction-modal`} // add the class to animate the modal
-        onClick={handleClickInstructions}
-      >
+      <div className="flex instruction-modal" onClick={handleClickInstructions}>
         <div
           onClick={(event) => event.stopPropagation()}
           className={`flex flex-col bg-white rounded p-5 text-left  ${
