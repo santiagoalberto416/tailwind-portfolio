@@ -10,6 +10,7 @@ const CardGame: FC<{}> = () => {
   const [barCard, setBadCard] = useState(-1);
   const [flippedCards, setFlippedCards] = useState<any>([]);
   const [currentNumber, setCurrentNumber] = useState(1);
+  const [shuffling, setShuffling] = useState(false);
   const [isWaiting, setIsWaiting] = useState(false);
   const [message, setMessage] = useState("");
   const [time, setTime] = useState(0);
@@ -126,6 +127,11 @@ const CardGame: FC<{}> = () => {
     // Reset the game state
     setFlippedCards([]);
     setCurrentNumber(1);
+
+    setShuffling(true);
+    setTimeout(() => {
+      setShuffling(false);
+    }, 500);
   };
 
   const formattedTime = `${Math.floor(time / 60)}:${(time % 60)
@@ -143,7 +149,10 @@ const CardGame: FC<{}> = () => {
           Nivel: <span id="lvlSpan">{level}</span>
         </div>
       </div>
-      <div className="card-container" id="cardContainer">
+      <div
+        className={`card-container ${shuffling ? "shuffling" : ""}`}
+        id="cardContainer"
+      >
         {cards.map((card) => {
           const isFlipped =
             flippedCards.findIndex(
