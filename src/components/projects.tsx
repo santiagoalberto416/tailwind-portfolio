@@ -41,13 +41,18 @@ const CurrentProjects: Project[] = [
 ];
 
 const Project: FC<Project> = ({ title, description, image, link }) => (
-  <div className="project-card mx-auto p-4 rounded gap-5 ">
-    <div className="flex flex-col gap-4 text-white">
+  <div className="project-card mx-auto p-4 rounded gap-5 items-center ">
+    <div
+      className="flex flex-col gap-4 text-white h-full"
+      style={{ minHeight: "240px" }}
+    >
       <h2>{title}</h2>
       <p>{description}</p>
-      <Link href={link.path}>
-        <span className="text-blue-400">{link.text}</span>
-      </Link>
+      <div className="flex items-end grow">
+        <Link href={link.path}>
+          <span className="text-blue-400 h-min">{link.text}</span>
+        </Link>
+      </div>
     </div>
     <img src={R2_BUCKET + "/" + image} alt={title} />
   </div>
