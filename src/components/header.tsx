@@ -1,6 +1,6 @@
 import Close from "@/icons/close";
 import Hamburger from "@/icons/hamburger";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 export const SectionsIds = {
   Home: "home-section",
@@ -13,12 +13,30 @@ export const SectionsIds = {
 const Header: FC<{}> = () => {
   const [show, setShow] = useState<undefined | boolean>(undefined);
   const className = show === undefined ? "" : show ? "slide-in" : "slide-out";
+  const handleMobileClick = () => setShow(false);
 
-  const scrollTo = (id: string) => () => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
     }
+  }, [show]);
+
+  const renderNavLinks = () => {
+    const sections = [
+      { name: "Home", id: SectionsIds.Home },
+      { name: "About", id: SectionsIds.About },
+      { name: "Experience", id: SectionsIds.Experience },
+      { name: "Projects", id: SectionsIds.Projects },
+      { name: "Contact", id: SectionsIds.Contact },
+    ];
+
+    return sections.map((section) => (
+      <a onClick={handleMobileClick} href={`#${section.id}`} key={section.id}>
+        {section.name}
+      </a>
+    ));
   };
 
   return (
@@ -56,11 +74,7 @@ const Header: FC<{}> = () => {
         </div>
         <div className="flex justify-center content-center items-center h-96">
           <ul className="flex flex-col text-center space-y-4">
-            <a href={`#${SectionsIds.Home}`}>Home</a>
-            <a href={`#${SectionsIds.About}`}>About</a>
-            <a href={`#${SectionsIds.Experience}`}>Experience</a>
-            <a href={`#${SectionsIds.Projects}`}>Projects</a>
-            <a href={`#${SectionsIds.Contact}`}>Contact</a>
+            {renderNavLinks()}
           </ul>
         </div>
       </div>

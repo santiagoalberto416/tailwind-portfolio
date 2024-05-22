@@ -42,7 +42,7 @@ const CurrentProjects: Project[] = [
 ];
 
 const Project: FC<Project> = ({ title, description, image, link }) => (
-  <div className="project-card mx-auto p-4 rounded gap-5 items-center ">
+  <div className="project-card  p-4 rounded gap-5 items-center lg:mx-auto mx-3 ">
     <div className="flex flex-col gap-4 text-white text-section">
       <h2 className="text-2xl">{title}</h2>
       <p>{description}</p>
