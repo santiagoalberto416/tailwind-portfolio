@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { R2_BUCKET } from "@/utils/resources";
 import Link from "next/link";
+import { SectionsIds } from "@/components/header";
 
 type Project = {
   title: string;
@@ -29,7 +30,7 @@ const CurrentProjects: Project[] = [
   {
     title: "Memory Card Game",
     description:
-      "This game has a similar history as the previous one, but for some reason kid prefer this one" +
+      "This game has a similar history as the previous one, but for some reason kid prefer this one " +
       "it also involves memory but at the difference of the previous one, this one is about making pairs " +
       "it's also made with React and Typescript, but it's a little more complex than the previous one.",
     image: "memory-game-screenshoot.jpeg",
@@ -42,11 +43,8 @@ const CurrentProjects: Project[] = [
 
 const Project: FC<Project> = ({ title, description, image, link }) => (
   <div className="project-card mx-auto p-4 rounded gap-5 items-center ">
-    <div
-      className="flex flex-col gap-4 text-white h-full"
-      style={{ minHeight: "240px" }}
-    >
-      <h2>{title}</h2>
+    <div className="flex flex-col gap-4 text-white text-section">
+      <h2 className="text-2xl">{title}</h2>
       <p>{description}</p>
       <div className="flex items-end grow">
         <Link href={link.path}>
@@ -61,11 +59,13 @@ const Project: FC<Project> = ({ title, description, image, link }) => (
 const Projects: FC<{ projects?: Project[] }> = ({
   projects = CurrentProjects,
 }) => (
-  <div className="projects container mx-auto pb-4 flex flex-col gap-4">
-    <h1 className="text-4xl text-white text-center mb-10">Projects</h1>
-    {projects.map((project) => (
-      <Project {...project} key={project.title} />
-    ))}
+  <div id={SectionsIds.Projects}>
+    <div className="projects container mx-auto pb-4 flex flex-col gap-4">
+      <h1 className="text-4xl text-white text-center mb-10">Projects</h1>
+      {projects.map((project) => (
+        <Project {...project} key={project.title} />
+      ))}
+    </div>
   </div>
 );
 

@@ -3,6 +3,10 @@
   max-width: 1024px;
   display: flex;
 
+  .text-section {
+    min-height: 240px;
+  }
+
   img {
     max-height: 240px;
     height: 100%;
