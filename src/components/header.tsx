@@ -54,7 +54,6 @@ const Header: FC<{}> = () => {
         <div className="w-100 flex justify-end p-4">
           <Close onClick={() => setShow(false)} />
         </div>
-        s
         <div className="flex justify-center content-center items-center h-96">
           <ul className="flex flex-col text-center space-y-4">
             <a href={`#${SectionsIds.Home}`}>Home</a>
