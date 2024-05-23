@@ -42,17 +42,19 @@ const CurrentProjects: Project[] = [
 ];
 
 const Project: FC<Project> = ({ title, description, image, link }) => (
-  <div className="project-card  p-4 rounded gap-5 items-center lg:mx-auto mx-3 ">
+  <div className="project-card flex lg:flex-row flex-col-reverse  p-4 rounded gap-5 items-center lg:mx-auto mx-3 ">
     <div className="flex flex-col gap-4 text-white text-section">
       <h2 className="text-2xl">{title}</h2>
       <p>{description}</p>
       <div className="flex items-end grow">
         <Link href={link.path}>
-          <span className="text-blue-400 h-min">{link.text}</span>
+          <span className="border py-2 px-3 text-white rounded-2xl h-min">
+            {link.text}
+          </span>
         </Link>
       </div>
     </div>
-    <img src={R2_BUCKET + "/" + image} alt={title} />
+    <img className="rounded" src={R2_BUCKET + "/" + image} alt={title} />
   </div>
 );
 
