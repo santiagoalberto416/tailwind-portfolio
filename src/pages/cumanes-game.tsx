@@ -4,6 +4,7 @@ import useTimer from "@/utils/hooks/useTimer";
 import SuccessMessage from "@/components/cumanesGame/successMessage";
 import InstructionsModal from "@/components/cumanesGame/instructionsModal";
 import GameCard from "@/components/cumanesGame/gameCard";
+import SEO from "@/components/SEO";
 
 const IDIOM = "spanish";
 
@@ -210,69 +211,75 @@ const CumanesGame = () => {
   }, []);
 
   return (
-    <div className="dual-control-enhancer flex items-center flex-col pt-6 px-4 ">
-      <div className="flex items-center gap-5">
-        <div className="flex flex-1 flex-col justify-start text-left">
-          <h1 className="text-2xl">{strings.MEMORY_DUAL}</h1>
-          <p>{strings.IMPROVE_YOUR_MEMORY}</p>
-        </div>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 mb-2 px-4 rounded flex w-fit h-fit"
-          onClick={handleClickInstructions}
-        >
-          <span className="mr-2">{strings.INSTRUCTIONS.TITLE}</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            width="24"
-            height="24"
-            fill="white"
+    <>
+      <SEO
+        pageTitle={strings.MEMORY_DUAL}
+        pageDescription={strings.IMPROVE_YOUR_MEMORY}
+      />
+      <div className="dual-control-enhancer flex items-center flex-col pt-6 px-4 ">
+        <div className="flex items-center gap-5">
+          <div className="flex flex-1 flex-col justify-start text-left">
+            <h1 className="text-2xl">{strings.MEMORY_DUAL}</h1>
+            <p>{strings.IMPROVE_YOUR_MEMORY}</p>
+          </div>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 mb-2 px-4 rounded flex w-fit h-fit"
+            onClick={handleClickInstructions}
           >
-            <path d="M13 7.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-3 3.75a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v4.25h.75a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h.75V12h-.75a.75.75 0 0 1-.75-.75Z"></path>
-            <path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z"></path>
-          </svg>
-        </button>
-      </div>
-      {showInstructions && (
-        <InstructionsModal
-          showInstructions={showInstructions}
-          closingInstructions={closingInstructions}
-          handleClickInstructions={handleClickInstructions}
-        />
-      )}
-      {showError && (
-        <div className="error-message text-white p-2 rounded">
-          {strings.TRY_AGAIN}
+            <span className="mr-2">{strings.INSTRUCTIONS.TITLE}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              fill="white"
+            >
+              <path d="M13 7.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-3 3.75a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 .75.75v4.25h.75a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h.75V12h-.75a.75.75 0 0 1-.75-.75Z"></path>
+              <path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Z"></path>
+            </svg>
+          </button>
         </div>
-      )}
-
-      <div
-        className={`game-grid ${showError ? "shake" : ""} ${
-          showCorrect ? "glow" : ""
-        } p-4 border-2`}
-      >
-        {touchedCards.length === totalCards && (
-          <SuccessMessage levelScore={levelScore} nextLevel={nextLevel} />
-        )}
-        <div className="w-full flex justify-center gap-5 bg-gray-500 rounded col-span-5">
-          <div className="text-lg text-white">
-            {strings.TIME}: {time as string}
-          </div>
-          <div className="text-lg text-white">
-            {strings.CURRENT_LEVEL}: {level}
-          </div>
-        </div>
-
-        {cards.map((card) => (
-          <GameCard
-            key={card.id}
-            card={card}
-            handleCardClick={handleCardClick}
-            isCounted={touchedCards.includes(card)}
+        {showInstructions && (
+          <InstructionsModal
+            showInstructions={showInstructions}
+            closingInstructions={closingInstructions}
+            handleClickInstructions={handleClickInstructions}
           />
-        ))}
+        )}
+        {showError && (
+          <div className="error-message text-white p-2 rounded">
+            {strings.TRY_AGAIN}
+          </div>
+        )}
+
+        <div
+          className={`game-grid ${showError ? "shake" : ""} ${
+            showCorrect ? "glow" : ""
+          } p-4 border-2`}
+        >
+          {touchedCards.length === totalCards && (
+            <SuccessMessage levelScore={levelScore} nextLevel={nextLevel} />
+          )}
+          <div className="w-full flex justify-center gap-5 bg-gray-500 rounded col-span-5">
+            <div className="text-lg text-white">
+              {strings.TIME}: {time as string}
+            </div>
+            <div className="text-lg text-white">
+              {strings.CURRENT_LEVEL}: {level}
+            </div>
+          </div>
+
+          {cards.map((card) => (
+            <GameCard
+              key={card.id}
+              card={card}
+              handleCardClick={handleCardClick}
+              isCounted={touchedCards.includes(card)}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

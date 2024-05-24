@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import Confetti from "react-confetti";
+import SEO from "@/components/SEO";
 
 const levels = [3, 6, 9, 12, 15, 18, 21];
 
@@ -139,56 +140,62 @@ const CardGame: FC<{}> = () => {
     .padStart(2, "0")}`;
 
   return (
-    <div className="card-game">
-      {showConfetti && <Confetti />}
-      <div className="header">
-        <div id="chronometerContainer" className="chronometer-container">
-          {formattedTime}
+    <>
+      <SEO
+        pageTitle="Juego de cartas"
+        pageDescription="Un juego de cartas simple para mejorar tu memoria."
+      />
+      <div className="card-game">
+        {showConfetti && <Confetti />}
+        <div className="header">
+          <div id="chronometerContainer" className="chronometer-container">
+            {formattedTime}
+          </div>
+          <div id="currentLevel" className="current-level">
+            Nivel: <span id="lvlSpan">{level}</span>
+          </div>
         </div>
-        <div id="currentLevel" className="current-level">
-          Nivel: <span id="lvlSpan">{level}</span>
+        <div
+          className={`card-container ${shuffling ? "shuffling" : ""}`}
+          id="cardContainer"
+        >
+          {cards.map((card) => {
+            const isFlipped =
+              flippedCards.findIndex(
+                (flippedCard: any) => flippedCard.number === card.number
+              ) !== -1;
+
+            const isWrong = barCard === card.number;
+
+            const className = `card ${isFlipped ? "flipped" : ""} ${
+              isWrong ? "wrong" : ""
+            }`;
+
+            return (
+              <div
+                key={card.number}
+                className={className}
+                onClick={() => handleCardClick(card)}
+              >
+                <span className={card.isFlipped ? "" : "hidden"}>
+                  {card.number}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+        <button
+          className="shuffle-cards"
+          id="shuffleButton"
+          onClick={handleShuffleClick}
+        >
+          Revolver cartas
+        </button>
+        <div className="message-container" id="messageContainer">
+          {message}
         </div>
       </div>
-      <div
-        className={`card-container ${shuffling ? "shuffling" : ""}`}
-        id="cardContainer"
-      >
-        {cards.map((card) => {
-          const isFlipped =
-            flippedCards.findIndex(
-              (flippedCard: any) => flippedCard.number === card.number
-            ) !== -1;
-
-          const isWrong = barCard === card.number;
-
-          const className = `card ${isFlipped ? "flipped" : ""} ${
-            isWrong ? "wrong" : ""
-          }`;
-
-          return (
-            <div
-              key={card.number}
-              className={className}
-              onClick={() => handleCardClick(card)}
-            >
-              <span className={card.isFlipped ? "" : "hidden"}>
-                {card.number}
-              </span>
-            </div>
-          );
-        })}
-      </div>
-      <button
-        className="shuffle-cards"
-        id="shuffleButton"
-        onClick={handleShuffleClick}
-      >
-        Revolver cartas
-      </button>
-      <div className="message-container" id="messageContainer">
-        {message}
-      </div>
-    </div>
+    </>
   );
 };
 
