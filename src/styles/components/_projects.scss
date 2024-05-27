@@ -1,15 +1,68 @@
 .project-card {
+
+  @keyframes unBlur {
+    0% {
+      filter: blur(4px);
+    }
+    100% {
+      filter: blur(0px);
+    }
+  }
+
+  @keyframes show {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes blur {
+    0% {
+      filter: blur(0px);
+    }
+    100% {
+      filter: blur(4px);
+    }
+  }
+
   background: rgba(0, 0, 0, 0.4);
-  max-width: 1024px;
-  display: flex;
+  max-width: 840px;
 
   .text-section {
     min-height: 240px;
+  }
+
+  .image-section {
+    &:hover {
+      &::after {
+        content: "";
+        pointer-events: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 70px;
+        height: 70px;
+        background: url("/eye.svg") no-repeat;
+        background-size: contain;
+        animation: show 0.5s forwards;
+      }
+    }
   }
 
   img {
     max-height: 240px;
     height: 100%;
     object-fit: cover;
+    animation: unBlur 0.5s forwards;
+
+    &:hover {
+      // animate filter to make blur effect
+      animation: blur 0.5s forwards;
+    }
+
+
   }
 }

@@ -58,9 +58,9 @@ const experiences: WorkExperience[] = [
   },
   {
     year: 2022,
-    project: "Cto.ai (various projects)",
+    project: "CTO.ai (various projects)",
     position: "Mid/Sr front end developer",
-    company: "Cto.ai",
+    company: "CTO.ai",
     link: "https://cto.ai/",
     techStack: ["React", "Next.js", "Github Actions", "TypeScript"],
     description:

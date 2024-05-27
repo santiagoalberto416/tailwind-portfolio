@@ -42,7 +42,7 @@ const Header: FC<{}> = () => {
   return (
     <nav className="w-100 main-nav">
       <div className="flex w-100 p-4 shadow-lg text-center">
-        <div className="flex-1 text-left">SK.dev</div>
+        <div className="flex-1 text-left">DevKirk</div>
         <ul className="lg:flex hidden space-x-4">
           <li>
             <a href={`#${SectionsIds.Home}`}>Home</a>
