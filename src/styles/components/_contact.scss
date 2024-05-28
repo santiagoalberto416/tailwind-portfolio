@@ -1,0 +1,13 @@
+.contact {
+  background: rgba(0, 0, 0, 0.4);
+  max-width: 840px;
+
+  .image-section {
+     img {
+       width: 36px;
+       height: 36px;
+       object-fit: contain;
+       filter: brightness(0) invert(1);
+     }
+  }
+}
