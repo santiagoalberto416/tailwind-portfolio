@@ -1,6 +1,10 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+// Todo create a global style for the project
+$primary-color: #000063;
+
 @import "components/index";
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
@@ -88,3 +92,5 @@ p {
   -o-object-fit: cover;
   object-fit: cover;
 }
+
+

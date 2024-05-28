@@ -93,7 +93,6 @@ export default function Contact() {
         </div>
         <form
           className="col-span-1 lg:mt-0 mt-4  flex flex-col gap-4 p-4 rounded-lg w-full"
-          style={{ backgroundColor: "#000063" }}
           onSubmit={handleSubmit}
         >
           <div className={inputContainerClass}>
