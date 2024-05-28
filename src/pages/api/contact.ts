@@ -1,41 +1,62 @@
-// pages/api/contact.js
-export const runtime = "edge";
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
-export default async function handler(req: any, res: any) {
-  if (req.method === "POST") {
-    const { name, email, message } = req.body;
+export const config = {
+  runtime: "edge",
+};
 
-    const emailUser = process.env.EMAIL_USER;
-    const emailPass = process.env.EMAIL_PASS;
-
-    // Use the emailUser and emailPass to send an email
-    // For example, using nodemailer
-    const nodemailer = require("nodemailer");
-
-    let transporter = nodemailer.createTransport({
-      service: "gmail", // Change this to your email service
-      auth: {
-        user: emailUser,
-        pass: emailPass,
-      },
+export default async function handler(req: Request) {
+  if (req.method !== "POST") {
+    return new Response(JSON.stringify({ message: "Method not allowed" }), {
+      status: 405,
+      headers: { "Content-Type": "application/json" },
     });
+  }
 
-    let mailOptions = {
-      from: emailUser,
-      to: "recipient@example.com",
-      subject: `Message from ${name}`,
-      text: message,
-    };
+  const { to, subject, text } = await req.json();
 
-    try {
-      await transporter.sendMail(mailOptions);
-      res.status(200).json({ message: "Message sent successfully" });
-    } catch (error: any) {
-      res
-        .status(500)
-        .json({ message: "Failed to send message", error: error.message });
-    }
-  } else {
-    res.status(405).json({ message: "Method not allowed" });
+  const sesClient = new SESClient({
+    region: process.env.AWS_REGION,
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+    },
+  });
+
+  const params: any = {
+    Source: process.env.EMAIL_USER || "",
+    Destination: {
+      ToAddresses: [process.env.EMAIL_USER],
+    },
+    Message: {
+      Subject: {
+        Data: subject,
+      },
+      Body: {
+        Text: {
+          Data: "this email tried to contact you: " + to,
+        },
+      },
+    },
+  };
+
+  const command = new SendEmailCommand(params);
+
+  try {
+    const data = await sesClient.send(command);
+    return new Response(
+      JSON.stringify({ message: "Email sent successfully", data }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  } catch (error) {
+    return new Response(
+      JSON.stringify({ message: "Failed to send email", error }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   }
 }

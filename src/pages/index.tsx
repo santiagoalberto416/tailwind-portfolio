@@ -5,6 +5,7 @@ import { FC, useEffect } from "react";
 import Experience from "@/components/experience";
 import About from "@/components/about";
 import Projects from "@/components/projects";
+import Contact from "@/components/contact";
 
 const MainPage: FC<{}> = () => {
   useEffect(() => {
@@ -39,6 +40,7 @@ const MainPage: FC<{}> = () => {
       <About />
       <Experience />
       <Projects />
+      <Contact />
     </div>
   );
 };
