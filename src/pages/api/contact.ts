@@ -12,7 +12,7 @@ export default async function handler(req: Request) {
     });
   }
 
-  const { to, subject, text } = await req.json();
+  const { to, name, text } = await req.json();
 
   const sesClient = new SESClient({
     region: process.env.AWS_REGION,
@@ -29,11 +29,11 @@ export default async function handler(req: Request) {
     },
     Message: {
       Subject: {
-        Data: subject,
+        Data: "this email tried to contact you: " + to,
       },
       Body: {
         Text: {
-          Data: "this email tried to contact you: " + to,
+          Data: "from: " + name + "\n" + text,
         },
       },
     },

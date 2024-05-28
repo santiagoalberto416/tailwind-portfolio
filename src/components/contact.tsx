@@ -4,7 +4,7 @@ import { SectionsIds } from "@/components/header";
 
 export default function Contact() {
   const [to, setTo] = useState("");
-  const [subject, setSubject] = useState("");
+  const [name, setName] = useState("");
   const [text, setText] = useState("");
 
   const handleSubmit = async (e: FormEvent) => {
@@ -16,7 +16,7 @@ export default function Contact() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ to, subject, text }),
+      body: JSON.stringify({ to, name, text }),
     });
 
     const result = await response.json();
@@ -111,8 +111,8 @@ export default function Contact() {
             <input
               className={inputClass}
               type="text"
-              value={subject}
-              onChange={(e) => setSubject(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
             />
           </div>
