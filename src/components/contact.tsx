@@ -53,10 +53,10 @@ export default function Contact() {
   ];
 
   return (
-    <div className="pb-20">
+    <div className="pb-20 px-5">
       <div
         id={SectionsIds.Contact}
-        className="my-20 rounded contact p-7 w-full grid grid-cols-2 container mx-auto max-w-screen-lg justify-center"
+        className="my-20 rounded contact p-7 w-full grid lg:grid-cols-2 grid-cols-1 container mx-auto max-w-screen-lg justify-center"
       >
         <div className="flex flex-col col-span-1 text-white">
           <h1 className="text-4xl text-white mb-4">Let&apos;s talk</h1>
@@ -92,7 +92,7 @@ export default function Contact() {
           </div>
         </div>
         <form
-          className="col-span-1 flex flex-col gap-4 p-4 rounded-lg w-full"
+          className="col-span-1 lg:mt-0 mt-4  flex flex-col gap-4 p-4 rounded-lg w-full"
           style={{ backgroundColor: "#000063" }}
           onSubmit={handleSubmit}
         >
