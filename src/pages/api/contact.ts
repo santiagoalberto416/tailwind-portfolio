@@ -1,10 +1,24 @@
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import nextjsCors from "nextjs-cors";
+import { NextApiRequest, NextApiResponse } from "next";
 
 export const config = {
   runtime: "edge",
 };
 
-export default async function handler(req: Request) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (process.env.NODE_ENV !== "development") {
+    await nextjsCors(req, res, {
+      // Options
+      methods: ["POST"],
+      origin: "https://devkirk.com", // allow for only this domain
+      optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    });
+  }
+
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ message: "Method not allowed" }), {
       status: 405,
@@ -24,7 +38,7 @@ export default async function handler(req: Request) {
     );
   }
 
-  const { to, name, text } = await req.json();
+  const { to, name, text } = await req.body;
 
   const sesClient = new SESClient({
     region: process.env.AWS_REGION,
