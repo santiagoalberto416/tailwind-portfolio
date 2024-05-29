@@ -1,4 +1,3 @@
-// components/EmailForm.tsx
 import React, { useState, FormEvent } from "react";
 import { SectionsIds } from "@/components/header";
 
@@ -6,11 +5,25 @@ export default function Contact() {
   const [to, setTo] = useState("");
   const [name, setName] = useState("");
   const [text, setText] = useState("");
+  const [sendingEmail, setSendingEmail] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+
+  const clearForm = () => {
+    setTo("");
+    setName("");
+    setText("");
+  };
+
+  const onEmailSent = () => {
+    setEmailSent(true);
+    setTimeout(() => {
+      setEmailSent(false);
+    }, 1000);
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
-    // console.log({ to, subject, text });
+    setSendingEmail(true);
     const response = await fetch("/api/contact", {
       method: "POST",
       headers: {
@@ -18,9 +31,12 @@ export default function Contact() {
       },
       body: JSON.stringify({ to, name, text }),
     });
+    setSendingEmail(false);
 
-    const result = await response.json();
-    alert(result.message);
+    if (response.ok) {
+      clearForm();
+      onEmailSent();
+    }
   };
 
   const inputClass = "p-2 rounded w-full";
@@ -51,6 +67,8 @@ export default function Contact() {
       text: "santiagoalberto416@gmail.com",
     },
   ];
+
+  const sendDisabled = sendingEmail || emailSent;
 
   return (
     <div className="pb-20 px-5">
@@ -125,8 +143,54 @@ export default function Contact() {
               required
             />
           </div>
-          <button className="bg-white p-2 border rounded w-fit" type="submit">
-            Send Email
+          <button
+            className={`btn bg-white p-2 border rounded w-full flex justify-center items-center ${
+              emailSent && "mail-sent-btn"
+            } ${sendingEmail && "mail-sending-btn"}`}
+            disabled={sendDisabled}
+            type="submit"
+          >
+            <div className="flex gap-2 text-white">
+              <div
+                style={{ width: "24px", height: "24px" }}
+                className="button-content relative text-white"
+              >
+                {sendingEmail && (
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white absolute"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                )}
+                {!sendingEmail && !emailSent && (
+                  <img className="mail-send" src="/plain-mail.svg" alt="" />
+                )}
+                {emailSent && <img src="/check-mail.svg" alt="" />}
+              </div>
+
+              <span className="text-center text-white min-w-16">
+                {sendingEmail
+                  ? "Sending"
+                  : emailSent
+                  ? "Email Sent"
+                  : "Send Email"}
+              </span>
+            </div>
           </button>
         </form>
       </div>

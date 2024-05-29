@@ -12,6 +12,18 @@ export default async function handler(req: Request) {
     });
   }
 
+  // if dev environment just return 200 but making a small delay to simulate a real request
+  if (process.env.NODE_ENV === "development") {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    return new Response(
+      JSON.stringify({ message: "Email sent successfully (DEV)" }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+
   const { to, name, text } = await req.json();
 
   const sesClient = new SESClient({
