@@ -1,24 +1,20 @@
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
-import nextjsCors from "nextjs-cors";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export const config = {
   runtime: "edge",
 };
 
+const defaultHeaders = {
+  "Content-Type": "application/json",
+  "Access-Control-Allow-Methods": "POST",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (process.env.NODE_ENV !== "development") {
-    await nextjsCors(req, res, {
-      // Options
-      methods: ["POST"],
-      origin: "https://devkirk.com", // allow for only this domain
-      optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-    });
-  }
-
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ message: "Method not allowed" }), {
       status: 405,
@@ -33,7 +29,10 @@ export default async function handler(
       JSON.stringify({ message: "Email sent successfully (DEV)" }),
       {
         status: 200,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          ...defaultHeaders,
+          "Access-Control-Allow-Origin": "localhost:3000",
+        },
       }
     );
   }
@@ -73,7 +72,10 @@ export default async function handler(
       JSON.stringify({ message: "Email sent successfully", data }),
       {
         status: 200,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          ...defaultHeaders,
+          "Access-Control-Allow-Origin": "https://www.devkirk.com/",
+        },
       }
     );
   } catch (error) {
@@ -81,7 +83,10 @@ export default async function handler(
       JSON.stringify({ message: "Failed to send email", error }),
       {
         status: 500,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          ...defaultHeaders,
+          "Access-Control-Allow-Origin": "https://www.devkirk.com/",
+        },
       }
     );
   }
