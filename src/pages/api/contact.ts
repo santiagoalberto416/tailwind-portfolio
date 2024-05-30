@@ -74,7 +74,7 @@ export default async function handler(
         status: 200,
         headers: {
           ...defaultHeaders,
-          "Access-Control-Allow-Origin": "https://www.devkirk.com/",
+          "Access-Control-Allow-Origin": process.env.DOMAIN || "",
         },
       }
     );
@@ -85,7 +85,7 @@ export default async function handler(
         status: 500,
         headers: {
           ...defaultHeaders,
-          "Access-Control-Allow-Origin": "https://www.devkirk.com/",
+          "Access-Control-Allow-Origin": "*",
         },
       }
     );
