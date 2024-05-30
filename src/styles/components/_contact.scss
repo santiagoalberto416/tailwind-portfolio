@@ -1,0 +1,71 @@
+.contact {
+  background: rgba(0, 0, 0, 0.4);
+  max-width: 840px;
+
+  form {
+    background: $primary-color;
+
+    .btn {
+      background: #009688;
+      color: #fff;
+      border: none;
+
+      img {
+        width: 24px;
+        height: 24px;
+        filter: brightness(0) invert(1);
+      }
+    }
+
+    .mail-send {
+      animation: normal-mail 250ms linear forwards;
+    }
+
+    .mail-sending-btn {
+      background: #b0b0b0;
+      transition: background-color 250ms linear;
+    }
+
+    // animate icon to left the button at 50% of time
+    .mail-sent-btn {
+      overflow-y: hidden;
+      background: #009688;
+      transition: background-color 1000ms linear;
+      img {
+        position: absolute;
+        animation: mail-sent 1s linear forwards;
+      }
+    }
+
+    @keyframes normal-mail {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes mail-sent {
+      50% {
+        top: 0;
+        opacity: 1;
+      }
+      75% {
+        opacity: 0;
+      }
+      100% {
+        top: -40px;
+      }
+    }
+  }
+
+  .image-section {
+    img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+  }
+}
