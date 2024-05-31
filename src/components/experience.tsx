@@ -1,4 +1,5 @@
 import { SectionsIds } from "@/components/header";
+import { useState } from "react";
 
 type WorkExperience = {
   year: number;
@@ -68,12 +69,82 @@ const experiences: WorkExperience[] = [
   },
 ];
 
-const Experience = () => {
+const MobileExperience = () => {
+  const [expandedIndex, setExpandedIndex] = useState(-1);
+
+  const handleExpand = (index: number) => {
+    setExpandedIndex(index === expandedIndex ? -1 : index);
+  };
+
   return (
-    <div
-      id={SectionsIds.Experience}
-      className="container mx-auto px-20 experience text"
-    >
+    <div className="lg:hidden block container mx-auto px-20 experience text">
+      <h1 className="text-4xl text-white text-center mb-10">Experience</h1>
+      <p className="max-w-3xl text-center mx-auto text-white mb-10">
+        {description}
+      </p>
+      <div className="w-full overflow-x-auto">
+        <div className="table-view">{/* Your existing table code */}</div>
+        <div className="card-view">
+          {experiences.map((experience, index) => (
+            <div key={index} className="card">
+              <div className="card-header">
+                <h2>{experience.year}</h2>
+                <div>
+                  <h3>{experience.project}</h3>
+                  <h4>{experience.company}</h4>
+                </div>
+                <div className="grow flex justify-end">
+                  <button onClick={() => handleExpand(index)}>
+                    <span>
+                      {expandedIndex === index ? (
+                        <svg
+                          width="24px"
+                          height="24px"
+                          viewBox="0 0 1024 1024"
+                          className="icon"
+                          version="1.1"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M512 192l448 512H64z" fill="currentColor" />
+                        </svg>
+                      ) : (
+                        <svg
+                          width="24px"
+                          height="24px"
+                          viewBox="0 0 1024 1024"
+                          className="icon"
+                          version="1.1"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M512 768l448-512H64z" fill="currentColor" />
+                        </svg>
+                      )}
+                    </span>
+                  </button>
+                </div>
+              </div>
+              {expandedIndex === index && (
+                <div className="card-body">
+                  <p>{experience.position}</p>
+                  <p>{experience.techStack.join(", ")}</p>
+                  <p>{experience.description}</p>
+                  {experience.link && (
+                    <a href={experience.link} target="_blank" rel="noreferrer">
+                      Link
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+const DesktopExperience = () => {
+  return (
+    <div className="lg:block hidden container mx-auto px-20 experience text">
       <h1 className="text-4xl text-white text-center mb-10">Experience</h1>
       <p className="max-w-3xl text-center mx-auto text-white mb-10">
         {description}
@@ -118,6 +189,15 @@ const Experience = () => {
           </tbody>
         </table>
       </div>
+    </div>
+  );
+};
+
+const Experience = () => {
+  return (
+    <div id={SectionsIds.Experience}>
+      <MobileExperience />
+      <DesktopExperience />
     </div>
   );
 };

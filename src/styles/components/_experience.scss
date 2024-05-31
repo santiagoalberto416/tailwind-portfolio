@@ -1,6 +1,77 @@
 .experience {
   padding: 100px 20px;
 
+  .card-view {
+    .card {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-header {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+
+      h2 {
+        font-size: 24px;
+        font-weight: 500;
+        // black with 10% opacity
+        color: rgba(0, 0, 0, 0.2);
+      }
+
+      h3 {
+        font-size: 24px;
+        font-weight: 500;
+        color: #fff;
+      }
+
+      h4 {
+        font-size: 22px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      button {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        background: #fff;
+        color: #000;
+        padding: 5px 6px;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 400;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+    }
+
+    .card-body {
+      border-top: 1px solid #fff;
+      padding-top: 20px;
+      margin-top: 20px;
+      height: fit-content;
+
+      p {
+        font-size: 16px;
+        font-weight: 400;
+        color: #fff;
+        margin-bottom: 20px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #fff;
+        transition: all 0.3s ease;
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+
   .tech-pill {
     background-color: #f0f0f0;
     color: #000;

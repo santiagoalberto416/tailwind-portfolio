@@ -8,7 +8,7 @@ const Hero3: FC<{}> = () => {
       <div className="hero-2 w-auto rounded-lg bg-white shadow-lg overflow-clip">
         <div className="flex items-start lg:flex-row flex-col">
           <div className="p-7 lg:pr-16">
-            <h1 className="text-2xl lg:mt-0 mt-4 lg:text-left text-center mb-2">
+            <h1 className="text-2xl lg:mt-0 lg:text-left text-center mb-2">
               About Me
             </h1>
             <p className="lg:w-80 flex align-bottom text-left">
