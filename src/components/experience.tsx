@@ -31,7 +31,7 @@ const experiences: WorkExperience[] = [
   },
   {
     year: 2017,
-    project: "",
+    project: "Spark Compass (various projects)",
     projectMobile: (
       <>
         Spark Compass <br />
