@@ -12,7 +12,7 @@ type JobCardProps = {
 
 const JobCard: FC<JobCardProps> = (props) => {
   return (
-    <div className="transform duration-500 hover:scale-105 job-card rounded-lg bg-white shadow-lg overflow-clip ">
+    <div className="transform duration-500 hover:scale-105 job-card rounded-lg shadow-lg overflow-clip ">
       <div className="px-7 pt-7">
         <h1 className="text-2xl lg:text-left text-center mb-2">
           {props.title}

@@ -1,8 +1,10 @@
 import { SectionsIds } from "@/components/header";
+import { useState } from "react";
 
 type WorkExperience = {
   year: number;
   project: string;
+  projectMobile?: any;
   position: string;
   company: string;
   techStack: string[];
@@ -19,6 +21,7 @@ const experiences: WorkExperience[] = [
   {
     year: 2016,
     project: "Arkus Bootcamp",
+    projectMobile: "Arkus Bootcamp",
     company: "ArkusNexus",
     position: "Internship",
     techStack: ["Android", "Git", "Scrum", "Java"],
@@ -28,7 +31,13 @@ const experiences: WorkExperience[] = [
   },
   {
     year: 2017,
-    project: "Spark Compass (various projects)",
+    project: "",
+    projectMobile: (
+      <>
+        Spark Compass <br />
+        (various projects)
+      </>
+    ),
     position: "Jr developer",
     company: "Spark Compass",
     techStack: ["Java", "Swift", "Native Android", "Native iOS"],
@@ -39,6 +48,12 @@ const experiences: WorkExperience[] = [
   {
     year: 2019,
     project: "J5 and Jitterbug (OS system for older people)",
+    projectMobile: (
+      <>
+        J5 and Jitterbug <br />
+        (OS system for older people)
+      </>
+    ),
     position: "Mid developer",
     company: "Great Call",
     techStack: ["Native Android"],
@@ -49,6 +64,12 @@ const experiences: WorkExperience[] = [
   {
     year: 2021,
     project: "Ambry Hill (various projects)",
+    projectMobile: (
+      <>
+        Ambry Hill <br />
+        (various projects)
+      </>
+    ),
     position: "Mid front end developer",
     company: "Ambry Hill",
     techStack: ["React", "Redux", "Node.js", "TypeScript", "GraphQL"],
@@ -59,6 +80,12 @@ const experiences: WorkExperience[] = [
   {
     year: 2022,
     project: "CTO.ai (various projects)",
+    projectMobile: (
+      <>
+        CTO.ai <br />
+        (various projects)
+      </>
+    ),
     position: "Mid/Sr front end developer",
     company: "CTO.ai",
     link: "https://cto.ai/",
@@ -68,17 +95,100 @@ const experiences: WorkExperience[] = [
   },
 ];
 
-const Experience = () => {
+const MobileExperience = () => {
+  const [expandedIndex, setExpandedIndex] = useState(-1);
+
+  const handleExpand = (index: number) => {
+    setExpandedIndex(index === expandedIndex ? -1 : index);
+  };
+
   return (
-    <div
-      id={SectionsIds.Experience}
-      className="container mx-auto px-20 experience text"
-    >
+    <div className="lg:hidden block container mx-auto px-20 experience text">
       <h1 className="text-4xl text-white text-center mb-10">Experience</h1>
       <p className="max-w-3xl text-center mx-auto text-white mb-10">
         {description}
       </p>
-      <div className="w-full overflow-x-auto">
+      <div className="w-full ">
+        <div className="table-view">{/* Your existing table code */}</div>
+        <div className="card-view">
+          {experiences.map((experience, index) => (
+            <div id={`card-${index}`} key={index} className="card">
+              <div className="card-header">
+                <div className="text-center w-full">
+                  <h2>{experience.year}</h2>
+                  <h3>{experience.projectMobile}</h3>
+                  <h4>{experience.company}</h4>
+                </div>
+              </div>
+              <div
+                className={`card-body ${expandedIndex === index ? "open" : ""}`}
+              >
+                <div className="p-4">
+                  <div>
+                    <h2 className="position">Position:</h2>
+                    <h2 className="position-value">{experience.position}</h2>
+                  </div>
+                  <p>{experience.description}</p>
+                  <div className="w-full flex flex-wrap">
+                    {experience.techStack.map((tech) => (
+                      <span key={tech} className="tech-pill">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  {experience.link && (
+                    <a href={experience.link} target="_blank" rel="noreferrer">
+                      Link
+                    </a>
+                  )}
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  handleExpand(index);
+                }}
+              >
+                <span className="ml-2">
+                  {expandedIndex === index ? (
+                    <svg
+                      width="20px"
+                      height="20px"
+                      viewBox="0 0 1024 1024"
+                      className="icon"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M512 192l448 512H64z" fill="currentColor" />
+                    </svg>
+                  ) : (
+                    <svg
+                      width="20px"
+                      height="20px"
+                      viewBox="0 0 1024 1024"
+                      className="icon"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M512 768l448-512H64z" fill="currentColor" />
+                    </svg>
+                  )}
+                </span>
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+const DesktopExperience = () => {
+  return (
+    <div className="lg:block hidden container mx-auto px-20 experience text">
+      <h1 className="text-4xl text-white text-center mb-10">Experience</h1>
+      <p className="max-w-3xl text-center mx-auto text-white mb-10">
+        {description}
+      </p>
+      <div className="w-full ">
         <table className="mx-auto rounded-lg overflow-x-clip overflow-y-clip">
           <thead>
             <tr>
@@ -118,6 +228,15 @@ const Experience = () => {
           </tbody>
         </table>
       </div>
+    </div>
+  );
+};
+
+const Experience = () => {
+  return (
+    <div id={SectionsIds.Experience}>
+      <MobileExperience />
+      <DesktopExperience />
     </div>
   );
 };

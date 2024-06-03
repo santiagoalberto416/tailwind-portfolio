@@ -102,7 +102,7 @@ const Project: FC<Project> = ({
     <div className="flex flex-col gap-4 text-white text-section">
       <h2 className="text-2xl">{title}</h2>
       <p>{description}</p>
-      <div className="flex items-end grow">
+      <div className="flex items-center grow min-h-10">
         <Link href={link.path}>
           <span className="border py-2 px-3 text-white rounded-2xl h-min">
             {link.text}
@@ -133,7 +133,7 @@ const Projects: FC<{ projects?: Project[] }> = ({
 
   return (
     <div className="pt-20" id={SectionsIds.Projects}>
-      <div className="projects container mx-auto pb-4 flex flex-col gap-4">
+      <div className="projects container mx-auto pb-4 flex flex-col gap-4 px-2">
         <h1 className="text-4xl text-white text-center mb-10">Projects</h1>
         <Transition
           show={isOpen}

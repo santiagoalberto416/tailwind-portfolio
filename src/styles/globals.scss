@@ -1,9 +1,8 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import "variables";
 
-// Todo create a global style for the project
-$primary-color: #000063;
 
 @import "components/index";
 
@@ -12,6 +11,7 @@ $primary-color: #000063;
 
 html {
   scroll-behavior: smooth;
+  font: 400 16px/1.5 'Roboto', sans-serif;
 }
 
 :root {
