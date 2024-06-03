@@ -71,11 +71,8 @@ export default function Contact() {
   const sendDisabled = sendingEmail || emailSent;
 
   return (
-    <div className="pb-20 px-5">
-      <div
-        id={SectionsIds.Contact}
-        className="my-20 rounded contact p-7 w-full grid lg:grid-cols-2 grid-cols-1 container mx-auto max-w-screen-lg justify-center"
-      >
+    <div id={SectionsIds.Contact} className="py-20 px-5 ">
+      <div className="my-20 rounded contact p-7 w-full grid lg:grid-cols-2 grid-cols-1 container mx-auto max-w-screen-lg justify-center">
         <div className="flex flex-col col-span-1 text-white">
           <h1 className="text-4xl text-white mb-4">Let&apos;s talk</h1>
           <p className="text-white mb-0">
