@@ -4,6 +4,7 @@ import { useState } from "react";
 type WorkExperience = {
   year: number;
   project: string;
+  projectMobile?: any;
   position: string;
   company: string;
   techStack: string[];
@@ -20,6 +21,7 @@ const experiences: WorkExperience[] = [
   {
     year: 2016,
     project: "Arkus Bootcamp",
+    projectMobile: "Arkus Bootcamp",
     company: "ArkusNexus",
     position: "Internship",
     techStack: ["Android", "Git", "Scrum", "Java"],
@@ -29,7 +31,13 @@ const experiences: WorkExperience[] = [
   },
   {
     year: 2017,
-    project: "Spark Compass (various projects)",
+    project: "",
+    projectMobile: (
+      <>
+        Spark Compass <br />
+        (various projects)
+      </>
+    ),
     position: "Jr developer",
     company: "Spark Compass",
     techStack: ["Java", "Swift", "Native Android", "Native iOS"],
@@ -40,6 +48,12 @@ const experiences: WorkExperience[] = [
   {
     year: 2019,
     project: "J5 and Jitterbug (OS system for older people)",
+    projectMobile: (
+      <>
+        J5 and Jitterbug <br />
+        (OS system for older people)
+      </>
+    ),
     position: "Mid developer",
     company: "Great Call",
     techStack: ["Native Android"],
@@ -50,6 +64,12 @@ const experiences: WorkExperience[] = [
   {
     year: 2021,
     project: "Ambry Hill (various projects)",
+    projectMobile: (
+      <>
+        Ambry Hill <br />
+        (various projects)
+      </>
+    ),
     position: "Mid front end developer",
     company: "Ambry Hill",
     techStack: ["React", "Redux", "Node.js", "TypeScript", "GraphQL"],
@@ -60,6 +80,12 @@ const experiences: WorkExperience[] = [
   {
     year: 2022,
     project: "CTO.ai (various projects)",
+    projectMobile: (
+      <>
+        CTO.ai <br />
+        (various projects)
+      </>
+    ),
     position: "Mid/Sr front end developer",
     company: "CTO.ai",
     link: "https://cto.ai/",
@@ -82,59 +108,72 @@ const MobileExperience = () => {
       <p className="max-w-3xl text-center mx-auto text-white mb-10">
         {description}
       </p>
-      <div className="w-full overflow-x-auto">
+      <div className="w-full ">
         <div className="table-view">{/* Your existing table code */}</div>
         <div className="card-view">
           {experiences.map((experience, index) => (
-            <div key={index} className="card">
+            <div id={`card-${index}`} key={index} className="card">
               <div className="card-header">
-                <h2>{experience.year}</h2>
-                <div>
-                  <h3>{experience.project}</h3>
+                <div className="text-center w-full">
+                  <h2>{experience.year}</h2>
+                  <h3>{experience.projectMobile}</h3>
                   <h4>{experience.company}</h4>
                 </div>
-                <div className="grow flex justify-end">
-                  <button onClick={() => handleExpand(index)}>
-                    <span>
-                      {expandedIndex === index ? (
-                        <svg
-                          width="24px"
-                          height="24px"
-                          viewBox="0 0 1024 1024"
-                          className="icon"
-                          version="1.1"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M512 192l448 512H64z" fill="currentColor" />
-                        </svg>
-                      ) : (
-                        <svg
-                          width="24px"
-                          height="24px"
-                          viewBox="0 0 1024 1024"
-                          className="icon"
-                          version="1.1"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M512 768l448-512H64z" fill="currentColor" />
-                        </svg>
-                      )}
-                    </span>
-                  </button>
-                </div>
               </div>
-              {expandedIndex === index && (
-                <div className="card-body">
-                  <p>{experience.position}</p>
-                  <p>{experience.techStack.join(", ")}</p>
+              <div
+                className={`card-body ${expandedIndex === index ? "open" : ""}`}
+              >
+                <div className="p-4">
+                  <div>
+                    <h2 className="position">Position:</h2>
+                    <h2 className="position-value">{experience.position}</h2>
+                  </div>
                   <p>{experience.description}</p>
+                  <div className="w-full flex flex-wrap">
+                    {experience.techStack.map((tech) => (
+                      <span key={tech} className="tech-pill">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                   {experience.link && (
                     <a href={experience.link} target="_blank" rel="noreferrer">
                       Link
                     </a>
                   )}
                 </div>
-              )}
+              </div>
+              <button
+                onClick={() => {
+                  handleExpand(index);
+                }}
+              >
+                <span className="ml-2">
+                  {expandedIndex === index ? (
+                    <svg
+                      width="20px"
+                      height="20px"
+                      viewBox="0 0 1024 1024"
+                      className="icon"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M512 192l448 512H64z" fill="currentColor" />
+                    </svg>
+                  ) : (
+                    <svg
+                      width="20px"
+                      height="20px"
+                      viewBox="0 0 1024 1024"
+                      className="icon"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M512 768l448-512H64z" fill="currentColor" />
+                    </svg>
+                  )}
+                </span>
+              </button>
             </div>
           ))}
         </div>
@@ -149,7 +188,7 @@ const DesktopExperience = () => {
       <p className="max-w-3xl text-center mx-auto text-white mb-10">
         {description}
       </p>
-      <div className="w-full overflow-x-auto">
+      <div className="w-full ">
         <table className="mx-auto rounded-lg overflow-x-clip overflow-y-clip">
           <thead>
             <tr>
