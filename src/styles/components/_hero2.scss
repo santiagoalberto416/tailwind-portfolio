@@ -3,6 +3,7 @@
   min-height: 100%;
 
   img {
+    height: 100%;
     /// cut the image to half on mobile < lg
     @media (max-width: 992px) {
       // keep aspect ratio of the image even if the image is cut in half
