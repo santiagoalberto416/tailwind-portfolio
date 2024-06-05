@@ -115,15 +115,13 @@ const Project: FC<Project> = ({
     <div className="lg:w-auto w-full bg-gray-900 rounded flex justify-center">
       <div
         className="image-section relative "
-        style={{ minWidth: "240px" }}
+        style={{ minWidth: "240px", maxWidth: "auto" }}
         onClick={onClickImage}
       >
         <Image
           className="rounded screenshot"
           width="240"
           height="204"
-          objectFit="contain"
-          style={{ objectFit: "contain" }}
           src={R2_BUCKET + "/" + image}
           alt={title}
         />
@@ -167,7 +165,6 @@ const Projects: FC<{ projects?: Project[] }> = ({
                   width="200"
                   height="200"
                   src={R2_BUCKET + "/" + selectedImage}
-                  layout="responsive"
                   className=""
                   objectFit="contain"
                   alt="Selected"

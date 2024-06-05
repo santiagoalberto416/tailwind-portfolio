@@ -29,7 +29,6 @@ const Hero3: FC<{}> = () => {
             src={R2_BUCKET + "/profile-pic-3.jpg"}
             width={220}
             height={386}
-            unoptimized
             alt="profile-pic"
           />
         </div>

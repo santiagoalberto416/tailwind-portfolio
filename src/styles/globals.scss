@@ -3,15 +3,14 @@
 @import "tailwindcss/utilities";
 @import "variables";
 
-
 @import "components/index";
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 @import "pages";
 
 html {
   scroll-behavior: smooth;
-  font: 400 16px/1.5 'Roboto', sans-serif;
+  font: 400 16px/1.5 "Roboto", sans-serif;
 }
 
 :root {
@@ -73,6 +72,10 @@ p {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a drop shadow */
 }
 
+.contact-me-icon {
+  min-width: 26px;
+}
+
 .contact-me-icon:hover {
   color: #008080;
 }
@@ -91,4 +94,33 @@ p {
   object-fit: cover;
 }
 
+@keyframes grow-up {
+  0% {
+    max-height: 0;
+  }
+  100% {
+    max-height: 500px;
+  }
+}
 
+@keyframes shrink {
+  0% {
+    max-height: 500px;
+  }
+  100% {
+    max-height: 0;
+  }
+}
+
+.shrink {
+  max-height: 500px;
+  overflow: hidden;
+  animation: shrink 0.3s forwards;
+}
+
+// show options of menu as a dropdown
+.grow-up {
+  max-height: 0;
+  overflow: hidden;
+  animation: grow-up 0.3s forwards;
+}
