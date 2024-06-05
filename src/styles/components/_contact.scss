@@ -1,5 +1,19 @@
 .contact {
-  background: rgba(0, 0, 0, 0.4);
+
+  .lets-talk-section {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  /// background on lg resolution only
+  @media (min-width: 992px) {
+    background: rgba(0, 0, 0, 0.4);
+    .lets-talk-section {
+      background: unset;
+    }
+  }
+
+
+
   max-width: 840px;
 
   form {
@@ -70,4 +84,3 @@
     }
   }
 }
-

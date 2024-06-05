@@ -117,13 +117,7 @@ const Header: FC<{}> = () => {
     return sections.map((section) => (
       <a
         className="p-4 !mt-0 gap-4 flex items-center"
-        onClick={() => {
-          setClosing(true);
-          setTimeout(() => {
-            setShow(false);
-            setClosing(false);
-          }, 300);
-        }}
+        onClick={closeNav}
         href={`#${section.id}`}
         key={section.id}
       >
@@ -133,14 +127,18 @@ const Header: FC<{}> = () => {
     ));
   };
 
-  const handleClose = (event: any) => {
-    event.preventDefault();
-    event.stopPropagation();
+  const closeNav = () => {
     setClosing(true);
     setTimeout(() => {
       setShow(false);
       setClosing(false);
     }, 300);
+  };
+
+  const handleClose = (event: any) => {
+    event.preventDefault();
+    event.stopPropagation();
+    closeNav();
   };
 
   return (
@@ -173,16 +171,12 @@ const Header: FC<{}> = () => {
         className={`h-screen z-20 absolute w-full bg-black opacity-50 ${
           !show && "hidden"
         }`}
-        onClick={() => {
-          console.log("clicked");
-        }}
       />
       <div
         className={`w-full h-screen z-30 ${
           show ? "flex" : "hidden"
         }  lg:hidden flex flex-col center absolute top-0`}
       >
-        {/*<div className="h-screen flex flex-col items-stretch">*/}
         <div className="main-nav">
           {/* Header */}
           <div className="w-100 border-b py-4 flex justify-end items-center">

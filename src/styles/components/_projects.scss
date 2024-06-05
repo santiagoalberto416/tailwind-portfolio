@@ -1,5 +1,10 @@
 .project-card {
 
+  /// button background color
+  .btn-card {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
   @keyframes unBlur {
     0% {
       filter: blur(4px);
