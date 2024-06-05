@@ -137,9 +137,15 @@ const MobileExperience = () => {
                     ))}
                   </div>
                   {experience.link && (
-                    <a href={experience.link} target="_blank" rel="noreferrer">
-                      Link
-                    </a>
+                    <div className="pt-4">
+                      <a
+                        href={experience.link}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Link
+                      </a>
+                    </div>
                   )}
                 </div>
               </div>

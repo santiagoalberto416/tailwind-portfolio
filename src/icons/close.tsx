@@ -1,11 +1,14 @@
 import { FC } from "react";
 
-const Close: FC<{ onClick: () => any }> = ({ onClick }) => {
+const Close: FC<{ onClick: () => any; size?: string }> = ({
+  onClick,
+  size = "48px",
+}) => {
   return (
     <svg
       onClick={onClick}
-      width={48}
-      height={48}
+      width={size}
+      height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"

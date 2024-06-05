@@ -31,7 +31,6 @@ const Hero2: FC<{}> = () => {
               src={R2_BUCKET + "/profile-pic-2.png"}
               width={300}
               height={300}
-              layout="responsive"
               unoptimized
               alt="profile-pic"
             />

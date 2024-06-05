@@ -116,9 +116,9 @@ const Content: FC<{}> = () => {
             <Image
               className="rounded-full"
               src={R2_BUCKET + "/profile-pic-1.jpg"}
+              priority={true}
               width={300}
               height={300}
-              unoptimized
               alt="profile-pic"
             />
           </div>

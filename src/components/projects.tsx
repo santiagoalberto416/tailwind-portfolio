@@ -1,7 +1,8 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import { R2_BUCKET } from "@/utils/resources";
 import Link from "next/link";
 import { SectionsIds } from "@/components/header";
+import Image from "next/image";
 
 import {
   Description,
@@ -111,16 +112,20 @@ const Project: FC<Project> = ({
       </div>
     </div>
 
-    <div
-      className="image-section relative"
-      style={{ minWidth: "240px" }}
-      onClick={onClickImage}
-    >
-      <img
-        className="rounded screenshot"
-        src={R2_BUCKET + "/" + image}
-        alt={title}
-      />
+    <div className="lg:w-auto w-full bg-gray-900 rounded flex justify-center">
+      <div
+        className="image-section relative "
+        style={{ minWidth: "240px", maxWidth: "auto" }}
+        onClick={onClickImage}
+      >
+        <Image
+          className="rounded screenshot"
+          width="240"
+          height="204"
+          src={R2_BUCKET + "/" + image}
+          alt={title}
+        />
+      </div>
     </div>
   </div>
 );
@@ -147,7 +152,7 @@ const Projects: FC<{ projects?: Project[] }> = ({
           <Dialog
             open={isOpen}
             onClose={() => setIsOpen(false)}
-            className="relative z-50"
+            className="relative z-index-9999 max-h-screen"
           >
             {/* The backdrop, rendered as a fixed sibling to the panel container */}
             <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
@@ -155,8 +160,15 @@ const Projects: FC<{ projects?: Project[] }> = ({
             {/* Full-screen container to center the panel */}
             <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
               {/* The actual dialog panel  */}
-              <DialogPanel className="max-w-screen-lg space-y-4 bg-black p-12">
-                <img src={R2_BUCKET + "/" + selectedImage} alt="Selected" />
+              <DialogPanel className="max-w-screen-lg h-auto flex justify-center items-center max-h-screen space-y-4 bg-black lg:p-12 p-2">
+                <Image
+                  width="200"
+                  height="200"
+                  src={R2_BUCKET + "/" + selectedImage}
+                  className=""
+                  objectFit="contain"
+                  alt="Selected"
+                />
               </DialogPanel>
             </div>
           </Dialog>
