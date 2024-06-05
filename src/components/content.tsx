@@ -127,8 +127,28 @@ const Content: FC<{}> = () => {
 
       <div className="lg:pt-14 pt-10 flex flex-col text-center items-center w-full">
         <h1 className="text-xl pt-6 text-center ">Tech Stack</h1>
+
         <div className="border mt-2 w-5 border-white-500" />
-        <div className="w-full justify-center flex mt-4 lg:mb-14 tech-stack-container">
+
+        {/* Mobile View*/}
+        <div className="flex lg:hidden flex-wrap justify-center gap-4 pt-4 px-8">
+          {techIcons.map((icon) => (
+            <div
+              key={icon.icon}
+              className="w-16 h-16 flex bg-white rounded-full items-center justify-center"
+            >
+              <Image
+                alt="tech"
+                className=""
+                src={icon.icon}
+                width={40}
+                height={40}
+              />
+            </div>
+          ))}
+        </div>
+        {/* Desktop View */}
+        <div className="lg:flex hidden w-full justify-center  mt-4 lg:mb-14 tech-stack-container">
           <div className="flex max-w-x-lg pb-5 pl-4 pt-2 overflow-x-auto">
             {techIcons.map((icon) => (
               <TechCard
