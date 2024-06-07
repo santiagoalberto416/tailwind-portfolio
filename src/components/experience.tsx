@@ -199,7 +199,7 @@ const DesktopExperience = () => {
         {description}
       </p>
       <div className="w-full ">
-        <table className="mx-auto rounded-lg overflow-x-clip overflow-y-clip">
+        <table className="mx-auto rounded-lg overflow-x-clip overflow-y-clip shadow-lg">
           <thead>
             <tr>
               <th>Year</th>

@@ -160,7 +160,7 @@ const Projects: FC<{ projects?: Project[] }> = ({
             {/* Full-screen container to center the panel */}
             <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
               {/* The actual dialog panel  */}
-              <DialogPanel className="max-w-screen-lg h-auto flex justify-center items-center max-h-screen space-y-4 bg-black lg:p-12 p-2">
+              <DialogPanel className="projects-dialog-panel max-w-screen-lg h-full w-full flex justify-center items-center max-h-screen space-y-4 bg-black lg:p-12 p-2">
                 <Image
                   width="200"
                   height="200"
