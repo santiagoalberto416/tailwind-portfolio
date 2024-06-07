@@ -73,7 +73,7 @@ export default function Contact() {
   return (
     <div id={SectionsIds.Contact} className="py-20 px-5 ">
       <div className="my-20 rounded contact lg:p-7 w-full grid lg:grid-cols-2 grid-cols-1 container mx-auto max-w-screen-lg justify-center">
-        <div className="lets-talk-section rounded flex flex-col col-span-1 lg:p-0 p-4 text-white">
+        <div className="lets-talk-section rounded flex flex-col col-span-1 lg:p-0 lg:shadow-none shadow-lg p-4 text-white">
           <h1 className="text-4xl text-center lg:text-left text-white mb-4">
             Let&apos;s talk
           </h1>
@@ -109,7 +109,7 @@ export default function Contact() {
           </div>
         </div>
         <form
-          className="col-span-1 lg:mt-0 mt-4  flex flex-col gap-4 p-4 rounded-lg w-full"
+          className="col-span-1 lg:mt-0 mt-7  flex flex-col gap-4 p-4 rounded-lg w-full shadow-lg"
           onSubmit={handleSubmit}
         >
           <div className={inputContainerClass}>

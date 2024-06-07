@@ -66,6 +66,16 @@ const techIcons: { description: string | JSX.Element; icon: string }[] = [
       </>
     ),
   },
+  {
+    icon: "tailwind.svg",
+    description: (
+      <>
+        <strong>Tailwind</strong> is a utility-first CSS framework for rapidly
+        building custom designs. It&apos;s a great tool for building responsive
+        designs.
+      </>
+    ),
+  },
 ];
 
 const Content: FC<{}> = () => {

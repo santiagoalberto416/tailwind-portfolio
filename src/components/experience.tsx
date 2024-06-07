@@ -109,10 +109,13 @@ const MobileExperience = () => {
         {description}
       </p>
       <div className="w-full ">
-        <div className="table-view">{/* Your existing table code */}</div>
         <div className="card-view">
           {experiences.map((experience, index) => (
-            <div id={`card-${index}`} key={index} className="card">
+            <div
+              id={`card-${index}`}
+              key={index}
+              className="card rounded-xl shadow-lg"
+            >
               <div className="card-header">
                 <div className="text-center w-full">
                   <h2>{experience.year}</h2>
@@ -153,6 +156,7 @@ const MobileExperience = () => {
                 onClick={() => {
                   handleExpand(index);
                 }}
+                className="rounded-bl-xl rounded-br-xl"
               >
                 <span className="ml-2">
                   {expandedIndex === index ? (

@@ -4,7 +4,7 @@ import { R2_BUCKET } from "@/utils/resources";
 
 const Hero3: FC<{}> = () => {
   return (
-    <div className="transform duration-500 hover:scale-105 lg:mx-0 mx-3">
+    <div className="transform duration-500 hover:scale-105 lg:mx-0 mx-3 shadow-lg">
       <div className="hero-2 w-auto rounded-lg bg-white shadow-lg overflow-clip">
         <div className="flex items-start lg:flex-row flex-col">
           <div className="p-7 lg:pr-16">
