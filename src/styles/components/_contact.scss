@@ -12,8 +12,6 @@
     }
   }
 
-
-
   max-width: 840px;
 
   form {
@@ -48,28 +46,6 @@
       img {
         position: absolute;
         animation: mail-sent 1s linear forwards;
-      }
-    }
-
-    @keyframes normal-mail {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
-
-    @keyframes mail-sent {
-      50% {
-        top: 0;
-        opacity: 1;
-      }
-      75% {
-        opacity: 0;
-      }
-      100% {
-        top: -40px;
       }
     }
   }

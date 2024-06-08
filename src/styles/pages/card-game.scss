@@ -108,22 +108,6 @@
     display: none;
   }
 
-  /* Add these styles for the shuffle animation */
-  @keyframes shuffle {
-    0% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-50%);
-    }
-    90% {
-      transform: translateY(10%);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
-
   @keyframes shape-shadow {
     0% {
       background-color: #fff;
