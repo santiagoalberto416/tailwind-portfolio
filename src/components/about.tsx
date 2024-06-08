@@ -1,6 +1,6 @@
-import Hero3 from "@/components/hero3";
+import AboutMain from "@/components/aboutMain";
 import JobCard from "@/components/jobCard";
-import Hero2 from "@/components/hero2";
+import Hobbies from "@/components/hobbies";
 import { SectionsIds } from "@/components/header";
 
 // job card info
@@ -18,7 +18,7 @@ const JobInfo = {
         ArkusNexus
       </a>
       . I&apos;m a Front End Developer working with React, TypeScript, and
-      GraphQL.
+      Next.js.
     </>
   ),
   image: "/arkus-background-image.jpg",
@@ -54,10 +54,10 @@ const About = () => {
         style={{ maxWidth: "1000px", height: "fit-content" }}
         className="about-section mx-auto pb-5"
       >
-        <Hero3 />
+        <AboutMain />
         <JobCard {...JobInfo} />
         <JobCard {...EducationInfo} />
-        <Hero2 />
+        <Hobbies />
       </div>
     </div>
   );

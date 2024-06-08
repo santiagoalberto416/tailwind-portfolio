@@ -2,12 +2,12 @@ import { FC } from "react";
 import Image from "next/image";
 import { R2_BUCKET } from "@/utils/resources";
 
-const Hero3: FC<{}> = () => {
+const AboutMain: FC<{}> = () => {
   return (
     <div className="transform duration-500 hover:scale-105 lg:mx-0 mx-3 shadow-lg">
       <div className="hero-2 w-auto rounded-lg bg-white shadow-lg overflow-clip">
         <div className="flex items-start lg:flex-row flex-col">
-          <div className="p-7 lg:pr-16">
+          <div className="card-content">
             <h1 className="text-2xl lg:mt-0 lg:text-left text-center mb-2">
               About Me
             </h1>
@@ -37,4 +37,4 @@ const Hero3: FC<{}> = () => {
   );
 };
 
-export default Hero3;
+export default AboutMain;

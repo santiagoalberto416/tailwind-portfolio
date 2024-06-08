@@ -107,3 +107,10 @@ p {
   overflow: hidden;
   animation: grow-up 0.3s forwards;
 }
+
+// Here I will define general styles for the different components in the website
+// as I'm using tailwind, I just going to leave it as a comment here
+// For cards
+.cards, .card-content {
+  @apply p-4 lg:pr-10;
+}
