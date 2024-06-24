@@ -5,7 +5,7 @@ import { SectionsIds } from "@/components/header";
 
 // job card info
 const JobInfo = {
-  title: "Current Job",
+  title: "Current job",
   description: (
     <>
       I&apos;m currently working at{" "}
@@ -26,7 +26,7 @@ const JobInfo = {
 };
 
 const EducationInfo = {
-  title: "My Education",
+  title: "My education",
   description: (
     <>
       I have a Bachelor&apos;s degree in Computer Science from the{" "}

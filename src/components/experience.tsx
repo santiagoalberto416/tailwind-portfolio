@@ -95,6 +95,8 @@ const experiences: WorkExperience[] = [
   },
 ];
 
+const MoreRecentExperiences: WorkExperience[] = experiences.reverse()
+
 const MobileExperience = () => {
   const [expandedIndex, setExpandedIndex] = useState(-1);
 
@@ -199,7 +201,7 @@ const DesktopExperience = () => {
         {description}
       </p>
       <div className="w-full ">
-        <table className="mx-auto rounded-lg overflow-x-clip overflow-y-clip shadow-lg">
+        <table className="mx-auto rounded overflow-x-clip overflow-y-clip shadow-lg">
           <thead>
             <tr>
               <th>Year</th>
@@ -211,8 +213,8 @@ const DesktopExperience = () => {
             </tr>
           </thead>
           <tbody>
-            {experiences.map((experience, index) => (
-              <tr key={index}>
+            {MoreRecentExperiences.map((experience, index) => (
+              <tr key={experience.year}>
                 <td>{experience.year}</td>
                 <td>{experience.project}</td>
                 <td>{experience.position}</td>

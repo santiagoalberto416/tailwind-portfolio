@@ -134,6 +134,11 @@
 
     tbody {
       tr {
+        // dont show border bottom in last td
+        &:last-child td {
+          border-bottom: none;
+        }
+
         td {
           padding: 20px 16px;
           font-size: 14px;

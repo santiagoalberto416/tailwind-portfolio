@@ -1,7 +1,9 @@
 .main-nav {
   box-shadow: 0 -6px 54px rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 99, 0.8);
+  backdrop-filter: blur(8px);
+
   position: fixed; /* Make the header fixed */
-  background-color: #000063;
   color: white;
   width: 100%;
   z-index: 999;

@@ -23,25 +23,25 @@
         transform: translate(-50%, -50%);
         width: 70px;
         height: 70px;
-        background: url("/eye.svg") no-repeat;
+        background: url("/full-screen.svg") no-repeat;
+        // set color dark gray
         background-size: contain;
         animation: show 0.5s forwards;
       }
     }
+    overflow: hidden;
   }
 
   img {
-    max-height: 240px;
     height: 100%;
+    width: auto;
+    max-width: 322px;
     object-fit: cover;
     animation: unBlur 0.5s forwards;
 
     &:hover {
-      // animate filter to make blur effect
       animation: blur 0.5s forwards;
     }
-
-
   }
 }
 

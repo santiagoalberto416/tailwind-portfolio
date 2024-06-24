@@ -9,7 +9,7 @@ const AboutMain: FC<{}> = () => {
         <div className="flex items-start lg:flex-row flex-col">
           <div className="card-content">
             <h1 className="text-2xl lg:mt-0 lg:text-left text-center mb-2">
-              About Me
+              About me
             </h1>
             <p className="lg:w-80 flex align-bottom text-left">
               Santiago Kirk, a front-end software developer based in Tijuana,
