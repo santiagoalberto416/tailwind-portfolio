@@ -7,14 +7,16 @@ import Link from "next/link";
 import { R2_BUCKET } from "@/utils/resources";
 import { SectionsIds } from "@/components/header";
 
+const titleClass = "font-bold";
+
 const techIcons: { description: string | JSX.Element; icon: string }[] = [
   {
     icon: "css3-icon.svg",
     description: (
       <>
-        <strong>{"CSS:"}</strong> I have been working in a few projects using
-        plain css and also preprocessors, so I&apos;m familiar with the basics
-        of styling
+        <span className={titleClass}>CSS:</span> I have been working in a few
+        projects using plain css and also preprocessors, so I&apos;m familiar
+        with the basics of styling
       </>
     ),
   },
@@ -22,9 +24,9 @@ const techIcons: { description: string | JSX.Element; icon: string }[] = [
     icon: "html-icon.svg",
     description: (
       <>
-        <strong>{"HTML:"}</strong> I couldn&apos;t call me developer if I
-        didn&apos;t know html, JK. I&apos;m familiar with plain html but I
-        prefer to use it in jsx or tsx depending of the project.
+        <span className={titleClass}>HTML:</span> I couldn&apos;t call me
+        developer if I didn&apos;t know html, JK. I&apos;m familiar with plain
+        html but I prefer to use it in jsx or tsx depending of the project.
       </>
     ),
   },
@@ -32,9 +34,9 @@ const techIcons: { description: string | JSX.Element; icon: string }[] = [
     icon: "js-icon.svg",
     description: (
       <>
-        <strong>{"JS:"}</strong> I have been using JavaScript for around 3 years
-        mainly for front end but I also used for other projects. For example a
-        cli and a library for bank operations.
+        <span className={titleClass}>JS:</span> I have been using JavaScript for
+        around 3 years mainly for front end but I also used for other projects.
+        For example a cli and a library for bank operations.
       </>
     ),
   },
@@ -42,8 +44,9 @@ const techIcons: { description: string | JSX.Element; icon: string }[] = [
     icon: "react-icon.svg",
     description: (
       <>
-        <strong>React:</strong> I&apos;ve been using react for 3 years, using
-        different frameworks/tools like Redux, Next.js using JS and Typescript
+        <span className={titleClass}>React:</span> I&apos;ve been using react
+        for 3 years, using different frameworks/tools like Redux, Next.js using
+        JS and Typescript
       </>
     ),
   },
@@ -51,8 +54,8 @@ const techIcons: { description: string | JSX.Element; icon: string }[] = [
     icon: "sass-icon.svg",
     description: (
       <>
-        <strong>Sass</strong> is the most mature, stable, and powerful
-        professional grade CSS extension language in the world.
+        <span className={titleClass}>Sass:</span> is the most mature, stable,
+        and powerful professional grade CSS extension language in the world.
       </>
     ),
   },
@@ -60,9 +63,19 @@ const techIcons: { description: string | JSX.Element; icon: string }[] = [
     icon: "ts-icon.svg",
     description: (
       <>
-        <strong>TypeScript</strong> is a free and open-source high-level
-        programming language developed by Microsoft that adds static typing with
-        optional type annotations to JavaScript.
+        <span className={titleClass}>TypeScript:</span> is a free and
+        open-source high-level programming language developed by Microsoft that
+        adds static typing with optional type annotations to JavaScript.
+      </>
+    ),
+  },
+  {
+    icon: "tailwind.svg",
+    description: (
+      <>
+        <span className={titleClass}>Tailwind:</span> is a utility-first CSS
+        framework for rapidly building custom designs. It&apos;s a great tool
+        for building responsive designs.
       </>
     ),
   },
@@ -127,8 +140,28 @@ const Content: FC<{}> = () => {
 
       <div className="lg:pt-14 pt-10 flex flex-col text-center items-center w-full">
         <h1 className="text-xl pt-6 text-center ">Tech Stack</h1>
+
         <div className="border mt-2 w-5 border-white-500" />
-        <div className="w-full justify-center flex mt-4 lg:mb-14 tech-stack-container">
+
+        {/* Mobile View*/}
+        <div className="flex lg:hidden flex-wrap justify-center gap-4 pt-4 px-8">
+          {techIcons.map((icon) => (
+            <div
+              key={icon.icon}
+              className="w-16 h-16 flex bg-white rounded-full items-center justify-center"
+            >
+              <Image
+                alt="tech"
+                className=""
+                src={icon.icon}
+                width={40}
+                height={40}
+              />
+            </div>
+          ))}
+        </div>
+        {/* Desktop View */}
+        <div className="lg:flex hidden w-full justify-center  mt-4 lg:mb-14 tech-stack-container">
           <div className="flex max-w-x-lg pb-5 pl-4 pt-2 overflow-x-auto">
             {techIcons.map((icon) => (
               <TechCard

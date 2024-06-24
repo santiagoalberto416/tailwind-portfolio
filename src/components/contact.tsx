@@ -72,16 +72,18 @@ export default function Contact() {
 
   return (
     <div id={SectionsIds.Contact} className="py-20 px-5 ">
-      <div className="my-20 rounded contact p-7 w-full grid lg:grid-cols-2 grid-cols-1 container mx-auto max-w-screen-lg justify-center">
-        <div className="flex flex-col col-span-1 text-white">
-          <h1 className="text-4xl text-white mb-4">Let&apos;s talk</h1>
+      <div className="my-20 rounded contact lg:p-7 w-full grid lg:grid-cols-2 grid-cols-1 container mx-auto max-w-screen-lg justify-center">
+        <div className="lets-talk-section rounded flex flex-col col-span-1 lg:p-0 lg:shadow-none shadow-lg p-4 text-white">
+          <h1 className="text-4xl text-center lg:text-left text-white mb-4">
+            Let&apos;s talk
+          </h1>
           <p className="text-white mb-0">
             Feel free to leave a comment about the side, any improvement or
             anything you want to share
           </p>
 
           <div className="flex flex-col gap-2">
-            <h2 className="text-2xl text-white mt-10">Contact me</h2>
+            <h2 className="text-2xl text-white lg:mt-10 mt-4">Contact me</h2>
             <p className="text-white">
               You can also contact me through my social media or email
             </p>
@@ -107,7 +109,7 @@ export default function Contact() {
           </div>
         </div>
         <form
-          className="col-span-1 lg:mt-0 mt-4  flex flex-col gap-4 p-4 rounded-lg w-full"
+          className="col-span-1 lg:mt-0 mt-7  flex flex-col gap-4 p-4 rounded-lg w-full shadow-lg"
           onSubmit={handleSubmit}
         >
           <div className={inputContainerClass}>
@@ -131,7 +133,7 @@ export default function Contact() {
               required
             />
           </div>
-          <div className={`flex flex-col w-full items-start`}>
+          <div className="flex flex-col w-full items-start">
             <label className={inputLabelClass}>Message:</label>
             <textarea
               className={inputClass + " h-36"}

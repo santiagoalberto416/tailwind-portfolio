@@ -95,6 +95,8 @@ const experiences: WorkExperience[] = [
   },
 ];
 
+const MoreRecentExperiences: WorkExperience[] = experiences.reverse()
+
 const MobileExperience = () => {
   const [expandedIndex, setExpandedIndex] = useState(-1);
 
@@ -109,10 +111,13 @@ const MobileExperience = () => {
         {description}
       </p>
       <div className="w-full ">
-        <div className="table-view">{/* Your existing table code */}</div>
         <div className="card-view">
           {experiences.map((experience, index) => (
-            <div id={`card-${index}`} key={index} className="card">
+            <div
+              id={`card-${index}`}
+              key={index}
+              className="card rounded-xl shadow-lg"
+            >
               <div className="card-header">
                 <div className="text-center w-full">
                   <h2>{experience.year}</h2>
@@ -153,6 +158,7 @@ const MobileExperience = () => {
                 onClick={() => {
                   handleExpand(index);
                 }}
+                className="rounded-bl-xl rounded-br-xl"
               >
                 <span className="ml-2">
                   {expandedIndex === index ? (
@@ -195,7 +201,7 @@ const DesktopExperience = () => {
         {description}
       </p>
       <div className="w-full ">
-        <table className="mx-auto rounded-lg overflow-x-clip overflow-y-clip">
+        <table className="mx-auto rounded overflow-x-clip overflow-y-clip shadow-lg">
           <thead>
             <tr>
               <th>Year</th>
@@ -207,8 +213,8 @@ const DesktopExperience = () => {
             </tr>
           </thead>
           <tbody>
-            {experiences.map((experience, index) => (
-              <tr key={index}>
+            {MoreRecentExperiences.map((experience, index) => (
+              <tr key={experience.year}>
                 <td>{experience.year}</td>
                 <td>{experience.project}</td>
                 <td>{experience.position}</td>

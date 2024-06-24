@@ -66,7 +66,7 @@ const description =
 
 const CurrentProjects: Project[] = [
   {
-    title: "Dual Memory Game",
+    title: "Dual memory game",
     description:
       "My girlfriend and I made a memory game together. My girlfriend is a psychologist and worked with" +
       " kids with specials needs, the game was designed to help them improve their memory and also do more" +
@@ -79,7 +79,7 @@ const CurrentProjects: Project[] = [
     },
   },
   {
-    title: "Memory Card Game",
+    title: "Memory card game",
     description:
       "This game has a similar history as the previous one, but for some reason kid prefer this one " +
       "it also involves memory but at the difference of the previous one, this one is about making pairs " +
@@ -99,13 +99,13 @@ const Project: FC<Project> = ({
   link,
   onClickImage,
 }) => (
-  <div className="project-card flex lg:flex-row flex-col-reverse  p-4 rounded gap-5 items-center lg:mx-auto mx-3 ">
+  <div className="project-card shadow-lg flex lg:flex-row flex-col-reverse  p-4 rounded gap-5 lg:mx-auto mx-3 ">
     <div className="flex flex-col gap-4 text-white text-section">
       <h2 className="text-2xl">{title}</h2>
-      <p>{description}</p>
-      <div className="flex items-center grow min-h-10">
-        <Link href={link.path}>
-          <span className="border py-2 px-3 text-white rounded-2xl h-min">
+      <p className="mb-0 grow">{description}</p>
+      <div className="flex w-full">
+        <Link className="lg:w-auto w-full flex" href={link.path}>
+          <span className="lg:w-auto lg:text-left w-full btn-card text-center py-2 px-3 text-white rounded h-min">
             {link.text}
           </span>
         </Link>
@@ -160,7 +160,7 @@ const Projects: FC<{ projects?: Project[] }> = ({
             {/* Full-screen container to center the panel */}
             <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
               {/* The actual dialog panel  */}
-              <DialogPanel className="max-w-screen-lg h-auto flex justify-center items-center max-h-screen space-y-4 bg-black lg:p-12 p-2">
+              <DialogPanel className="projects-dialog-panel max-w-screen-lg h-full w-full flex justify-center items-center max-h-screen space-y-4 bg-black lg:p-12 p-2">
                 <Image
                   width="200"
                   height="200"

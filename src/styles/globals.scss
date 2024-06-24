@@ -1,12 +1,13 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import "effects";
 @import "variables";
-
 @import "components/index";
+@import "pages";
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
-@import "pages";
+
 
 html {
   scroll-behavior: smooth;
@@ -77,7 +78,8 @@ p {
 }
 
 .contact-me-icon:hover {
-  color: #008080;
+  color: #E9E9E9;
+  transform: scale(1.1);
 }
 
 .main-content-profile {
@@ -94,24 +96,6 @@ p {
   object-fit: cover;
 }
 
-@keyframes grow-up {
-  0% {
-    max-height: 0;
-  }
-  100% {
-    max-height: 500px;
-  }
-}
-
-@keyframes shrink {
-  0% {
-    max-height: 500px;
-  }
-  100% {
-    max-height: 0;
-  }
-}
-
 .shrink {
   max-height: 500px;
   overflow: hidden;
@@ -123,4 +107,11 @@ p {
   max-height: 0;
   overflow: hidden;
   animation: grow-up 0.3s forwards;
+}
+
+// Here I will define general styles for the different components in the website
+// as I'm using tailwind, I just going to leave it as a comment here
+// For cards
+.cards, .card-content {
+  @apply p-4 lg:pr-10;
 }

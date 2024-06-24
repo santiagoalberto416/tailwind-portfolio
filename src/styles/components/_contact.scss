@@ -1,5 +1,17 @@
 .contact {
-  background: rgba(0, 0, 0, 0.4);
+
+  .lets-talk-section {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  /// background on lg resolution only
+  @media (min-width: 992px) {
+    background: rgba(0, 0, 0, 0.4);
+    .lets-talk-section {
+      background: unset;
+    }
+  }
+
   max-width: 840px;
 
   form {
@@ -36,28 +48,6 @@
         animation: mail-sent 1s linear forwards;
       }
     }
-
-    @keyframes normal-mail {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
-
-    @keyframes mail-sent {
-      50% {
-        top: 0;
-        opacity: 1;
-      }
-      75% {
-        opacity: 0;
-      }
-      100% {
-        top: -40px;
-      }
-    }
   }
 
   .image-section {
@@ -70,4 +60,3 @@
     }
   }
 }
-
