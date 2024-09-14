@@ -51,6 +51,16 @@ const techIcons: { description: string | JSX.Element; icon: string }[] = [
     ),
   },
   {
+    icon: "angular-icon.png",
+    description: (
+      <>
+        <span className={titleClass}>Angular:</span> I have used Angular in my
+        last project, I&apos;m familiar with the basics and I&apos;m able to
+        learn more about it.
+      </>
+    ),
+  },
+  {
     icon: "sass-icon.svg",
     description: (
       <>
