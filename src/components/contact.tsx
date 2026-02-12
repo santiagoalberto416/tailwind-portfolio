@@ -7,6 +7,7 @@ export default function Contact() {
   const [text, setText] = useState("");
   const [sendingEmail, setSendingEmail] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const clearForm = () => {
     setTo("");
@@ -24,18 +25,35 @@ export default function Contact() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setSendingEmail(true);
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ to, name, text }),
-    });
-    setSendingEmail(false);
+    setError(null);
 
-    if (response.ok) {
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ to, name, text }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(
+          errorData.message || `Failed to send email (${response.status})`
+        );
+      }
+
       clearForm();
       onEmailSent();
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : "Failed to send email. Please try again or contact me through social media.";
+      setError(errorMessage);
+      console.error("Error sending email:", err);
+    } finally {
+      setSendingEmail(false);
     }
   };
 
@@ -191,6 +209,15 @@ export default function Contact() {
               </span>
             </div>
           </button>
+          {error && (
+            <div
+              className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+              role="alert"
+            >
+              <strong className="font-bold">Error: </strong>
+              <span className="block sm:inline">{error}</span>
+            </div>
+          )}
         </form>
       </div>
     </section>
