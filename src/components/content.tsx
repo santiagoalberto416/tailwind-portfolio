@@ -91,7 +91,7 @@ const techIcons: { description: string | React.ReactNode; icon: string }[] = [
   },
 ];
 
-const Content: FC<{}> = () => {
+const Content: FC = () => {
   return (
     <div
       id={SectionsIds.Home}

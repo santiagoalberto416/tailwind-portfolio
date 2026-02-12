@@ -4,12 +4,12 @@ import SEO from "@/components/SEO";
 
 const levels = [3, 6, 9, 12, 15, 18, 21];
 
-const CardGame: FC<{}> = () => {
+const CardGame: FC = () => {
   const [cards, setCards] = useState<{ number: number; isFlipped: boolean }[]>(
     []
   );
   const [barCard, setBadCard] = useState(-1);
-  const [flippedCards, setFlippedCards] = useState<any>([]);
+  const [flippedCards, setFlippedCards] = useState<number[]>([]);
   const [currentNumber, setCurrentNumber] = useState(1);
   const [shuffling, setShuffling] = useState(false);
   const [isWaiting, setIsWaiting] = useState(false);

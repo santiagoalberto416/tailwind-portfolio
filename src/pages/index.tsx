@@ -7,7 +7,7 @@ import About from "@/components/about";
 import Projects from "@/components/projects";
 import Contact from "@/components/contact";
 
-const MainPage: FC<{}> = () => {
+const MainPage: FC = () => {
   useEffect(() => {
     const hiddenElements = document.querySelectorAll(".hidden-section");
     const observer = new IntersectionObserver((entries) => {

@@ -4,7 +4,7 @@ import { useState } from "react";
 type WorkExperience = {
   year: number;
   project: string;
-  projectMobile?: any;
+  projectMobile?: string | React.ReactNode;
   position: string;
   company: string;
   techStack: string[];
