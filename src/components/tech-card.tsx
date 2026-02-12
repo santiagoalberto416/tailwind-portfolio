@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Image from "next/image";
 
-const TechCard: FC<{ icon: string; description: string | JSX.Element }> = ({
+const TechCard: FC<{ icon: string; description: string | React.ReactNode }> = ({
   icon,
   description,
 }) => {
