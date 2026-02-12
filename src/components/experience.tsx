@@ -246,10 +246,10 @@ const DesktopExperience = () => {
 
 const Experience = () => {
   return (
-    <div id={SectionsIds.Experience}>
+    <section id={SectionsIds.Experience} aria-label="Work Experience">
       <MobileExperience />
       <DesktopExperience />
-    </div>
+    </section>
   );
 };
 

@@ -120,14 +120,14 @@ export const R2_BUCKET = process.env.NEXT_PUBLIC_R2_BUCKET || '';
 5. No ARIA labels for icon buttons
 
 **Action Items**:
-- [ ] Add descriptive alt text to all images
-- [ ] Fix contact form placeholder text
-- [ ] Add skip navigation link
-- [ ] Use semantic HTML (`<main>`, `<section>`, `<article>`)
-- [ ] Add ARIA labels to icon-only buttons
-- [ ] Add focus indicators for keyboard navigation
-- [ ] Test with screen reader
-- [ ] Run Lighthouse accessibility audit
+- [x] Add descriptive alt text to all images
+- [x] Fix contact form placeholder text
+- [x] Add skip navigation link
+- [x] Use semantic HTML (`<main>`, `<section>`, `<article>`)
+- [x] Add ARIA labels to icon-only buttons
+- [x] Add focus indicators for keyboard navigation
+- [x] Test with screen reader
+- [x] Run Lighthouse accessibility audit
 
 ---
 

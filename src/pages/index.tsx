@@ -34,12 +34,17 @@ const MainPage: FC<{}> = () => {
           key="desc"
         />
       </Head>
+      <a href="#main-content" className="skip-to-content">
+        Skip to main content
+      </a>
       <Header />
-      <Content />
-      <About />
-      <Experience />
-      <Projects />
-      <Contact />
+      <main id="main-content">
+        <Content />
+        <About />
+        <Experience />
+        <Projects />
+        <Contact />
+      </main>
     </div>
   );
 };

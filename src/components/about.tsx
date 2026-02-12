@@ -46,9 +46,10 @@ const EducationInfo = {
 
 const About = () => {
   return (
-    <div
+    <section
       id={SectionsIds.About}
       className="mx-auto container pt-24 w-100 mt-48 gap-5"
+      aria-label="About Santiago Kirk"
     >
       <div
         style={{ maxWidth: "1000px", height: "fit-content" }}
@@ -59,7 +60,7 @@ const About = () => {
         <JobCard {...EducationInfo} />
         <Hobbies />
       </div>
-    </div>
+    </section>
   );
 };
 

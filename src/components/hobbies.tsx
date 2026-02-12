@@ -29,7 +29,7 @@ const Hobbies: FC<{}> = () => {
               width={300}
               height={300}
               unoptimized
-              alt="profile-pic"
+              alt="Santiago Kirk enjoying coffee and coding"
             />
           </div>
         </div>

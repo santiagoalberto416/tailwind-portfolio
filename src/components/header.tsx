@@ -163,9 +163,14 @@ const Header: FC<{}> = () => {
           </li>
         </ul>
 
-        <div className="cursor-pointer lg:hidden" onClick={() => setShow(true)}>
+        <button
+          className="cursor-pointer lg:hidden bg-transparent border-0 p-2"
+          onClick={() => setShow(true)}
+          aria-label="Open navigation menu"
+          aria-expanded={show}
+        >
           <Hamburger />
-        </div>
+        </button>
       </div>
       <div
         className={`h-screen z-20 absolute w-full bg-black opacity-50 ${
@@ -183,12 +188,13 @@ const Header: FC<{}> = () => {
             <div className="grow w-full text-left pl-4 top-6 pointer-events-none">
               DevKirk
             </div>
-            <div
-              className="p-0 rounded bg-white text-black h-fit mr-4"
+            <button
+              className="p-2 rounded bg-white text-black h-fit mr-4 border-0"
               onClick={handleClose}
+              aria-label="Close navigation menu"
             >
               <Hamburger />
-            </div>
+            </button>
           </div>
           {/* Options */}
           <div className={`flex ${className} h-fit`}>
