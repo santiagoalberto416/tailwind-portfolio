@@ -9,7 +9,7 @@ import { SectionsIds } from "@/components/header";
 
 const titleClass = "font-bold";
 
-const techIcons: { description: string | JSX.Element; icon: string }[] = [
+const techIcons: { description: string | React.ReactNode; icon: string }[] = [
   {
     icon: "css3-icon.svg",
     description: (
