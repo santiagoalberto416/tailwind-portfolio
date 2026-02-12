@@ -95,7 +95,8 @@ const experiences: WorkExperience[] = [
   },
 ];
 
-const MoreRecentExperiences: WorkExperience[] = experiences.reverse()
+// Create a non-mutating reversed copy for newest-first ordering
+const MoreRecentExperiences: WorkExperience[] = [...experiences].reverse();
 
 const MobileExperience = () => {
   const [expandedIndex, setExpandedIndex] = useState(-1);
@@ -112,7 +113,7 @@ const MobileExperience = () => {
       </p>
       <div className="w-full ">
         <div className="card-view">
-          {experiences.map((experience, index) => (
+          {MoreRecentExperiences.map((experience, index) => (
             <div
               id={`card-${index}`}
               key={index}

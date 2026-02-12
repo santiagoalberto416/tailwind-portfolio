@@ -176,8 +176,8 @@ projectMobile?: string | React.ReactNode
 **Issue**: Desktop shows newest-first, mobile shows oldest-first
 
 **Action**:
-- [ ] Decide on consistent ordering (recommend newest-first)
-- [ ] Apply same ordering to both desktop and mobile views
+- [x] Decide on consistent ordering (recommend newest-first)
+- [x] Apply same ordering to both desktop and mobile views
 
 ---
 
