@@ -75,10 +75,10 @@ grep -r "console\." src/
 **Issue**: Public R2 bucket URL hardcoded in client-side code
 
 **Action**:
-- [ ] Move R2_BUCKET to environment variable
-- [ ] Add .env.example file with placeholder
-- [ ] Update documentation about required env vars
-- [ ] Consider using Next.js Image Loader for CDN URLs
+- [x] Move R2_BUCKET to environment variable
+- [x] Add .env.example file with placeholder
+- [x] Update documentation about required env vars
+- [x] Consider using Next.js Image Loader for CDN URLs
 
 **Implementation**:
 ```typescript
