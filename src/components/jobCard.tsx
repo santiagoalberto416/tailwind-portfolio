@@ -33,7 +33,7 @@ const JobCard: FC<JobCardProps> = (props) => {
             width={250}
             height={36}
             unoptimized
-            alt="Current Job"
+            alt={`${props.title} company logo`}
           />
         </div>
       </div>

@@ -142,7 +142,7 @@ const Content: FC<{}> = () => {
               priority={true}
               width={300}
               height={300}
-              alt="profile-pic"
+              alt="Santiago Kirk professional headshot"
             />
           </div>
         </div>
@@ -161,7 +161,7 @@ const Content: FC<{}> = () => {
               className="w-16 h-16 flex bg-white rounded-full items-center justify-center"
             >
               <Image
-                alt="tech"
+                alt={icon.icon.replace('-icon.svg', '').replace('-', ' ').toUpperCase() + ' logo'}
                 className=""
                 src={icon.icon}
                 width={40}

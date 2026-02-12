@@ -12,7 +12,6 @@ const MainPage: FC<{}> = () => {
     const hiddenElements = document.querySelectorAll(".hidden-section");
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        console.log(entry);
         if (entry.isIntersecting) {
           entry.target.classList.add("show-section");
         } else {
@@ -35,12 +34,17 @@ const MainPage: FC<{}> = () => {
           key="desc"
         />
       </Head>
+      <a href="#main-content" className="skip-to-content">
+        Skip to main content
+      </a>
       <Header />
-      <Content />
-      <About />
-      <Experience />
-      <Projects />
-      <Contact />
+      <main id="main-content">
+        <Content />
+        <About />
+        <Experience />
+        <Projects />
+        <Contact />
+      </main>
     </div>
   );
 };

@@ -71,7 +71,7 @@ export default function Contact() {
   const sendDisabled = sendingEmail || emailSent;
 
   return (
-    <div id={SectionsIds.Contact} className="py-20 px-5 ">
+    <section id={SectionsIds.Contact} className="py-20 px-5 " aria-label="Contact Me">
       <div className="my-20 rounded contact lg:p-7 w-full grid lg:grid-cols-2 grid-cols-1 container mx-auto max-w-screen-lg justify-center">
         <div className="lets-talk-section rounded flex flex-col col-span-1 lg:p-0 lg:shadow-none shadow-lg p-4 text-white">
           <h1 className="text-4xl text-center lg:text-left text-white mb-4">
@@ -116,7 +116,7 @@ export default function Contact() {
             <label className={inputLabelClass}>Email:</label>
             <input
               className={inputClass}
-              placeholder="optional, only if you want reply"
+              placeholder="your.email@example.com"
               type="email"
               value={to}
               onChange={(e) => setTo(e.target.value)}
@@ -177,9 +177,9 @@ export default function Contact() {
                   </svg>
                 )}
                 {!sendingEmail && !emailSent && (
-                  <img className="mail-send" src="/plain-mail.svg" alt="" />
+                  <img className="mail-send" src="/plain-mail.svg" alt="Send email icon" />
                 )}
-                {emailSent && <img src="/check-mail.svg" alt="" />}
+                {emailSent && <img src="/check-mail.svg" alt="Email sent successfully icon" />}
               </div>
 
               <span className="text-center text-white min-w-16">
@@ -193,6 +193,6 @@ export default function Contact() {
           </button>
         </form>
       </div>
-    </div>
+    </section>
   );
 }

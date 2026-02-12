@@ -29,7 +29,7 @@ const AboutMain: FC<{}> = () => {
             src={R2_BUCKET + "/profile-pic-3.jpg"}
             width={220}
             height={386}
-            alt="profile-pic"
+            alt="Santiago Kirk profile photo"
           />
         </div>
       </div>

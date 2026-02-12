@@ -137,7 +137,7 @@ const Projects: FC<{ projects?: Project[] }> = ({
   const [selectedImage, setSelectedImage] = useState<string>("");
 
   return (
-    <div className="pt-20" id={SectionsIds.Projects}>
+    <section className="pt-20" id={SectionsIds.Projects} aria-label="Projects">
       <div className="projects container mx-auto pb-4 flex flex-col gap-4 px-2">
         <h1 className="text-4xl text-white text-center mb-10">Projects</h1>
         <Transition
@@ -187,7 +187,7 @@ const Projects: FC<{ projects?: Project[] }> = ({
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
