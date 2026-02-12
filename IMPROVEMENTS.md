@@ -54,9 +54,9 @@ npm install tailwindcss@latest
 **Issue**: `console.log(entry)` in production code
 
 **Action**:
-- [ ] Remove console.log from IntersectionObserver callback
-- [ ] Search entire codebase for other console.log/warn/error statements
-- [ ] Consider adding ESLint rule to prevent console statements
+- [x] Remove console.log from IntersectionObserver callback
+- [x] Search entire codebase for other console.log/warn/error statements
+- [x] Consider adding ESLint rule to prevent console statements
 
 ```bash
 # Search for console statements
@@ -75,10 +75,10 @@ grep -r "console\." src/
 **Issue**: Public R2 bucket URL hardcoded in client-side code
 
 **Action**:
-- [ ] Move R2_BUCKET to environment variable
-- [ ] Add .env.example file with placeholder
-- [ ] Update documentation about required env vars
-- [ ] Consider using Next.js Image Loader for CDN URLs
+- [x] Move R2_BUCKET to environment variable
+- [x] Add .env.example file with placeholder
+- [x] Update documentation about required env vars
+- [x] Consider using Next.js Image Loader for CDN URLs
 
 **Implementation**:
 ```typescript

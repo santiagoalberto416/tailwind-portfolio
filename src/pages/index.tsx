@@ -12,7 +12,6 @@ const MainPage: FC<{}> = () => {
     const hiddenElements = document.querySelectorAll(".hidden-section");
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        console.log(entry);
         if (entry.isIntersecting) {
           entry.target.classList.add("show-section");
         } else {
