@@ -2,7 +2,7 @@ import { FC } from "react";
 import Image from "next/image";
 import { R2_BUCKET } from "@/utils/resources";
 
-const Hobbies: FC<{}> = () => {
+const Hobbies: FC = () => {
   return (
     <div className="transform duration-500 hover:scale-105 lg:mx-0 mx-3">
       <div className="hobbies w-auto rounded-lg overflow-hidden border-0 bg-white shadow-lg">

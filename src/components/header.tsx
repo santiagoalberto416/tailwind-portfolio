@@ -69,7 +69,7 @@ const Icons = {
   ),
 };
 
-const Header: FC<{}> = () => {
+const Header: FC = () => {
   const [show, setShow] = useState<undefined | boolean>(undefined);
   const [closing, setClosing] = useState(false);
   let className = show === undefined ? "" : show ? "grow-up" : "shrink";
@@ -135,7 +135,7 @@ const Header: FC<{}> = () => {
     }, 300);
   };
 
-  const handleClose = (event: any) => {
+  const handleClose = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     event.stopPropagation();
     closeNav();

@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-const Hamburger: FC<{}> = () => {
+const Hamburger: FC = () => {
   return (
     <svg
       width={24}
