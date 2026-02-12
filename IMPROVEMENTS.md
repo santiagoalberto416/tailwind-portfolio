@@ -101,9 +101,9 @@ export const R2_BUCKET = process.env.NEXT_PUBLIC_R2_BUCKET || '';
 **Issue**: Unused `Example` component
 
 **Action**:
-- [ ] Remove the unused Example component
-- [ ] Run build to ensure nothing breaks
-- [ ] Search for other unused components/functions
+- [x] Remove the unused Example component
+- [x] Run build to ensure nothing breaks
+- [x] Search for other unused components/functions
 
 ---
 
