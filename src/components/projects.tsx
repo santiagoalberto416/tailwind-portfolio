@@ -53,6 +53,19 @@ const CurrentProjects: Project[] = [
       text: "Play Game",
     },
   },
+  {
+    title: "Color Pad Game",
+    description:
+      "A full-screen color pad game designed for mobile devices and kids. The game features four vibrant " +
+      "colors that randomly light up in different patterns. Kids can control the speed (slow, medium, fast) " +
+      "and watch as colors change automatically. Built with React and TypeScript, it includes touch-friendly " +
+      "controls, smooth animations, and optional vibration feedback for an engaging sensory experience.",
+    image: "color-game-screenshoot.png",
+    link: {
+      path: "/color-game",
+      text: "Play Game",
+    },
+  },
 ];
 
 const Project: FC<Project> = ({
