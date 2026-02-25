@@ -66,6 +66,20 @@ const CurrentProjects: Project[] = [
       text: "Play Game",
     },
   },
+  {
+    title: "Escala Conners para Padres",
+    description:
+      "An interactive assessment tool based on the Conners Parent Rating Scale for evaluating behavioral and " +
+      "attention problems in children. Features 84 questions across 8 categories including attention, hyperactivity, " +
+      "behavior problems, learning difficulties, social issues, anxiety, perfectionism, and psychosomatic symptoms. " +
+      "The tool provides instant scoring with clinical interpretation, supports importing/exporting responses in JSON format, " +
+      "and includes printable results. Built with React and TypeScript for educational and screening purposes.",
+    image: "conners-scale-screenshoot.png",
+    link: {
+      path: "/conners-scale",
+      text: "Abrir Cuestionario",
+    },
+  },
 ];
 
 const Project: FC<Project> = ({
