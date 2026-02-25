@@ -331,6 +331,36 @@ const ConnersScale: FC = () => {
                 Resultados del Cuestionario
               </h2>
 
+              {/* Total Score Summary */}
+              <div className="mb-6 p-4 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg border-2 border-indigo-200">
+                <div className="flex flex-wrap justify-around items-center gap-4">
+                  <div className="text-center">
+                    <p className="text-sm text-gray-600 mb-1">Puntuación Total</p>
+                    <p className="text-4xl font-bold text-indigo-600">
+                      {Object.values(responses).reduce((sum, r) => sum + r.value, 0)}
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-sm text-gray-600 mb-1">Puntuación Máxima</p>
+                    <p className="text-4xl font-bold text-gray-400">
+                      {questions.length * 3}
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-sm text-gray-600 mb-1">Porcentaje General</p>
+                    <p className="text-4xl font-bold text-indigo-600">
+                      {((Object.values(responses).reduce((sum, r) => sum + r.value, 0) / (questions.length * 3)) * 100).toFixed(1)}%
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-sm text-gray-600 mb-1">Promedio General</p>
+                    <p className="text-4xl font-bold text-indigo-600">
+                      {(Object.values(responses).reduce((sum, r) => sum + r.value, 0) / questions.length).toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* Category Scores Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 {getSortedCategories().map(([category, score]) => {
