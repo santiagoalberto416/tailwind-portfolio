@@ -166,24 +166,24 @@ const ConnersScale: FC = () => {
         pageDescription="Cuestionario para evaluar problemas de conducta y atención en niños"
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 py-8 px-4 font-['Inter',sans-serif]">
         <div className="container mx-auto max-w-4xl">
           {/* Header */}
-          <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 mb-6 border border-purple-100">
+            <h1 className="text-4xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
               {connersData.title}
             </h1>
-            <p className="text-gray-600">{connersData.description}</p>
-            <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
-              <p className="text-sm text-blue-800">
-                <strong>Instrucciones:</strong> Por favor, responda cada pregunta según
+            <p className="text-gray-600 text-lg">{connersData.description}</p>
+            <div className="mt-4 p-5 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border-2 border-purple-200/50">
+              <p className="text-sm text-purple-900 leading-relaxed">
+                <strong className="text-purple-700">📋 Instrucciones:</strong> Por favor, responda cada pregunta según
                 la frecuencia con que observa cada comportamiento en su hijo(a).
               </p>
             </div>
 
             {/* Import/Export Controls */}
             <div className="mt-4 flex flex-wrap gap-3">
-              <label className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg cursor-pointer transition inline-flex items-center">
+              <label className="bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 text-white font-semibold py-2.5 px-5 rounded-xl cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                 </svg>
@@ -199,7 +199,7 @@ const ConnersScale: FC = () => {
               {Object.keys(responses).length > 0 && (
                 <button
                   onClick={exportResponses}
-                  className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition inline-flex items-center"
+                  className="bg-gradient-to-r from-green-400 to-teal-400 hover:from-green-500 hover:to-teal-500 text-white font-semibold py-2.5 px-5 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center"
                 >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
@@ -221,8 +221,8 @@ const ConnersScale: FC = () => {
                   return (
                     <div
                       key={question.id}
-                      className={`bg-white rounded-lg shadow p-6 transition-all ${
-                        isAnswered ? "ring-2 ring-green-400" : ""
+                      className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 transition-all duration-300 border-2 ${
+                        isAnswered ? "border-green-300 shadow-green-100" : "border-purple-100"
                       }`}
                     >
                       {/* Category badge and question number */}
@@ -239,7 +239,7 @@ const ConnersScale: FC = () => {
                       </div>
 
                       {/* Question text */}
-                      <p className="text-gray-800 mb-4 text-lg">{question.text}</p>
+                      <p className="text-gray-700 mb-4 text-lg leading-relaxed font-medium">{question.text}</p>
 
                       {/* Response options */}
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -249,10 +249,10 @@ const ConnersScale: FC = () => {
                           return (
                             <label
                               key={option.value}
-                              className={`flex items-center p-3 border-2 rounded-lg cursor-pointer transition hover:bg-gray-50 ${
+                              className={`flex items-center p-3 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                                 isSelected
-                                  ? "border-indigo-600 bg-indigo-50"
-                                  : "border-gray-200 hover:border-indigo-400"
+                                  ? "border-purple-400 bg-gradient-to-r from-purple-50 to-pink-50 shadow-md"
+                                  : "border-purple-200/50 hover:border-purple-300 hover:bg-purple-50/30"
                               }`}
                             >
                               <input
@@ -267,9 +267,9 @@ const ConnersScale: FC = () => {
                                     question.category
                                   )
                                 }
-                                className="mr-2 w-4 h-4 text-indigo-600"
+                                className="mr-2 w-4 h-4 text-purple-600 accent-purple-500"
                               />
-                              <span className="text-sm font-medium">{option.label}</span>
+                              <span className="text-sm font-semibold text-gray-700">{option.label}</span>
                             </label>
                           );
                         })}
@@ -283,9 +283,9 @@ const ConnersScale: FC = () => {
               <div className="text-center mb-8">
                 <button
                   onClick={calculateResults}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform transition hover:scale-105"
+                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-4 px-10 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl text-lg"
                 >
-                  Calcular Resultados
+                  ✨ Calcular Resultados
                 </button>
               </div>
             </>
@@ -293,20 +293,20 @@ const ConnersScale: FC = () => {
 
           {/* Results Section */}
           {showResults && (
-            <div id="results" className="bg-white rounded-lg shadow-lg p-6">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">
-                Resultados del Cuestionario
+            <div id="results" className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-purple-100">
+              <h2 className="text-3xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-8 text-center">
+                ✨ Resultados del Cuestionario
               </h2>
 
               {/* Total Score Summary */}
-              <div className="mb-6 p-6 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg border-2 border-indigo-200">
+              <div className="mb-8 p-8 bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 rounded-2xl border-2 border-purple-200/50 shadow-lg">
                 <div className="flex flex-wrap justify-center items-center gap-8">
                   <div className="text-center">
-                    <p className="text-sm text-gray-600 mb-2">Puntuación Total</p>
-                    <p className="text-5xl font-bold text-indigo-600">
+                    <p className="text-sm font-semibold text-purple-700 mb-3 uppercase tracking-wide">Puntuación Total</p>
+                    <p className="text-6xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                       {Object.values(responses).reduce((sum, r) => sum + r.value, 0)}
                     </p>
-                    <p className="text-sm text-gray-500 mt-1">de 252 puntos</p>
+                    <p className="text-sm text-purple-600 mt-2 font-medium">de 252 puntos</p>
                   </div>
                 </div>
               </div>
@@ -317,50 +317,50 @@ const ConnersScale: FC = () => {
                 const interpretation = getInterpretation(totalScore);
 
                 const bgColors = {
-                  green: "bg-green-50 border-green-200",
-                  yellow: "bg-yellow-50 border-yellow-200",
-                  red: "bg-red-50 border-red-200"
+                  green: "bg-gradient-to-br from-green-50 to-teal-50 border-green-300/50",
+                  yellow: "bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-300/50",
+                  red: "bg-gradient-to-br from-red-50 to-pink-50 border-red-300/50"
                 };
 
                 const textColors = {
+                  green: "text-green-700",
+                  yellow: "text-yellow-700",
+                  red: "text-red-700"
+                };
+
+                const titleColors = {
                   green: "text-green-800",
                   yellow: "text-yellow-800",
                   red: "text-red-800"
                 };
 
-                const titleColors = {
-                  green: "text-green-900",
-                  yellow: "text-yellow-900",
-                  red: "text-red-900"
-                };
-
                 return (
-                  <div className={`p-6 rounded-lg border-2 ${bgColors[interpretation.color as keyof typeof bgColors]}`}>
-                    <div className="mb-4">
-                      <h3 className={`font-bold text-2xl mb-2 ${titleColors[interpretation.color as keyof typeof titleColors]}`}>
+                  <div className={`p-8 rounded-2xl border-2 shadow-xl ${bgColors[interpretation.color as keyof typeof bgColors]}`}>
+                    <div className="mb-6">
+                      <h3 className={`font-extrabold text-3xl mb-3 ${titleColors[interpretation.color as keyof typeof titleColors]}`}>
                         {interpretation.title}
                       </h3>
-                      <p className={`text-sm font-medium ${textColors[interpretation.color as keyof typeof textColors]}`}>
-                        Rango de puntuación: {interpretation.range} puntos
+                      <p className={`text-base font-semibold ${textColors[interpretation.color as keyof typeof textColors]}`}>
+                        📊 Rango de puntuación: {interpretation.range} puntos
                       </p>
                     </div>
 
                     <div className={`${textColors[interpretation.color as keyof typeof textColors]}`}>
-                      <p className="font-semibold mb-3">Interpretación:</p>
-                      <ul className="space-y-2">
+                      <p className="font-bold mb-4 text-lg">💡 Interpretación:</p>
+                      <ul className="space-y-3">
                         {interpretation.interpretations.map((text, index) => (
                           <li key={index} className="flex items-start">
-                            <span className="mr-2">•</span>
-                            <span>{text}</span>
+                            <span className="mr-3 text-lg">✓</span>
+                            <span className="leading-relaxed font-medium">{text}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
                     {/* Important notice */}
-                    <div className="mt-6 p-4 bg-white rounded border-2 border-gray-300">
-                      <p className="text-sm text-gray-700">
-                        <strong>Nota importante:</strong> Esta herramienta es solo para fines
+                    <div className="mt-8 p-6 bg-white/80 backdrop-blur-sm rounded-xl border-2 border-purple-200/50 shadow-md">
+                      <p className="text-sm text-gray-700 leading-relaxed">
+                        <strong className="text-purple-700">⚠️ Nota importante:</strong> Esta herramienta es solo para fines
                         orientativos y educativos. Los resultados NO constituyen un
                         diagnóstico clínico. Si tiene preocupaciones sobre el comportamiento o
                         desarrollo de su hijo(a), consulte con un profesional de la salud
@@ -373,10 +373,10 @@ const ConnersScale: FC = () => {
               })()}
 
               {/* Action buttons */}
-              <div className="mt-6 flex flex-wrap gap-4 justify-center">
+              <div className="mt-8 flex flex-wrap gap-4 justify-center">
                 <button
                   onClick={exportResponses}
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition inline-flex items-center"
+                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-3 px-7 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center"
                 >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
@@ -385,7 +385,7 @@ const ConnersScale: FC = () => {
                 </button>
                 <button
                   onClick={() => window.print()}
-                  className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition inline-flex items-center"
+                  className="bg-gradient-to-r from-green-400 to-teal-400 hover:from-green-500 hover:to-teal-500 text-white font-semibold py-3 px-7 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center"
                 >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
@@ -394,7 +394,7 @@ const ConnersScale: FC = () => {
                 </button>
                 <button
                   onClick={resetTest}
-                  className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg transition inline-flex items-center"
+                  className="bg-gradient-to-r from-gray-400 to-gray-500 hover:from-gray-500 hover:to-gray-600 text-white font-semibold py-3 px-7 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center"
                 >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
