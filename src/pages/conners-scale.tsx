@@ -24,20 +24,9 @@ type Response = {
   category: string;
 };
 
-type CategoryScore = {
-  total: number;
-  count: number;
-  average: number;
-  maxScore: number;
-  percentage: number;
-  severity: string;
-  severityColor: string;
-};
-
 const ConnersScale: FC = () => {
   const [responses, setResponses] = useState<Record<number, Response>>({});
   const [showResults, setShowResults] = useState(false);
-  const [categoryScores, setCategoryScores] = useState<Record<string, CategoryScore>>({});
 
   const questions: Question[] = connersData.questions;
   const responseOptions: ResponseOption[] = connersData.responseOptions;
@@ -59,51 +48,6 @@ const ConnersScale: FC = () => {
       return;
     }
 
-    // Calculate scores by category
-    const scores: Record<string, { total: number; count: number }> = {};
-
-    Object.values(responses).forEach((response) => {
-      if (!scores[response.category]) {
-        scores[response.category] = { total: 0, count: 0 };
-      }
-      scores[response.category].total += response.value;
-      scores[response.category].count++;
-    });
-
-    // Calculate averages and severity
-    const categoryResults: Record<string, CategoryScore> = {};
-
-    Object.entries(scores).forEach(([category, data]) => {
-      const average = data.total / data.count;
-      const maxScore = data.count * 3;
-      const percentage = (data.total / maxScore) * 100;
-
-      let severity = "Bajo";
-      let severityColor = "text-green-600";
-
-      if (average >= 2) {
-        severity = "Alto";
-        severityColor = "text-red-600";
-      } else if (average >= 1.5) {
-        severity = "Moderado-Alto";
-        severityColor = "text-orange-600";
-      } else if (average >= 1) {
-        severity = "Moderado";
-        severityColor = "text-yellow-600";
-      }
-
-      categoryResults[category] = {
-        total: data.total,
-        count: data.count,
-        average,
-        maxScore,
-        percentage,
-        severity,
-        severityColor,
-      };
-    });
-
-    setCategoryScores(categoryResults);
     setShowResults(true);
 
     // Scroll to results
@@ -176,20 +120,43 @@ const ConnersScale: FC = () => {
   const resetTest = () => {
     setResponses({});
     setShowResults(false);
-    setCategoryScores({});
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Get sorted categories by average score
-  const getSortedCategories = (): [string, CategoryScore][] => {
-    return Object.entries(categoryScores).sort((a, b) => b[1].average - a[1].average);
-  };
-
-  // Get high-risk categories
-  const getHighRiskCategories = (): string[] => {
-    return getSortedCategories()
-      .filter(([, score]) => score.average >= 1.5)
-      .map(([category]) => categories[category].name);
+  // Get interpretation based on total score
+  const getInterpretation = (totalScore: number): { range: string; interpretations: string[]; color: string; title: string } => {
+    if (totalScore <= 80) {
+      return {
+        range: "0 - 80",
+        title: "Rango Normal",
+        color: "green",
+        interpretations: [
+          "El niño no presenta dificultades cotidianas ni en la casa",
+          "Puede considerarse un niño normoactivo",
+          "Podría tratarse de un niño hipoactivo"
+        ]
+      };
+    } else if (totalScore <= 160) {
+      return {
+        range: "81 - 160",
+        title: "Rango Moderado",
+        color: "yellow",
+        interpretations: [
+          "Puede tratarse de un niño hiperactivo situacional",
+          "Puede tratarse de un niño normoactivo, pero inmaduro de temperamento"
+        ]
+      };
+    } else {
+      return {
+        range: "161 - 240",
+        title: "Rango Alto",
+        color: "red",
+        interpretations: [
+          "Puede tratarse de un niño hiperactivo",
+          "Puede tratarse de un niño disruptivo"
+        ]
+      };
+    }
   };
 
   return (
@@ -332,135 +299,78 @@ const ConnersScale: FC = () => {
               </h2>
 
               {/* Total Score Summary */}
-              <div className="mb-6 p-4 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg border-2 border-indigo-200">
-                <div className="flex flex-wrap justify-around items-center gap-4">
+              <div className="mb-6 p-6 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-lg border-2 border-indigo-200">
+                <div className="flex flex-wrap justify-center items-center gap-8">
                   <div className="text-center">
-                    <p className="text-sm text-gray-600 mb-1">Puntuación Total</p>
-                    <p className="text-4xl font-bold text-indigo-600">
+                    <p className="text-sm text-gray-600 mb-2">Puntuación Total</p>
+                    <p className="text-5xl font-bold text-indigo-600">
                       {Object.values(responses).reduce((sum, r) => sum + r.value, 0)}
                     </p>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-sm text-gray-600 mb-1">Puntuación Máxima</p>
-                    <p className="text-4xl font-bold text-gray-400">
-                      {questions.length * 3}
-                    </p>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-sm text-gray-600 mb-1">Porcentaje General</p>
-                    <p className="text-4xl font-bold text-indigo-600">
-                      {((Object.values(responses).reduce((sum, r) => sum + r.value, 0) / (questions.length * 3)) * 100).toFixed(1)}%
-                    </p>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-sm text-gray-600 mb-1">Promedio General</p>
-                    <p className="text-4xl font-bold text-indigo-600">
-                      {(Object.values(responses).reduce((sum, r) => sum + r.value, 0) / questions.length).toFixed(2)}
-                    </p>
+                    <p className="text-sm text-gray-500 mt-1">de 252 puntos</p>
                   </div>
                 </div>
               </div>
 
-              {/* Category Scores Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                {getSortedCategories().map(([category, score]) => {
-                  const categoryInfo = categories[category];
+              {/* Interpretation based on total score */}
+              {(() => {
+                const totalScore = Object.values(responses).reduce((sum, r) => sum + r.value, 0);
+                const interpretation = getInterpretation(totalScore);
 
-                  return (
-                    <div
-                      key={category}
-                      className="p-4 rounded-lg border-2"
-                      style={{ borderColor: categoryInfo.color }}
-                    >
-                      {/* Category header */}
-                      <div className="flex items-center mb-2">
-                        <div
-                          className="w-3 h-3 rounded-full mr-2"
-                          style={{ backgroundColor: categoryInfo.color }}
-                        />
-                        <h3 className="font-bold text-gray-800">{categoryInfo.name}</h3>
-                      </div>
+                const bgColors = {
+                  green: "bg-green-50 border-green-200",
+                  yellow: "bg-yellow-50 border-yellow-200",
+                  red: "bg-red-50 border-red-200"
+                };
 
-                      {/* Description */}
-                      <p className="text-sm text-gray-600 mb-3">
-                        {categoryInfo.description}
+                const textColors = {
+                  green: "text-green-800",
+                  yellow: "text-yellow-800",
+                  red: "text-red-800"
+                };
+
+                const titleColors = {
+                  green: "text-green-900",
+                  yellow: "text-yellow-900",
+                  red: "text-red-900"
+                };
+
+                return (
+                  <div className={`p-6 rounded-lg border-2 ${bgColors[interpretation.color as keyof typeof bgColors]}`}>
+                    <div className="mb-4">
+                      <h3 className={`font-bold text-2xl mb-2 ${titleColors[interpretation.color as keyof typeof titleColors]}`}>
+                        {interpretation.title}
+                      </h3>
+                      <p className={`text-sm font-medium ${textColors[interpretation.color as keyof typeof textColors]}`}>
+                        Rango de puntuación: {interpretation.range} puntos
                       </p>
-
-                      {/* Scores */}
-                      <div className="flex justify-between items-end mb-3">
-                        <div>
-                          <p className="text-2xl font-bold text-gray-800">
-                            {score.total}/{score.maxScore}
-                          </p>
-                          <p className="text-sm text-gray-500">
-                            Promedio: {score.average.toFixed(2)}
-                          </p>
-                        </div>
-                        <div className="text-right">
-                          <p className={`${score.severityColor} font-bold`}>
-                            {score.severity}
-                          </p>
-                          <p className="text-sm text-gray-500">
-                            {score.percentage.toFixed(1)}%
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Progress bar */}
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div
-                          className="h-2 rounded-full transition-all duration-500"
-                          style={{
-                            width: `${score.percentage}%`,
-                            backgroundColor: categoryInfo.color,
-                          }}
-                        />
-                      </div>
                     </div>
-                  );
-                })}
-              </div>
 
-              {/* Interpretation */}
-              <div className="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-                <h3 className="font-bold text-lg text-yellow-800 mb-3">
-                  Interpretación de Resultados
-                </h3>
+                    <div className={`${textColors[interpretation.color as keyof typeof textColors]}`}>
+                      <p className="font-semibold mb-3">Interpretación:</p>
+                      <ul className="space-y-2">
+                        {interpretation.interpretations.map((text, index) => (
+                          <li key={index} className="flex items-start">
+                            <span className="mr-2">•</span>
+                            <span>{text}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
-                {getHighRiskCategories().length === 0 ? (
-                  <p className="text-green-800">
-                    <strong>Resultados Generales:</strong> Los puntajes están en rango
-                    bajo a moderado en todas las áreas evaluadas. Esto sugiere un
-                    funcionamiento dentro de parámetros esperados.
-                  </p>
-                ) : (
-                  <>
-                    <p className="text-yellow-800 mb-3">
-                      <strong>Áreas que requieren atención:</strong> Se observan puntajes
-                      elevados (moderado-alto o alto) en las siguientes áreas:
-                    </p>
-                    <ul className="list-disc list-inside space-y-2 text-yellow-800 mb-4">
-                      {getHighRiskCategories().map((cat) => (
-                        <li key={cat}>
-                          <strong>{cat}</strong>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-
-                {/* Important notice */}
-                <div className="mt-4 p-4 bg-white rounded border border-yellow-300">
-                  <p className="text-sm text-gray-700">
-                    <strong>Nota importante:</strong> Esta herramienta es solo para fines
-                    orientativos y educativos. Los resultados NO constituyen un
-                    diagnóstico clínico. Si tiene preocupaciones sobre el comportamiento o
-                    desarrollo de su hijo(a), consulte con un profesional de la salud
-                    mental calificado (psicólogo, psiquiatra infantil o pediatra
-                    especializado).
-                  </p>
-                </div>
-              </div>
+                    {/* Important notice */}
+                    <div className="mt-6 p-4 bg-white rounded border-2 border-gray-300">
+                      <p className="text-sm text-gray-700">
+                        <strong>Nota importante:</strong> Esta herramienta es solo para fines
+                        orientativos y educativos. Los resultados NO constituyen un
+                        diagnóstico clínico. Si tiene preocupaciones sobre el comportamiento o
+                        desarrollo de su hijo(a), consulte con un profesional de la salud
+                        mental calificado (psicólogo, psiquiatra infantil o pediatra
+                        especializado).
+                      </p>
+                    </div>
+                  </div>
+                );
+              })()}
 
               {/* Action buttons */}
               <div className="mt-6 flex flex-wrap gap-4 justify-center">
