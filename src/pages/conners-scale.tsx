@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import SEO from "@/components/SEO";
-import connersData from "@/data/conners-questions.json";
+import connersDataParents from "@/data/conners-questions.json";
+import connersDataTeachers from "@/data/conners-questions-teachers.json";
 
 type ResponseOption = {
   value: number;
@@ -18,10 +19,14 @@ type Response = {
   category: string;
 };
 
+type QuestionnaireType = "parents" | "teachers";
+
 const ConnersScale: FC = () => {
+  const [questionnaireType, setQuestionnaireType] = useState<QuestionnaireType>("parents");
   const [responses, setResponses] = useState<Record<number, Response>>({});
   const [showResults, setShowResults] = useState(false);
 
+  const connersData = questionnaireType === "parents" ? connersDataParents : connersDataTeachers;
   const questions: Question[] = connersData.questions;
   const responseOptions: ResponseOption[] = connersData.responseOptions;
 
@@ -116,40 +121,84 @@ const ConnersScale: FC = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Get interpretation based on total score
+  // Get interpretation based on total score and questionnaire type
   const getInterpretation = (totalScore: number): { range: string; interpretations: string[]; color: string; title: string } => {
-    if (totalScore <= 80) {
-      return {
-        range: "0 - 80",
-        title: "Rango Normal",
-        color: "green",
-        interpretations: [
-          "El niño no presenta dificultades cotidianas ni en la casa",
-          "Puede considerarse un niño normoactivo",
-          "Podría tratarse de un niño hipoactivo"
-        ]
-      };
-    } else if (totalScore <= 160) {
-      return {
-        range: "81 - 160",
-        title: "Rango Moderado",
-        color: "yellow",
-        interpretations: [
-          "Puede tratarse de un niño hiperactivo situacional",
-          "Puede tratarse de un niño normoactivo, pero inmaduro de temperamento"
-        ]
-      };
+    if (questionnaireType === "parents") {
+      // Interpretation for parents (84 questions, max 252 points)
+      if (totalScore <= 80) {
+        return {
+          range: "0 - 80",
+          title: "Rango Normal",
+          color: "green",
+          interpretations: [
+            "El niño no presenta dificultades cotidianas ni en la casa",
+            "Puede considerarse un niño normoactivo",
+            "Podría tratarse de un niño hipoactivo"
+          ]
+        };
+      } else if (totalScore <= 160) {
+        return {
+          range: "81 - 160",
+          title: "Rango Moderado",
+          color: "yellow",
+          interpretations: [
+            "Puede tratarse de un niño hiperactivo situacional",
+            "Puede tratarse de un niño normoactivo, pero inmaduro de temperamento"
+          ]
+        };
+      } else {
+        return {
+          range: "161 - 240",
+          title: "Rango Alto",
+          color: "red",
+          interpretations: [
+            "Puede tratarse de un niño hiperactivo",
+            "Puede tratarse de un niño disruptivo"
+          ]
+        };
+      }
     } else {
-      return {
-        range: "161 - 240",
-        title: "Rango Alto",
-        color: "red",
-        interpretations: [
-          "Puede tratarse de un niño hiperactivo",
-          "Puede tratarse de un niño disruptivo"
-        ]
-      };
+      // Interpretation for teachers (59 questions, max 177 points)
+      if (totalScore <= 59) {
+        return {
+          range: "0 - 59",
+          title: "Rango Normal",
+          color: "green",
+          interpretations: [
+            "El niño no presenta dificultades en el aula",
+            "Puede considerarse un niño normoactivo",
+            "Podría tratarse de un niño hipoactivo"
+          ]
+        };
+      } else if (totalScore <= 118) {
+        return {
+          range: "60 - 118",
+          title: "Rango Moderado",
+          color: "yellow",
+          interpretations: [
+            "Puede tratarse de un niño hiperactivo situacional",
+            "Puede tratarse de un niño normoactivo, pero inmaduro de temperamento"
+          ]
+        };
+      } else {
+        return {
+          range: "119 - 177",
+          title: "Rango Alto",
+          color: "red",
+          interpretations: [
+            "Puede tratarse de un niño hiperactivo",
+            "Puede tratarse de un niño disruptivo"
+          ]
+        };
+      }
     }
+  };
+
+  // Handle questionnaire type change
+  const handleQuestionnaireTypeChange = (type: QuestionnaireType) => {
+    setQuestionnaireType(type);
+    setResponses({});
+    setShowResults(false);
   };
 
   return (
@@ -164,13 +213,50 @@ const ConnersScale: FC = () => {
           {/* Header */}
           <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 mb-6 border border-purple-100">
             <h1 className="text-4xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
-              {connersData.title}
+              Escala Conners - Forma Revisada
             </h1>
-            <p className="text-gray-600 text-lg">{connersData.description}</p>
+            <p className="text-gray-600 text-lg mb-4">Cuestionario para evaluar problemas de conducta y atención en niños</p>
+
+            {/* Questionnaire Type Selector */}
+            <div className="mb-4">
+              <p className="text-sm font-semibold text-purple-700 mb-3">Seleccione el tipo de cuestionario:</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <button
+                  onClick={() => handleQuestionnaireTypeChange("parents")}
+                  className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
+                    questionnaireType === "parents"
+                      ? "border-purple-500 bg-gradient-to-r from-purple-50 to-pink-50 shadow-lg"
+                      : "border-purple-200/50 hover:border-purple-300 hover:bg-purple-50/30"
+                  }`}
+                >
+                  <div className="flex items-center mb-2">
+                    <span className="text-2xl mr-3">👨‍👩‍👧‍👦</span>
+                    <span className="font-bold text-lg text-gray-800">Para Padres</span>
+                  </div>
+                  <p className="text-sm text-gray-600">84 preguntas sobre el comportamiento en casa</p>
+                </button>
+
+                <button
+                  onClick={() => handleQuestionnaireTypeChange("teachers")}
+                  className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
+                    questionnaireType === "teachers"
+                      ? "border-purple-500 bg-gradient-to-r from-purple-50 to-pink-50 shadow-lg"
+                      : "border-purple-200/50 hover:border-purple-300 hover:bg-purple-50/30"
+                  }`}
+                >
+                  <div className="flex items-center mb-2">
+                    <span className="text-2xl mr-3">👨‍🏫</span>
+                    <span className="font-bold text-lg text-gray-800">Para Maestros</span>
+                  </div>
+                  <p className="text-sm text-gray-600">59 preguntas sobre el comportamiento en el aula</p>
+                </button>
+              </div>
+            </div>
             <div className="mt-4 p-5 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border-2 border-purple-200/50">
               <p className="text-sm text-purple-900 leading-relaxed">
-                <strong className="text-purple-700">📋 Instrucciones:</strong> Por favor, responda cada pregunta según
-                la frecuencia con que observa cada comportamiento en su hijo(a).
+                <strong className="text-purple-700">📋 Instrucciones:</strong> {questionnaireType === "parents"
+                  ? "Por favor, responda cada pregunta según la frecuencia con que observa cada comportamiento en su hijo(a)."
+                  : "Por favor, responda cada pregunta según la frecuencia con que observa cada comportamiento en el estudiante en el aula."}
               </p>
             </div>
 
@@ -292,7 +378,9 @@ const ConnersScale: FC = () => {
                     <p className="text-6xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                       {Object.values(responses).reduce((sum, r) => sum + r.value, 0)}
                     </p>
-                    <p className="text-sm text-purple-600 mt-2 font-medium">de 252 puntos</p>
+                    <p className="text-sm text-purple-600 mt-2 font-medium">
+                      de {questions.length * 3} puntos ({questionnaireType === "parents" ? "Padres" : "Maestros"})
+                    </p>
                   </div>
                 </div>
               </div>
