@@ -112,6 +112,66 @@ const ConnersScale: FC = () => {
     }, 100);
   };
 
+  // Export responses to JSON file
+  const exportResponses = () => {
+    const exportData = {
+      metadata: {
+        name: "Respuestas - Escala Conners",
+        date: new Date().toISOString().split('T')[0],
+        description: "Archivo de respuestas del cuestionario Conners",
+        totalQuestions: questions.length,
+        answeredQuestions: Object.keys(responses).length
+      },
+      responses: responses
+    };
+
+    const jsonString = JSON.stringify(exportData, null, 2);
+    const blob = new Blob([jsonString], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `conners-respuestas-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  // Import responses from JSON file
+  const importResponses = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const content = e.target?.result as string;
+        const data = JSON.parse(content);
+
+        // Validate the structure
+        if (data.responses && typeof data.responses === 'object') {
+          // Convert string keys to numbers if needed
+          const importedResponses: Record<number, Response> = {};
+          Object.entries(data.responses).forEach(([key, value]: [string, any]) => {
+            const questionId = parseInt(key);
+            if (value && typeof value === 'object' && 'value' in value && 'category' in value) {
+              importedResponses[questionId] = value as Response;
+            }
+          });
+
+          setResponses(importedResponses);
+          setShowResults(false);
+          alert(`¡Respuestas cargadas exitosamente! (${Object.keys(importedResponses).length} preguntas)`);
+        } else {
+          alert("El archivo no tiene el formato correcto. Por favor, verifica el archivo.");
+        }
+      } catch (error) {
+        alert("Error al leer el archivo. Asegúrate de que sea un archivo JSON válido.");
+      }
+    };
+    reader.readAsText(file);
+  };
+
   // Reset test
   const resetTest = () => {
     setResponses({});
@@ -152,6 +212,34 @@ const ConnersScale: FC = () => {
                 <strong>Instrucciones:</strong> Por favor, responda cada pregunta según
                 la frecuencia con que observa cada comportamiento en su hijo(a).
               </p>
+            </div>
+
+            {/* Import/Export Controls */}
+            <div className="mt-4 flex flex-wrap gap-3">
+              <label className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg cursor-pointer transition inline-flex items-center">
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                Cargar Respuestas
+                <input
+                  type="file"
+                  accept=".json"
+                  onChange={importResponses}
+                  className="hidden"
+                />
+              </label>
+
+              {Object.keys(responses).length > 0 && (
+                <button
+                  onClick={exportResponses}
+                  className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition inline-flex items-center"
+                >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                  </svg>
+                  Guardar Respuestas ({Object.keys(responses).length}/{questions.length})
+                </button>
+              )}
             </div>
           </div>
 
@@ -345,17 +433,32 @@ const ConnersScale: FC = () => {
               </div>
 
               {/* Action buttons */}
-              <div className="mt-6 flex gap-4 justify-center">
+              <div className="mt-6 flex flex-wrap gap-4 justify-center">
+                <button
+                  onClick={exportResponses}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition inline-flex items-center"
+                >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                  </svg>
+                  Guardar Respuestas
+                </button>
                 <button
                   onClick={() => window.print()}
-                  className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition"
+                  className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition inline-flex items-center"
                 >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                  </svg>
                   Imprimir Resultados
                 </button>
                 <button
                   onClick={resetTest}
-                  className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg transition"
+                  className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg transition inline-flex items-center"
                 >
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
                   Realizar Nuevo Test
                 </button>
               </div>
