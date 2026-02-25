@@ -215,7 +215,6 @@ const ConnersScale: FC = () => {
             <>
               <div className="space-y-4 mb-8">
                 {questions.map((question) => {
-                  const categoryInfo = categories[question.category];
                   const isAnswered = responses[question.id] !== undefined;
 
                   return (
@@ -225,15 +224,9 @@ const ConnersScale: FC = () => {
                         isAnswered ? "border-green-300 shadow-green-100" : "border-purple-100"
                       }`}
                     >
-                      {/* Category badge and question number */}
+                      {/* Question number */}
                       <div className="flex items-start mb-4">
-                        <span
-                          className="inline-block px-3 py-1 rounded-full text-xs font-semibold text-white mr-3"
-                          style={{ backgroundColor: categoryInfo.color }}
-                        >
-                          {categoryInfo.name}
-                        </span>
-                        <span className="text-gray-500 text-sm">
+                        <span className="text-gray-500 text-sm font-medium">
                           Pregunta {question.id}
                         </span>
                       </div>
