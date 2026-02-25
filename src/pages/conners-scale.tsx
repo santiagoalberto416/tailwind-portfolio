@@ -544,18 +544,18 @@ const ConnersScale: FC = () => {
                         >
                           <div className="flex items-start gap-3">
                             <div
-                              className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold"
+                              className="flex-shrink-0 w-10 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm"
                               style={{ backgroundColor: categoryInfo.color }}
                             >
                               {score}
                             </div>
                             <div className="flex-1">
-                              <div className="flex items-center gap-2 mb-1">
+                              <div className="flex items-center gap-2 mb-1 flex-wrap">
                                 <span className="text-xs font-semibold text-gray-500">
                                   Pregunta {question.id}
                                 </span>
                                 <span
-                                  className="text-xs px-2 py-0.5 rounded-full text-white"
+                                  className="text-xs px-2.5 py-1 rounded-lg text-white font-semibold"
                                   style={{ backgroundColor: categoryInfo.color }}
                                 >
                                   {categoryInfo.name}
