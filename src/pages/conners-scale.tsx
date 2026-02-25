@@ -13,12 +13,6 @@ type Question = {
   category: string;
 };
 
-type CategoryInfo = {
-  name: string;
-  description: string;
-  color: string;
-};
-
 type Response = {
   value: number;
   category: string;
