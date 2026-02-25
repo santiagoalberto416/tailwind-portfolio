@@ -19,6 +19,22 @@ type Response = {
   category: string;
 };
 
+type CategoryInfo = {
+  name: string;
+  description: string;
+  color: string;
+};
+
+type CategoryScore = {
+  total: number;
+  count: number;
+  average: number;
+  maxScore: number;
+  percentage: number;
+  severity: string;
+  severityColor: string;
+};
+
 type QuestionnaireType = "parents" | "teachers";
 
 const ConnersScale: FC = () => {
@@ -29,6 +45,7 @@ const ConnersScale: FC = () => {
   const connersData = questionnaireType === "parents" ? connersDataParents : connersDataTeachers;
   const questions: Question[] = connersData.questions;
   const responseOptions: ResponseOption[] = connersData.responseOptions;
+  const categories: Record<string, CategoryInfo> = connersData.categories;
 
   // Save response for a question
   const handleResponse = (questionId: number, value: number, category: string) => {
@@ -52,6 +69,64 @@ const ConnersScale: FC = () => {
     setTimeout(() => {
       document.getElementById("results")?.scrollIntoView({ behavior: "smooth" });
     }, 100);
+  };
+
+  // Calculate category scores
+  const getCategoryScores = (): Record<string, CategoryScore> => {
+    const scores: Record<string, { total: number; count: number }> = {};
+
+    Object.values(responses).forEach((response) => {
+      if (!scores[response.category]) {
+        scores[response.category] = { total: 0, count: 0 };
+      }
+      scores[response.category].total += response.value;
+      scores[response.category].count++;
+    });
+
+    const categoryResults: Record<string, CategoryScore> = {};
+
+    Object.entries(scores).forEach(([category, data]) => {
+      const average = data.total / data.count;
+      const maxScore = data.count * 3;
+      const percentage = (data.total / maxScore) * 100;
+
+      let severity = "Bajo";
+      let severityColor = "text-green-600";
+
+      if (average >= 2) {
+        severity = "Alto";
+        severityColor = "text-red-600";
+      } else if (average >= 1.5) {
+        severity = "Moderado-Alto";
+        severityColor = "text-orange-600";
+      } else if (average >= 1) {
+        severity = "Moderado";
+        severityColor = "text-yellow-600";
+      }
+
+      categoryResults[category] = {
+        total: data.total,
+        count: data.count,
+        average,
+        maxScore,
+        percentage,
+        severity,
+        severityColor,
+      };
+    });
+
+    return categoryResults;
+  };
+
+  // Get high-score questions (2 and 3)
+  const getHighlightQuestions = (): { question: Question; score: number }[] => {
+    return Object.entries(responses)
+      .filter(([, response]) => response.value >= 2)
+      .map(([questionId, response]) => ({
+        question: questions.find((q) => q.id === parseInt(questionId))!,
+        score: response.value,
+      }))
+      .sort((a, b) => b.score - a.score);
   };
 
   // Export responses to JSON file
@@ -384,6 +459,120 @@ const ConnersScale: FC = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Category Scores Grid */}
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">📊 Resultados por Área</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {Object.entries(getCategoryScores())
+                    .sort((a, b) => b[1].average - a[1].average)
+                    .map(([category, score]) => {
+                      const categoryInfo = categories[category];
+
+                      return (
+                        <div
+                          key={category}
+                          className="p-4 rounded-xl border-2"
+                          style={{ borderColor: categoryInfo.color }}
+                        >
+                          {/* Category header */}
+                          <div className="flex items-center mb-2">
+                            <div
+                              className="w-3 h-3 rounded-full mr-2"
+                              style={{ backgroundColor: categoryInfo.color }}
+                            />
+                            <h3 className="font-bold text-gray-800">{categoryInfo.name}</h3>
+                          </div>
+
+                          {/* Description */}
+                          <p className="text-sm text-gray-600 mb-3">
+                            {categoryInfo.description}
+                          </p>
+
+                          {/* Scores */}
+                          <div className="flex justify-between items-end mb-3">
+                            <div>
+                              <p className="text-2xl font-bold text-gray-800">
+                                {score.total}/{score.maxScore}
+                              </p>
+                              <p className="text-sm text-gray-500">
+                                Promedio: {score.average.toFixed(2)}
+                              </p>
+                            </div>
+                            <div className="text-right">
+                              <p className={`${score.severityColor} font-bold`}>
+                                {score.severity}
+                              </p>
+                              <p className="text-sm text-gray-500">
+                                {score.percentage.toFixed(1)}%
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Progress bar */}
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div
+                              className="h-2 rounded-full transition-all duration-500"
+                              style={{
+                                width: `${score.percentage}%`,
+                                backgroundColor: categoryInfo.color,
+                              }}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
+
+              {/* Highlight Questions */}
+              {getHighlightQuestions().length > 0 && (
+                <div className="mb-8">
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4">⚠️ Áreas de Mayor Preocupación</h3>
+                  <div className="space-y-3">
+                    {getHighlightQuestions().map(({ question, score }) => {
+                      const categoryInfo = categories[question.category];
+
+                      return (
+                        <div
+                          key={question.id}
+                          className={`p-4 rounded-xl border-2 ${
+                            score === 3
+                              ? "bg-red-50 border-red-300"
+                              : "bg-orange-50 border-orange-300"
+                          }`}
+                        >
+                          <div className="flex items-start gap-3">
+                            <div
+                              className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white font-bold"
+                              style={{ backgroundColor: categoryInfo.color }}
+                            >
+                              {score}
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className="text-xs font-semibold text-gray-500">
+                                  Pregunta {question.id}
+                                </span>
+                                <span
+                                  className="text-xs px-2 py-0.5 rounded-full text-white"
+                                  style={{ backgroundColor: categoryInfo.color }}
+                                >
+                                  {categoryInfo.name}
+                                </span>
+                              </div>
+                              <p className="text-gray-800 font-medium">{question.text}</p>
+                              <p className="text-xs text-gray-500 mt-1">
+                                {score === 3 ? "Muy frecuentemente" : "A menudo"}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
 
               {/* Interpretation based on total score */}
               {(() => {

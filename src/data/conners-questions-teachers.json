@@ -67,5 +67,47 @@
     { "id": 57, "text": "No sigue instrucciones y no termina tareas escolares, tareas o responsabilidades en el trabajo (no debido a una conducta oposicional o por no entender las instrucciones)", "category": "inatención" },
     { "id": 58, "text": "Se distrae con facilidad con estímulos externos", "category": "inatención" },
     { "id": 59, "text": "Incansable, siempre está haciendo algo", "category": "hiperactividad" }
-  ]
+  ],
+  "categories": {
+    "inatención": {
+      "name": "Inatención",
+      "description": "Dificultad para mantener la atención, distracción, desorganización",
+      "color": "#3B82F6"
+    },
+    "hiperactividad": {
+      "name": "Hiperactividad-Impulsividad",
+      "description": "Actividad excesiva, impulsividad, dificultad para estar quieto",
+      "color": "#EF4444"
+    },
+    "oposicionismo": {
+      "name": "Problemas de Conducta",
+      "description": "Oposición desafiante, irritabilidad, discusiones frecuentes",
+      "color": "#F59E0B"
+    },
+    "problemas_aprendizaje": {
+      "name": "Problemas de Aprendizaje",
+      "description": "Dificultades académicas específicas",
+      "color": "#8B5CF6"
+    },
+    "problemas_sociales": {
+      "name": "Problemas Sociales",
+      "description": "Dificultad para hacer o mantener amigos",
+      "color": "#EC4899"
+    },
+    "ansiedad": {
+      "name": "Ansiedad",
+      "description": "Temores, miedos, timidez excesiva",
+      "color": "#10B981"
+    },
+    "perfeccionismo": {
+      "name": "Perfeccionismo",
+      "description": "Necesidad de orden, rituales, rigidez",
+      "color": "#6366F1"
+    },
+    "psicosomatico": {
+      "name": "Síntomas Psicosomáticos",
+      "description": "Quejas físicas sin causa médica aparente",
+      "color": "#14B8A6"
+    }
+  }
 }
