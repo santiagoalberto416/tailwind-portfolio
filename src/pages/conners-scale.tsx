@@ -30,7 +30,6 @@ const ConnersScale: FC = () => {
 
   const questions: Question[] = connersData.questions;
   const responseOptions: ResponseOption[] = connersData.responseOptions;
-  const categories: Record<string, CategoryInfo> = connersData.categories;
 
   // Save response for a question
   const handleResponse = (questionId: number, value: number, category: string) => {
