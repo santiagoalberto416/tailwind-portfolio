@@ -1,6 +1,6 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState } from "react";
 import SEO from "@/components/SEO";
-import connersData from "@/../../public/data/conners-questions.json";
+import connersData from "@/data/conners-questions.json";
 
 type ResponseOption = {
   value: number;
