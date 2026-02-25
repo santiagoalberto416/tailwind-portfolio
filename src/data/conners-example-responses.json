@@ -2,7 +2,10 @@
   "metadata": {
     "name": "Ejemplo de Respuestas - Escala Conners",
     "date": "2026-02-24",
-    "description": "Archivo de ejemplo con respuestas del cuestionario Conners"
+    "description": "Archivo de ejemplo con respuestas del cuestionario Conners",
+    "questionnaireType": "parents",
+    "totalQuestions": 84,
+    "answeredQuestions": 84
   },
   "responses": {
     "1": { "value": 2, "category": "oposicionismo" },

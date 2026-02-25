@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import SEO from "@/components/SEO";
 import connersDataParents from "@/data/conners-questions.json";
 import connersDataTeachers from "@/data/conners-questions-teachers.json";
@@ -37,18 +37,76 @@ type CategoryScore = {
 
 type QuestionnaireType = "parents" | "teachers";
 
+const LOCALSTORAGE_KEY = "conners-scale-autosave";
+
 const ConnersScale: FC = () => {
-  const [questionnaireType, setQuestionnaireType] = useState<QuestionnaireType>("parents");
+  const [questionnaireType, setQuestionnaireType] =
+    useState<QuestionnaireType>("parents");
   const [responses, setResponses] = useState<Record<number, Response>>({});
   const [showResults, setShowResults] = useState(false);
+  const [hasLoadedFromStorage, setHasLoadedFromStorage] = useState(false);
 
-  const connersData = questionnaireType === "parents" ? connersDataParents : connersDataTeachers;
+  const connersData =
+    questionnaireType === "parents" ? connersDataParents : connersDataTeachers;
   const questions: Question[] = connersData.questions;
   const responseOptions: ResponseOption[] = connersData.responseOptions;
   const categories: Record<string, CategoryInfo> = connersData.categories;
 
+  // Load from localStorage on mount
+  useEffect(() => {
+    if (hasLoadedFromStorage) return;
+
+    try {
+      const savedData = localStorage.getItem(LOCALSTORAGE_KEY);
+      if (savedData) {
+        const parsed = JSON.parse(savedData);
+        if (parsed.responses && Object.keys(parsed.responses).length > 0) {
+          const shouldRestore = window.confirm(
+            `Se encontraron respuestas guardadas anteriormente (${Object.keys(parsed.responses).length} preguntas del cuestionario "${parsed.questionnaireType === "parents" ? "Padres" : "Maestros"}"). ¿Desea recuperarlas?`
+          );
+
+          if (shouldRestore) {
+            if (parsed.questionnaireType) {
+              setQuestionnaireType(parsed.questionnaireType);
+            }
+            setResponses(parsed.responses);
+          } else {
+            // Clear localStorage if user doesn't want to restore
+            localStorage.removeItem(LOCALSTORAGE_KEY);
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error loading from localStorage:", error);
+    }
+
+    setHasLoadedFromStorage(true);
+  }, [hasLoadedFromStorage]);
+
+  // Auto-save to localStorage when responses or questionnaire type change
+  useEffect(() => {
+    if (!hasLoadedFromStorage) return;
+
+    if (Object.keys(responses).length > 0) {
+      try {
+        const dataToSave = {
+          questionnaireType,
+          responses,
+          lastSaved: new Date().toISOString(),
+        };
+        localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(dataToSave));
+      } catch (error) {
+        console.error("Error saving to localStorage:", error);
+      }
+    }
+  }, [responses, questionnaireType, hasLoadedFromStorage]);
+
   // Save response for a question
-  const handleResponse = (questionId: number, value: number, category: string) => {
+  const handleResponse = (
+    questionId: number,
+    value: number,
+    category: string,
+  ) => {
     setResponses((prev) => ({
       ...prev,
       [questionId]: { value, category },
@@ -67,7 +125,9 @@ const ConnersScale: FC = () => {
 
     // Scroll to results
     setTimeout(() => {
-      document.getElementById("results")?.scrollIntoView({ behavior: "smooth" });
+      document
+        .getElementById("results")
+        ?.scrollIntoView({ behavior: "smooth" });
     }, 100);
   };
 
@@ -134,12 +194,13 @@ const ConnersScale: FC = () => {
     const exportData = {
       metadata: {
         name: "Respuestas - Escala Conners",
-        date: new Date().toISOString().split('T')[0],
+        date: new Date().toISOString().split("T")[0],
         description: "Archivo de respuestas del cuestionario Conners",
+        questionnaireType: questionnaireType,
         totalQuestions: questions.length,
-        answeredQuestions: Object.keys(responses).length
+        answeredQuestions: Object.keys(responses).length,
       },
-      responses: responses
+      responses: responses,
     };
 
     const jsonString = JSON.stringify(exportData, null, 2);
@@ -147,7 +208,7 @@ const ConnersScale: FC = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `conners-respuestas-${new Date().toISOString().split('T')[0]}.json`;
+    link.download = `conners-respuestas-${new Date().toISOString().split("T")[0]}.json`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -166,38 +227,84 @@ const ConnersScale: FC = () => {
         const data = JSON.parse(content);
 
         // Validate the structure
-        if (data.responses && typeof data.responses === 'object') {
+        if (data.responses && typeof data.responses === "object") {
+          // Check if questionnaire type matches
+          const importedType = data.metadata?.questionnaireType as QuestionnaireType | undefined;
+
+          if (importedType && importedType !== questionnaireType) {
+            // Ask user if they want to switch questionnaire types
+            const switchType = window.confirm(
+              `Las respuestas son del cuestionario "${importedType === "parents" ? "Padres" : "Maestros"}". ` +
+              `Actualmente está en el cuestionario "${questionnaireType === "parents" ? "Padres" : "Maestros"}". ` +
+              `¿Desea cambiar automáticamente al cuestionario correcto?`
+            );
+
+            if (switchType) {
+              setQuestionnaireType(importedType);
+            } else {
+              alert("Carga cancelada. Por favor, seleccione el tipo de cuestionario correcto primero.");
+              // Reset file input
+              event.target.value = "";
+              return;
+            }
+          }
+
           // Convert string keys to numbers if needed
           const importedResponses: Record<number, Response> = {};
-          Object.entries(data.responses).forEach(([key, value]: [string, any]) => {
-            const questionId = parseInt(key);
-            if (value && typeof value === 'object' && 'value' in value && 'category' in value) {
-              importedResponses[questionId] = value as Response;
-            }
-          });
+          Object.entries(data.responses).forEach(
+            ([key, value]: [string, any]) => {
+              const questionId = parseInt(key);
+              if (
+                value &&
+                typeof value === "object" &&
+                "value" in value &&
+                "category" in value
+              ) {
+                importedResponses[questionId] = value as Response;
+              }
+            },
+          );
 
           setResponses(importedResponses);
           setShowResults(false);
-          alert(`¡Respuestas cargadas exitosamente! (${Object.keys(importedResponses).length} preguntas)`);
+          alert(
+            `¡Respuestas cargadas exitosamente! (${Object.keys(importedResponses).length} preguntas)`,
+          );
         } else {
-          alert("El archivo no tiene el formato correcto. Por favor, verifica el archivo.");
+          alert(
+            "El archivo no tiene el formato correcto. Por favor, verifica el archivo.",
+          );
         }
       } catch (error) {
-        alert("Error al leer el archivo. Asegúrate de que sea un archivo JSON válido.");
+        alert(
+          "Error al leer el archivo. Asegúrate de que sea un archivo JSON válido.",
+        );
       }
     };
     reader.readAsText(file);
+
+    // Reset file input to allow re-importing the same file
+    event.target.value = "";
   };
 
   // Reset test
   const resetTest = () => {
     setResponses({});
     setShowResults(false);
+    // Clear localStorage
+    localStorage.removeItem(LOCALSTORAGE_KEY);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // Get interpretation based on total score and questionnaire type
-  const getInterpretation = (totalScore: number): { range: string; interpretations: string[]; color: string; title: string } => {
+  const getInterpretation = (
+    totalScore: number,
+  ): {
+    range: string;
+    interpretations: string[];
+    color: string;
+    title: string;
+  } => {
     if (questionnaireType === "parents") {
       // Interpretation for parents (84 questions, max 252 points)
       if (totalScore <= 80) {
@@ -208,8 +315,8 @@ const ConnersScale: FC = () => {
           interpretations: [
             "El niño no presenta dificultades cotidianas ni en la casa",
             "Puede considerarse un niño normoactivo",
-            "Podría tratarse de un niño hipoactivo"
-          ]
+            "Podría tratarse de un niño hipoactivo",
+          ],
         };
       } else if (totalScore <= 160) {
         return {
@@ -218,8 +325,8 @@ const ConnersScale: FC = () => {
           color: "yellow",
           interpretations: [
             "Puede tratarse de un niño hiperactivo situacional",
-            "Puede tratarse de un niño normoactivo, pero inmaduro de temperamento"
-          ]
+            "Puede tratarse de un niño normoactivo, pero inmaduro de temperamento",
+          ],
         };
       } else {
         return {
@@ -228,8 +335,8 @@ const ConnersScale: FC = () => {
           color: "red",
           interpretations: [
             "Puede tratarse de un niño hiperactivo",
-            "Puede tratarse de un niño disruptivo"
-          ]
+            "Puede tratarse de un niño disruptivo",
+          ],
         };
       }
     } else {
@@ -242,8 +349,8 @@ const ConnersScale: FC = () => {
           interpretations: [
             "El niño no presenta dificultades en el aula",
             "Puede considerarse un niño normoactivo",
-            "Podría tratarse de un niño hipoactivo"
-          ]
+            "Podría tratarse de un niño hipoactivo",
+          ],
         };
       } else if (totalScore <= 118) {
         return {
@@ -252,8 +359,8 @@ const ConnersScale: FC = () => {
           color: "yellow",
           interpretations: [
             "Puede tratarse de un niño hiperactivo situacional",
-            "Puede tratarse de un niño normoactivo, pero inmaduro de temperamento"
-          ]
+            "Puede tratarse de un niño normoactivo, pero inmaduro de temperamento",
+          ],
         };
       } else {
         return {
@@ -262,8 +369,8 @@ const ConnersScale: FC = () => {
           color: "red",
           interpretations: [
             "Puede tratarse de un niño hiperactivo",
-            "Puede tratarse de un niño disruptivo"
-          ]
+            "Puede tratarse de un niño disruptivo",
+          ],
         };
       }
     }
@@ -271,9 +378,22 @@ const ConnersScale: FC = () => {
 
   // Handle questionnaire type change
   const handleQuestionnaireTypeChange = (type: QuestionnaireType) => {
-    setQuestionnaireType(type);
-    setResponses({});
-    setShowResults(false);
+    if (type !== questionnaireType) {
+      // Warn user if they have responses
+      if (Object.keys(responses).length > 0) {
+        const confirmSwitch = window.confirm(
+          "Cambiar el tipo de cuestionario eliminará todas las respuestas actuales. ¿Desea continuar?"
+        );
+        if (!confirmSwitch) {
+          return;
+        }
+      }
+      setQuestionnaireType(type);
+      setResponses({});
+      setShowResults(false);
+      // Clear localStorage when switching types manually
+      localStorage.removeItem(LOCALSTORAGE_KEY);
+    }
   };
 
   return (
@@ -290,11 +410,16 @@ const ConnersScale: FC = () => {
             <h1 className="text-4xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
               Escala Conners - Forma Revisada
             </h1>
-            <p className="text-gray-600 text-lg mb-4">Cuestionario para evaluar problemas de conducta y atención en niños</p>
+            <p className="text-gray-600 text-lg mb-4">
+              Cuestionario para evaluar problemas de conducta y atención en
+              niños
+            </p>
 
             {/* Questionnaire Type Selector */}
             <div className="mb-4">
-              <p className="text-sm font-semibold text-purple-700 mb-3">Seleccione el tipo de cuestionario:</p>
+              <p className="text-sm font-semibold text-purple-700 mb-3">
+                Seleccione el tipo de cuestionario:
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <button
                   onClick={() => handleQuestionnaireTypeChange("parents")}
@@ -306,9 +431,13 @@ const ConnersScale: FC = () => {
                 >
                   <div className="flex items-center mb-2">
                     <span className="text-2xl mr-3">👨‍👩‍👧‍👦</span>
-                    <span className="font-bold text-lg text-gray-800">Para Padres</span>
+                    <span className="font-bold text-lg text-gray-800">
+                      Para Padres
+                    </span>
                   </div>
-                  <p className="text-sm text-gray-600">84 preguntas sobre el comportamiento en casa</p>
+                  <p className="text-sm text-gray-600">
+                    84 preguntas sobre el comportamiento en casa
+                  </p>
                 </button>
 
                 <button
@@ -321,15 +450,20 @@ const ConnersScale: FC = () => {
                 >
                   <div className="flex items-center mb-2">
                     <span className="text-2xl mr-3">👨‍🏫</span>
-                    <span className="font-bold text-lg text-gray-800">Para Maestros</span>
+                    <span className="font-bold text-lg text-gray-800">
+                      Para Maestros
+                    </span>
                   </div>
-                  <p className="text-sm text-gray-600">59 preguntas sobre el comportamiento en el aula</p>
+                  <p className="text-sm text-gray-600">
+                    59 preguntas sobre el comportamiento en el aula
+                  </p>
                 </button>
               </div>
             </div>
             <div className="mt-4 p-5 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border-2 border-purple-200/50">
               <p className="text-sm text-purple-900 leading-relaxed">
-                <strong className="text-purple-700">📋 Instrucciones:</strong> {questionnaireType === "parents"
+                <strong className="text-purple-700">📋 Instrucciones:</strong>{" "}
+                {questionnaireType === "parents"
                   ? "Por favor, responda cada pregunta según la frecuencia con que observa cada comportamiento en su hijo(a)."
                   : "Por favor, responda cada pregunta según la frecuencia con que observa cada comportamiento en el estudiante en el aula."}
               </p>
@@ -338,8 +472,18 @@ const ConnersScale: FC = () => {
             {/* Import/Export Controls */}
             <div className="mt-4 flex flex-wrap gap-3">
               <label className="bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 text-white font-semibold py-2.5 px-5 rounded-xl cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                <svg
+                  className="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  />
                 </svg>
                 Cargar Respuestas
                 <input
@@ -355,10 +499,21 @@ const ConnersScale: FC = () => {
                   onClick={exportResponses}
                   className="bg-gradient-to-r from-green-400 to-teal-400 hover:from-green-500 hover:to-teal-500 text-white font-semibold py-2.5 px-5 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center"
                 >
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                  <svg
+                    className="w-5 h-5 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
+                    />
                   </svg>
-                  Guardar Respuestas ({Object.keys(responses).length}/{questions.length})
+                  Guardar Respuestas ({Object.keys(responses).length}/
+                  {questions.length})
                 </button>
               )}
             </div>
@@ -375,7 +530,9 @@ const ConnersScale: FC = () => {
                     <div
                       key={question.id}
                       className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 transition-all duration-300 border-2 ${
-                        isAnswered ? "border-green-300 shadow-green-100" : "border-purple-100"
+                        isAnswered
+                          ? "border-green-300 shadow-green-100"
+                          : "border-purple-100"
                       }`}
                     >
                       {/* Question number */}
@@ -386,12 +543,15 @@ const ConnersScale: FC = () => {
                       </div>
 
                       {/* Question text */}
-                      <p className="text-gray-700 mb-4 text-lg leading-relaxed font-medium">{question.text}</p>
+                      <p className="text-gray-700 mb-4 text-lg leading-relaxed font-medium">
+                        {question.text}
+                      </p>
 
                       {/* Response options */}
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                         {responseOptions.map((option) => {
-                          const isSelected = responses[question.id]?.value === option.value;
+                          const isSelected =
+                            responses[question.id]?.value === option.value;
 
                           return (
                             <label
@@ -411,12 +571,14 @@ const ConnersScale: FC = () => {
                                   handleResponse(
                                     question.id,
                                     option.value,
-                                    question.category
+                                    question.category,
                                   )
                                 }
                                 className="mr-2 w-4 h-4 text-purple-600 accent-purple-500"
                               />
-                              <span className="text-sm font-semibold text-gray-700">{option.label}</span>
+                              <span className="text-sm font-semibold text-gray-700">
+                                {option.label}
+                              </span>
                             </label>
                           );
                         })}
@@ -440,7 +602,10 @@ const ConnersScale: FC = () => {
 
           {/* Results Section */}
           {showResults && (
-            <div id="results" className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-purple-100">
+            <div
+              id="results"
+              className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-purple-100"
+            >
               <h2 className="text-3xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-8 text-center">
                 ✨ Resultados del Cuestionario
               </h2>
@@ -449,12 +614,18 @@ const ConnersScale: FC = () => {
               <div className="mb-8 p-8 bg-gradient-to-br from-purple-100 via-pink-50 to-blue-100 rounded-2xl border-2 border-purple-200/50 shadow-lg">
                 <div className="flex flex-wrap justify-center items-center gap-8">
                   <div className="text-center">
-                    <p className="text-sm font-semibold text-purple-700 mb-3 uppercase tracking-wide">Puntuación Total</p>
+                    <p className="text-sm font-semibold text-purple-700 mb-3 uppercase tracking-wide">
+                      Puntuación Total
+                    </p>
                     <p className="text-6xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                      {Object.values(responses).reduce((sum, r) => sum + r.value, 0)}
+                      {Object.values(responses).reduce(
+                        (sum, r) => sum + r.value,
+                        0,
+                      )}
                     </p>
                     <p className="text-sm text-purple-600 mt-2 font-medium">
-                      de {questions.length * 3} puntos ({questionnaireType === "parents" ? "Padres" : "Maestros"})
+                      de {questions.length * 3} puntos (
+                      {questionnaireType === "parents" ? "Padres" : "Maestros"})
                     </p>
                   </div>
                 </div>
@@ -462,7 +633,9 @@ const ConnersScale: FC = () => {
 
               {/* Category Scores Grid */}
               <div className="mb-8">
-                <h3 className="text-2xl font-bold text-gray-800 mb-4">📊 Resultados por Área</h3>
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                  📊 Resultados por Área
+                </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {Object.entries(getCategoryScores())
                     .sort((a, b) => b[1].average - a[1].average)
@@ -478,10 +651,12 @@ const ConnersScale: FC = () => {
                           {/* Category header */}
                           <div className="flex items-center mb-2">
                             <div
-                              className="w-3 h-3 rounded-full mr-2"
+                              className="w-6 h-3 rounded-md mr-2"
                               style={{ backgroundColor: categoryInfo.color }}
                             />
-                            <h3 className="font-bold text-gray-800">{categoryInfo.name}</h3>
+                            <h3 className="font-bold text-gray-800">
+                              {categoryInfo.name}
+                            </h3>
                           </div>
 
                           {/* Description */}
@@ -510,9 +685,9 @@ const ConnersScale: FC = () => {
                           </div>
 
                           {/* Progress bar */}
-                          <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="w-full bg-gray-200 rounded-lg h-2">
                             <div
-                              className="h-2 rounded-full transition-all duration-500"
+                              className="h-2 rounded-lg transition-all duration-500"
                               style={{
                                 width: `${score.percentage}%`,
                                 backgroundColor: categoryInfo.color,
@@ -528,7 +703,9 @@ const ConnersScale: FC = () => {
               {/* Highlight Questions */}
               {getHighlightQuestions().length > 0 && (
                 <div className="mb-8">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4">⚠️ Áreas de Mayor Preocupación</h3>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                    ⚠️ Áreas de Mayor Preocupación
+                  </h3>
                   <div className="space-y-3">
                     {getHighlightQuestions().map(({ question, score }) => {
                       const categoryInfo = categories[question.category];
@@ -556,14 +733,20 @@ const ConnersScale: FC = () => {
                                 </span>
                                 <span
                                   className="text-xs px-2.5 py-1 rounded-lg text-white font-semibold"
-                                  style={{ backgroundColor: categoryInfo.color }}
+                                  style={{
+                                    backgroundColor: categoryInfo.color,
+                                  }}
                                 >
                                   {categoryInfo.name}
                                 </span>
                               </div>
-                              <p className="text-gray-800 font-medium">{question.text}</p>
+                              <p className="text-gray-800 font-medium">
+                                {question.text}
+                              </p>
                               <p className="text-xs text-gray-500 mt-1">
-                                {score === 3 ? "Muy frecuentemente" : "A menudo"}
+                                {score === 3
+                                  ? "Muy frecuentemente"
+                                  : "A menudo"}
                               </p>
                             </div>
                           </div>
@@ -576,45 +759,62 @@ const ConnersScale: FC = () => {
 
               {/* Interpretation based on total score */}
               {(() => {
-                const totalScore = Object.values(responses).reduce((sum, r) => sum + r.value, 0);
+                const totalScore = Object.values(responses).reduce(
+                  (sum, r) => sum + r.value,
+                  0,
+                );
                 const interpretation = getInterpretation(totalScore);
 
                 const bgColors = {
-                  green: "bg-gradient-to-br from-green-50 to-teal-50 border-green-300/50",
-                  yellow: "bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-300/50",
-                  red: "bg-gradient-to-br from-red-50 to-pink-50 border-red-300/50"
+                  green:
+                    "bg-gradient-to-br from-green-50 to-teal-50 border-green-300/50",
+                  yellow:
+                    "bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-300/50",
+                  red: "bg-gradient-to-br from-red-50 to-pink-50 border-red-300/50",
                 };
 
                 const textColors = {
                   green: "text-green-700",
                   yellow: "text-yellow-700",
-                  red: "text-red-700"
+                  red: "text-red-700",
                 };
 
                 const titleColors = {
                   green: "text-green-800",
                   yellow: "text-yellow-800",
-                  red: "text-red-800"
+                  red: "text-red-800",
                 };
 
                 return (
-                  <div className={`p-8 rounded-2xl border-2 shadow-xl ${bgColors[interpretation.color as keyof typeof bgColors]}`}>
+                  <div
+                    className={`p-8 rounded-2xl border-2 shadow-xl ${bgColors[interpretation.color as keyof typeof bgColors]}`}
+                  >
                     <div className="mb-6">
-                      <h3 className={`font-extrabold text-3xl mb-3 ${titleColors[interpretation.color as keyof typeof titleColors]}`}>
+                      <h3
+                        className={`font-extrabold text-3xl mb-3 ${titleColors[interpretation.color as keyof typeof titleColors]}`}
+                      >
                         {interpretation.title}
                       </h3>
-                      <p className={`text-base font-semibold ${textColors[interpretation.color as keyof typeof textColors]}`}>
+                      <p
+                        className={`text-base font-semibold ${textColors[interpretation.color as keyof typeof textColors]}`}
+                      >
                         📊 Rango de puntuación: {interpretation.range} puntos
                       </p>
                     </div>
 
-                    <div className={`${textColors[interpretation.color as keyof typeof textColors]}`}>
-                      <p className="font-bold mb-4 text-lg">💡 Interpretación:</p>
+                    <div
+                      className={`${textColors[interpretation.color as keyof typeof textColors]}`}
+                    >
+                      <p className="font-bold mb-4 text-lg">
+                        💡 Interpretación:
+                      </p>
                       <ul className="space-y-3">
                         {interpretation.interpretations.map((text, index) => (
                           <li key={index} className="flex items-start">
                             <span className="mr-3 text-lg">✓</span>
-                            <span className="leading-relaxed font-medium">{text}</span>
+                            <span className="leading-relaxed font-medium">
+                              {text}
+                            </span>
                           </li>
                         ))}
                       </ul>
@@ -623,12 +823,15 @@ const ConnersScale: FC = () => {
                     {/* Important notice */}
                     <div className="mt-8 p-6 bg-white/80 backdrop-blur-sm rounded-xl border-2 border-purple-200/50 shadow-md">
                       <p className="text-sm text-gray-700 leading-relaxed">
-                        <strong className="text-purple-700">⚠️ Nota importante:</strong> Esta herramienta es solo para fines
-                        orientativos y educativos. Los resultados NO constituyen un
-                        diagnóstico clínico. Si tiene preocupaciones sobre el comportamiento o
-                        desarrollo de su hijo(a), consulte con un profesional de la salud
-                        mental calificado (psicólogo, psiquiatra infantil o pediatra
-                        especializado).
+                        <strong className="text-purple-700">
+                          ⚠️ Nota importante:
+                        </strong>{" "}
+                        Esta herramienta es solo para fines orientativos y
+                        educativos. Los resultados NO constituyen un diagnóstico
+                        clínico. Si tiene preocupaciones sobre el comportamiento
+                        o desarrollo de su hijo(a), consulte con un profesional
+                        de la salud mental calificado (psicólogo, psiquiatra
+                        infantil o pediatra especializado).
                       </p>
                     </div>
                   </div>
@@ -641,8 +844,18 @@ const ConnersScale: FC = () => {
                   onClick={exportResponses}
                   className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-3 px-7 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center"
                 >
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                  <svg
+                    className="w-5 h-5 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
+                    />
                   </svg>
                   Guardar Respuestas
                 </button>
@@ -650,8 +863,18 @@ const ConnersScale: FC = () => {
                   onClick={() => window.print()}
                   className="bg-gradient-to-r from-green-400 to-teal-400 hover:from-green-500 hover:to-teal-500 text-white font-semibold py-3 px-7 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center"
                 >
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                  <svg
+                    className="w-5 h-5 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
+                    />
                   </svg>
                   Imprimir Resultados
                 </button>
@@ -659,8 +882,18 @@ const ConnersScale: FC = () => {
                   onClick={resetTest}
                   className="bg-gradient-to-r from-gray-400 to-gray-500 hover:from-gray-500 hover:to-gray-600 text-white font-semibold py-3 px-7 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center"
                 >
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  <svg
+                    className="w-5 h-5 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
                   </svg>
                   Realizar Nuevo Test
                 </button>
