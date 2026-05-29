@@ -1,0 +1,1280 @@
+{
+  "title": "Tarjetas de Habilidades Sociales",
+  "source": "Pathway 2 Success",
+  "author": "Kristina Scully",
+  "year": 2014,
+  "description": "Un conjunto de 80 tarjetas educativas diseñadas para ayudar a los estudiantes a aprender y practicar habilidades sociales, incluyendo interacciones básicas, habilidades de conversación, empatía, amistades y manejo de conflictos.",
+  "total_cards": 80,
+  "categories": [
+    "Interacciones Básicas",
+    "Habilidades de Conversación",
+    "Empatía",
+    "Amistades",
+    "Manejo de Conflictos"
+  ],
+  "cards": [
+    {
+      "id": "basic-interactions-1",
+      "category": "Interacciones Básicas",
+      "number": 1,
+      "type": "Escenario",
+      "scenario": "En el almuerzo, los estudiantes de tu mesa están hablando sobre lo que hicieron el fin de semana. Sam te mira y te pregunta qué hiciste.",
+      "questions": [
+        "¿Qué deberías hacer?"
+      ],
+      "tags": [
+        "conversación en grupo",
+        "responder a los demás"
+      ]
+    },
+    {
+      "id": "basic-interactions-2",
+      "category": "Interacciones Básicas",
+      "number": 2,
+      "type": "Escenario",
+      "scenario": "Estás en un grupo de matemáticas trabajando en una hoja de ejercicios juntos. Es el turno de tu compañera de explicar su problema al grupo.",
+      "questions": [
+        "¿Qué deberías hacer?",
+        "Representa la situación."
+      ],
+      "tags": [
+        "trabajo en grupo",
+        "escuchar",
+        "tomar turnos"
+      ]
+    },
+    {
+      "id": "basic-interactions-3",
+      "category": "Interacciones Básicas",
+      "number": 3,
+      "type": "Actuación",
+      "scenario": "Una persona actúa como el profesor explicando una lección de matemáticas a un estudiante en su escritorio. La otra persona es el estudiante.",
+      "questions": [
+        "¿Cómo puedes demostrar que estás escuchando y prestando atención?"
+      ],
+      "tags": [
+        "escucha activa",
+        "lenguaje corporal",
+        "juego de roles"
+      ]
+    },
+    {
+      "id": "basic-interactions-4",
+      "category": "Interacciones Básicas",
+      "number": 4,
+      "type": "Actuación",
+      "scenario": "Estás en el centro comercial y un compañero de clase se acerca y te saluda.",
+      "questions": [
+        "¿Qué deberías hacer?"
+      ],
+      "tags": [
+        "saludos",
+        "saludos sociales"
+      ]
+    },
+    {
+      "id": "basic-interactions-5",
+      "category": "Interacciones Básicas",
+      "number": 5,
+      "type": "Escenario",
+      "scenario": "Alguien te pide que juegues o pases el tiempo con él. No eres realmente su amigo.",
+      "questions": [
+        "¿Qué deberías hacer?",
+        "Recuerda pensar en los sentimientos de la otra persona."
+      ],
+      "tags": [
+        "incluir a otros",
+        "empatía",
+        "amabilidad"
+      ]
+    },
+    {
+      "id": "basic-interactions-6",
+      "category": "Interacciones Básicas",
+      "number": 6,
+      "type": "Escenario",
+      "scenario": "El director saluda a todos los estudiantes por la mañana cuando bajan de los autobuses. Te saluda por tu nombre.",
+      "questions": [
+        "¿Qué deberías hacer?"
+      ],
+      "tags": [
+        "saludos",
+        "cortesía",
+        "figuras de autoridad"
+      ]
+    },
+    {
+      "id": "basic-interactions-7",
+      "category": "Interacciones Básicas",
+      "number": 7,
+      "type": "Escenario",
+      "scenario": "Te metes en problemas en el almuerzo por correr en la cafetería. La maestra te llama para hablar, lo que te da vergüenza frente a tus amigos.",
+      "questions": [
+        "¿Qué haces?"
+      ],
+      "tags": [
+        "vergüenza",
+        "manejar críticas",
+        "autorregulación"
+      ]
+    },
+    {
+      "id": "basic-interactions-8",
+      "category": "Interacciones Básicas",
+      "number": 8,
+      "type": "Escenario",
+      "scenario": "Timothy está haciendo su trabajo de la mañana cuando Joe se acerca y toca el cabello de Timothy.",
+      "questions": [
+        "¿Cómo está Joe invadiendo el espacio de alguien más?"
+      ],
+      "tags": [
+        "espacio personal",
+        "límites"
+      ]
+    },
+    {
+      "id": "basic-interactions-9",
+      "category": "Interacciones Básicas",
+      "number": 9,
+      "type": "Escenario",
+      "scenario": "Durante matemáticas, alguien de tu mesa se levanta y trae reglas para todos.",
+      "questions": [
+        "¿Qué deberías hacer cuando ella regrese?"
+      ],
+      "tags": [
+        "gratitud",
+        "modales",
+        "cortesía"
+      ]
+    },
+    {
+      "id": "basic-interactions-10",
+      "category": "Interacciones Básicas",
+      "number": 10,
+      "type": "Escenario",
+      "scenario": "Ben es un estudiante nuevo en tu clase. Lo ves sentado tranquilamente en su escritorio durante el descanso.",
+      "questions": [
+        "¿Qué puedes hacer?",
+        "¿Cómo puedes ayudarlo a sentirse bienvenido?"
+      ],
+      "tags": [
+        "incluir a otros",
+        "amabilidad",
+        "estudiante nuevo"
+      ]
+    },
+    {
+      "id": "basic-interactions-11",
+      "category": "Interacciones Básicas",
+      "number": 11,
+      "type": "Escenario",
+      "scenario": "Ves a Ryan tocando la comida de Jimmy en el almuerzo. Jimmy hace una mueca y tira la comida.",
+      "questions": [
+        "¿Cómo estaba Ryan invadiendo el espacio de alguien?",
+        "¿Cómo se sintió Jimmy probablemente?"
+      ],
+      "tags": [
+        "espacio personal",
+        "límites",
+        "empatía"
+      ]
+    },
+    {
+      "id": "basic-interactions-12",
+      "category": "Interacciones Básicas",
+      "number": 12,
+      "type": "Actuación",
+      "scenario": "Estás esperando en la parada del autobús cuando otro estudiante se acerca y se para muy cerca de ti.",
+      "questions": [
+        "¿Cómo podría hacer sentir a alguien?",
+        "¿Cómo puedes pedir espacio?"
+      ],
+      "tags": [
+        "espacio personal",
+        "asertividad",
+        "defensa personal"
+      ]
+    },
+    {
+      "id": "basic-interactions-13",
+      "category": "Interacciones Básicas",
+      "number": 13,
+      "type": "Escenario",
+      "scenario": "Durante el descanso, Gina señala el juego de mesa y salta arriba y abajo.",
+      "questions": [
+        "¿Cuál es una mejor manera en que Gina puede pedir jugar el juego?"
+      ],
+      "tags": [
+        "comportamiento apropiado",
+        "pedir con educación",
+        "autorregulación"
+      ]
+    },
+    {
+      "id": "basic-interactions-14",
+      "category": "Interacciones Básicas",
+      "number": 14,
+      "type": "Actuación",
+      "scenario": "Alguien nuevo pide sentarse en tu mesa en el almuerzo.",
+      "questions": [
+        "¿Qué deberías hacer?",
+        "¿Cómo podrían sentirse?"
+      ],
+      "tags": [
+        "incluir a otros",
+        "empatía",
+        "amabilidad"
+      ]
+    },
+    {
+      "id": "basic-interactions-15",
+      "category": "Interacciones Básicas",
+      "number": 15,
+      "type": "Escenario",
+      "scenario": "En el pasillo, chocas con otro estudiante sin querer y se le cae su libro.",
+      "questions": [
+        "¿Qué deberías hacer?",
+        "¿Cómo podrían sentirse?"
+      ],
+      "tags": [
+        "disculparse",
+        "empatía",
+        "accidentes"
+      ]
+    },
+    {
+      "id": "basic-interactions-16",
+      "category": "Interacciones Básicas",
+      "number": 16,
+      "type": "Actuación",
+      "scenario": "Ves a alguien solo en el recreo o descanso.",
+      "questions": [
+        "¿Qué puedes hacer?",
+        "¿Cómo podrían sentirse?"
+      ],
+      "tags": [
+        "incluir a otros",
+        "empatía",
+        "soledad"
+      ]
+    },
+    {
+      "id": "conversations-1",
+      "category": "Habilidades de Conversación",
+      "number": 1,
+      "type": "Escenario",
+      "scenario": "Tu amigo te pregunta cómo fueron tus vacaciones. Le cuentas algunas actividades que hiciste.",
+      "questions": [
+        "¿Qué deberías hacer después?"
+      ],
+      "tags": [
+        "reciprocidad",
+        "preguntas de seguimiento",
+        "flujo de conversación"
+      ]
+    },
+    {
+      "id": "conversations-2",
+      "category": "Habilidades de Conversación",
+      "number": 2,
+      "type": "Escenario",
+      "scenario": "Alguien sentado cerca de ti en el autobús dice que vio una buena película anoche.",
+      "questions": [
+        "¿Qué deberías hacer?",
+        "¿Cómo puedes mantener la conversación?"
+      ],
+      "tags": [
+        "iniciar conversación",
+        "reciprocidad",
+        "participación"
+      ]
+    },
+    {
+      "id": "conversations-3",
+      "category": "Habilidades de Conversación",
+      "number": 3,
+      "type": "Escenario",
+      "scenario": "Ves a Freddy hablando con Brad. Brad gira su cuerpo y mira el reloj.",
+      "questions": [
+        "¿Qué te dice el lenguaje corporal de Brad?",
+        "¿Qué podría decir Brad para comunicar su mensaje?"
+      ],
+      "tags": [
+        "lenguaje corporal",
+        "señales no verbales",
+        "asertividad"
+      ]
+    },
+    {
+      "id": "conversations-4",
+      "category": "Habilidades de Conversación",
+      "number": 4,
+      "type": "Actuación",
+      "scenario": "Ten una conversación con un compañero sobre tus comidas favoritas.",
+      "questions": [
+        "¿Tomaron turnos?",
+        "¿Mostraron interés el uno por el otro?"
+      ],
+      "tags": [
+        "tomar turnos",
+        "escucha activa",
+        "intereses compartidos"
+      ]
+    },
+    {
+      "id": "conversations-5",
+      "category": "Habilidades de Conversación",
+      "number": 5,
+      "type": "Escenario",
+      "scenario": "Tu maestro está explicando la lección de estudios sociales.",
+      "questions": [
+        "¿Cómo puedes demostrar que estás escuchando e interesado?"
+      ],
+      "tags": [
+        "escucha activa",
+        "comportamiento en clase",
+        "respeto"
+      ]
+    },
+    {
+      "id": "conversations-6",
+      "category": "Habilidades de Conversación",
+      "number": 6,
+      "type": "Escenario",
+      "scenario": "Tu compañero de clase se sienta a tu lado en el autobús.",
+      "questions": [
+        "¿Qué temas podrían hablar?",
+        "¿Cómo iniciarías la conversación?"
+      ],
+      "tags": [
+        "iniciar conversación",
+        "conversación casual",
+        "iniciar"
+      ]
+    },
+    {
+      "id": "conversations-7",
+      "category": "Habilidades de Conversación",
+      "number": 7,
+      "type": "Actuación",
+      "scenario": "Ten una conversación grupal sobre deportes.",
+      "questions": [
+        "¿Te aseguraste de que todos estuvieran incluidos?",
+        "¿Tomaron turnos?",
+        "¿Mostraron interés en las opiniones de todos?",
+        "¿Se mantuvieron en el tema?"
+      ],
+      "tags": [
+        "conversación en grupo",
+        "inclusión",
+        "tomar turnos",
+        "mantener el tema"
+      ]
+    },
+    {
+      "id": "conversations-8",
+      "category": "Habilidades de Conversación",
+      "number": 8,
+      "type": "Escenario",
+      "scenario": "Ves a Max hablando con Lisa. Lisa tiene la cabeza agachada y está jugando con un pedazo de papel.",
+      "questions": [
+        "¿Qué está diciendo Lisa con su lenguaje corporal?",
+        "¿Qué podría hacer ella para ser una mejor oyente?"
+      ],
+      "tags": [
+        "lenguaje corporal",
+        "escucha activa",
+        "señales no verbales"
+      ]
+    },
+    {
+      "id": "conversations-9",
+      "category": "Habilidades de Conversación",
+      "number": 9,
+      "type": "Actuación",
+      "scenario": "Ten una conversación con un compañero sobre cualquier tema que elijas.",
+      "questions": [
+        "¿Te mantuviste en el tema?",
+        "¿Tomaste turnos?",
+        "¿Mostraste interés en el otro?"
+      ],
+      "tags": [
+        "habilidades de conversación",
+        "reciprocidad",
+        "mantener el tema"
+      ]
+    },
+    {
+      "id": "conversations-10",
+      "category": "Habilidades de Conversación",
+      "number": 10,
+      "type": "Escenario",
+      "scenario": "Rita te está hablando sobre una serpiente mascota y no te gustan las serpientes.",
+      "questions": [
+        "¿Qué deberías hacer?"
+      ],
+      "tags": [
+        "escucha activa",
+        "respetar a los demás",
+        "discrepar con educación"
+      ]
+    },
+    {
+      "id": "conversations-11",
+      "category": "Habilidades de Conversación",
+      "number": 11,
+      "type": "Escenario",
+      "scenario": "Vanessa está hablando sobre su fiesta de cumpleaños del fin de semana cuando Gregg la interrumpe y habla sobre lo que hizo él.",
+      "questions": [
+        "¿Cómo podría hacer sentir a Vanessa?",
+        "¿Qué debería hacer Gregg?"
+      ],
+      "tags": [
+        "interrumpir",
+        "empatía",
+        "tomar turnos"
+      ]
+    },
+    {
+      "id": "conversations-12",
+      "category": "Habilidades de Conversación",
+      "number": 12,
+      "type": "Actuación",
+      "scenario": "Deja que un compañero te cuente sobre sus vacaciones favoritas.",
+      "questions": [
+        "¿Cómo mostraste que estabas interesado?"
+      ],
+      "tags": [
+        "escucha activa",
+        "mostrar interés",
+        "preguntas de seguimiento"
+      ]
+    },
+    {
+      "id": "conversations-13",
+      "category": "Habilidades de Conversación",
+      "number": 13,
+      "type": "Actuación",
+      "scenario": "Imagina que estás en el almuerzo. Representa algunas conversaciones que podrías tener.",
+      "questions": [
+        "¿Te mantuviste apropiado para el almuerzo?",
+        "¿Escuchaste a los demás?"
+      ],
+      "tags": [
+        "temas apropiados",
+        "escucha activa",
+        "contexto social"
+      ]
+    },
+    {
+      "id": "conversations-14",
+      "category": "Habilidades de Conversación",
+      "number": 14,
+      "type": "Escenario",
+      "scenario": "Tu amigo comenta que le gustan tus zapatos.",
+      "questions": [
+        "¿Qué le dices?",
+        "¿Cómo puedes mantener la conversación?"
+      ],
+      "tags": [
+        "recibir cumplidos",
+        "reciprocidad",
+        "flujo de conversación"
+      ]
+    },
+    {
+      "id": "conversations-15",
+      "category": "Habilidades de Conversación",
+      "number": 15,
+      "type": "Escenario",
+      "scenario": "Estás hablando con un compañero de clase y notas que él o ella está bostezando mucho.",
+      "questions": [
+        "¿Qué te podría estar diciendo su lenguaje corporal?",
+        "¿Qué puedes hacer?"
+      ],
+      "tags": [
+        "lenguaje corporal",
+        "reconocer señales",
+        "adaptarse"
+      ]
+    },
+    {
+      "id": "conversations-16",
+      "category": "Habilidades de Conversación",
+      "number": 16,
+      "type": "Actuación",
+      "scenario": "Estás hablando con un amigo y él sigue mirando su reloj.",
+      "questions": [
+        "¿Qué te podría estar diciendo su lenguaje corporal?",
+        "¿Qué puedes hacer?"
+      ],
+      "tags": [
+        "lenguaje corporal",
+        "señales no verbales",
+        "leer el ambiente"
+      ]
+    },
+    {
+      "id": "empathy-1",
+      "category": "Empatía",
+      "number": 1,
+      "type": "Escenario",
+      "scenario": "Ves a un compañero tropezar en el pasillo. Se levanta y corre hacia el salón de clases.",
+      "questions": [
+        "¿Cómo podría estar sintiéndose o pensando?"
+      ],
+      "tags": [
+        "empatía",
+        "vergüenza",
+        "tomar perspectiva"
+      ]
+    },
+    {
+      "id": "empathy-2",
+      "category": "Empatía",
+      "number": 2,
+      "type": "Escenario",
+      "scenario": "Te acercas a la maestra para pedir ayuda. Después, notas que Jen estaba esperando para hablar con ella antes que tú.",
+      "questions": [
+        "¿Cómo podría estar sintiéndose Jen?",
+        "¿Qué podrías decir o hacer?"
+      ],
+      "tags": [
+        "empatía",
+        "taking turns",
+        "paciencia"
+      ]
+    },
+    {
+      "id": "empathy-3",
+      "category": "Empatía",
+      "number": 3,
+      "type": "Escenario",
+      "scenario": "Jugando baloncesto, alguien que conoces se cae y se raspa la rodilla.",
+      "questions": [
+        "¿Cómo podrían sentirse?",
+        "¿Qué podrías hacer?"
+      ],
+      "tags": [
+        "empatía",
+        "offering help",
+        "injury"
+      ]
+    },
+    {
+      "id": "empathy-4",
+      "category": "Empatía",
+      "number": 4,
+      "type": "Escenario",
+      "scenario": "Cuando devuelven los exámenes, ves a Mike arrugar el suyo y meterlo en su escritorio.",
+      "questions": [
+        "¿Cómo podría estar sintiéndose?",
+        "¿Cómo lo sabes?"
+      ],
+      "tags": [
+        "empatía",
+        "señales no verbales",
+        "disappointment"
+      ]
+    },
+    {
+      "id": "empathy-5",
+      "category": "Empatía",
+      "number": 5,
+      "type": "Escenario",
+      "scenario": "Tú y tu amigo están en el pasillo cuando Ben te trae una invitación a su fiesta de cumpleaños. No le da una a tu amigo.",
+      "questions": [
+        "¿Cómo podría sentirse tu amigo?",
+        "¿Qué podrías decirle?"
+      ],
+      "tags": [
+        "empatía",
+        "exclusion",
+        "sensibilidad"
+      ]
+    },
+    {
+      "id": "empathy-6",
+      "category": "Empatía",
+      "number": 6,
+      "type": "Escenario",
+      "scenario": "Tu mamá te dice que debes apagar la televisión y empezar tu tarea de inmediato. Quieres terminar tu programa pero ella dice que no.",
+      "questions": [
+        "¿Cuál es el punto de vista de tu mamá?",
+        "¿Por qué podría estar pensando eso?"
+      ],
+      "tags": [
+        "tomar perspectiva",
+        "perspectiva de los padres",
+        "responsabilidad"
+      ]
+    },
+    {
+      "id": "empathy-7",
+      "category": "Empatía",
+      "number": 7,
+      "type": "Actuación",
+      "scenario": "Tú y un compañero no están de acuerdo sobre cómo resolver un problema de matemáticas.",
+      "questions": [
+        "¿Cómo puedes mostrarle tu punto de vista a tu compañero educadamente?",
+        "¿Y si él o ella todavía no está de acuerdo?"
+      ],
+      "tags": [
+        "tomar perspectiva",
+        "desacuerdo",
+        "comunicación respetuosa"
+      ]
+    },
+    {
+      "id": "empathy-8",
+      "category": "Empatía",
+      "number": 8,
+      "type": "Escenario",
+      "scenario": "Le pides a tu amigo que le diga a la maestra que te vio hacer tu tarea, aunque esto no es cierto. Tu amigo dice que no.",
+      "questions": [
+        "¿Qué podría estar sintiendo o pensando tu amigo?",
+        "¿Por qué dijo que no?"
+      ],
+      "tags": [
+        "empatía",
+        "honestidad",
+        "integridad",
+        "presión social"
+      ]
+    },
+    {
+      "id": "empathy-9",
+      "category": "Empatía",
+      "number": 9,
+      "type": "Escenario",
+      "scenario": "Sabes que el perro de tu amigo murió hace un día. Quieres contarles a tus amigos algo sobre tu perro.",
+      "questions": [
+        "¿Qué deberías hacer?",
+        "¿Por qué?"
+      ],
+      "tags": [
+        "empatía",
+        "sensibilidad",
+        "duelo",
+        "momento oportuno"
+      ]
+    },
+    {
+      "id": "empathy-10",
+      "category": "Empatía",
+      "number": 10,
+      "type": "Escenario",
+      "scenario": "Ves a un compañero con la cabeza apoyada en su escritorio.",
+      "questions": [
+        "¿Qué podrían estar sintiendo?",
+        "¿Qué podrías hacer sin ser entrometido?"
+      ],
+      "tags": [
+        "empatía",
+        "privacidad",
+        "preguntar cómo está"
+      ]
+    },
+    {
+      "id": "empathy-11",
+      "category": "Empatía",
+      "number": 11,
+      "type": "Escenario",
+      "scenario": "Ves a alguien que no conoces bien llorando en el pasillo.",
+      "questions": [
+        "¿Qué podrían estar sintiendo?",
+        "¿Qué podrías hacer sin ser entrometido?"
+      ],
+      "tags": [
+        "empatía",
+        "desconocido",
+        "privacidad",
+        "ofrecer apoyo"
+      ]
+    },
+    {
+      "id": "empathy-12",
+      "category": "Empatía",
+      "number": 12,
+      "type": "Escenario",
+      "scenario": "Estás hablando con un amigo por teléfono cuando tu papá te dice que te vayas a dormir.",
+      "questions": [
+        "¿Qué podría estar pensando tu papá?",
+        "¿Cuál es su punto de vista?"
+      ],
+      "tags": [
+        "tomar perspectiva",
+        "perspectiva de los padres",
+        "límites"
+      ]
+    },
+    {
+      "id": "empathy-13",
+      "category": "Empatía",
+      "number": 13,
+      "type": "Escenario",
+      "scenario": "Un compañero te pregunta si quieres saber un secreto sobre otra persona de tu clase.",
+      "questions": [
+        "¿Qué deberías hacer?",
+        "¿Por qué?"
+      ],
+      "tags": [
+        "chismes",
+        "integridad",
+        "respetar la privacidad"
+      ]
+    },
+    {
+      "id": "empathy-14",
+      "category": "Empatía",
+      "number": 14,
+      "type": "Escenario",
+      "scenario": "Un amigo te dice que está muy feliz porque sacó un B- en su proyecto de estudios sociales, aunque no crees que sea una buena nota.",
+      "questions": [
+        "¿Qué deberías hacer?",
+        "¿Cómo podrían sentirse?"
+      ],
+      "tags": [
+        "empatía",
+        "celebrar a otros",
+        "tomar perspectiva"
+      ]
+    },
+    {
+      "id": "empathy-15",
+      "category": "Empatía",
+      "number": 15,
+      "type": "Escenario",
+      "scenario": "Ves a alguien sentado en su escritorio. Tiene la cara roja y los brazos cruzados.",
+      "questions": [
+        "¿Qué podrían estar sintiendo o pensando?",
+        "¿Qué puedes hacer?"
+      ],
+      "tags": [
+        "lenguaje corporal",
+        "enojo",
+        "preguntar cómo está",
+        "empatía"
+      ]
+    },
+    {
+      "id": "empathy-16",
+      "category": "Empatía",
+      "number": 16,
+      "type": "Actuación",
+      "scenario": "Cuando hablas con amigos, alguien cree que está bromeando pero dice algo hiriente a otra persona.",
+      "questions": [
+        "¿Cómo podría sentirse la persona?",
+        "¿Qué podrías hacer?"
+      ],
+      "tags": [
+        "empatía",
+        "molestar",
+        "defender a otros",
+        "intención vs impacto"
+      ]
+    },
+    {
+      "id": "friendships-1",
+      "category": "Amistades",
+      "number": 1,
+      "type": "Escenario",
+      "scenario": "Sabes que mañana es el cumpleaños de un amigo.",
+      "questions": [
+        "¿Qué puedes hacer para demostrar que pensaste en ellos?"
+      ],
+      "tags": [
+        "consideración",
+        "cumpleaños",
+        "mostrar interés"
+      ]
+    },
+    {
+      "id": "friendships-2",
+      "category": "Amistades",
+      "number": 2,
+      "type": "Escenario",
+      "scenario": "Le enviaste mensajes a tu amigo 4 veces y no responde.",
+      "questions": [
+        "¿Qué deberías hacer?",
+        "¿Qué podría estar sintiendo tu amigo?"
+      ],
+      "tags": [
+        "paciencia",
+        "tomar perspectiva",
+        "límites"
+      ]
+    },
+    {
+      "id": "friendships-3",
+      "category": "Amistades",
+      "number": 3,
+      "type": "Escenario",
+      "scenario": "Estás pasando el tiempo con un amigo. Tú realmente quieres ver una película de terror pero él quiere ir a nadar.",
+      "questions": [
+        "¿Qué puedes hacer?"
+      ],
+      "tags": [
+        "compromiso",
+        "amistad",
+        "negociación"
+      ]
+    },
+    {
+      "id": "friendships-4",
+      "category": "Amistades",
+      "number": 4,
+      "type": "Actuación",
+      "scenario": "Haz un cumplido a un amigo que lo haga sentir bien consigo mismo.",
+      "questions": [],
+      "tags": [
+        "cumplidos",
+        "amabilidad",
+        "amistad"
+      ]
+    },
+    {
+      "id": "friendships-5",
+      "category": "Amistades",
+      "number": 5,
+      "type": "Escenario",
+      "scenario": "Tu amigo llegó tarde a la escuela y olvidó su mochila.",
+      "questions": [
+        "¿Qué podrías hacer para ayudar a mejorar su día?"
+      ],
+      "tags": [
+        "ayuda",
+        "amabilidad",
+        "apoyo"
+      ]
+    },
+    {
+      "id": "friendships-6",
+      "category": "Amistades",
+      "number": 6,
+      "type": "Actuación",
+      "scenario": "Imagina que invitas a un amigo a tu casa.",
+      "questions": [
+        "¿Pediste con educación?",
+        "¿Incluiste actividades que les interesarían?"
+      ],
+      "tags": [
+        "invitar",
+        "cortesía",
+        "consideración"
+      ]
+    },
+    {
+      "id": "friendships-7",
+      "category": "Amistades",
+      "number": 7,
+      "type": "Escenario",
+      "scenario": "Mientras pasas tiempo con un amigo, te pregunta si quieres jugar videojuegos. Tú realmente no quieres jugar.",
+      "questions": [
+        "¿Qué puedes hacer?"
+      ],
+      "tags": [
+        "asertividad",
+        "compromiso",
+        "honestidad"
+      ]
+    },
+    {
+      "id": "friendships-8",
+      "category": "Amistades",
+      "number": 8,
+      "type": "Escenario",
+      "scenario": "En un grupo de lectura, todos están turnándose para leer. Tu compañero quiere ir primero aunque dijiste que ibas primero antes que ella.",
+      "questions": [
+        "¿Qué podrías hacer?"
+      ],
+      "tags": [
+        "justicia",
+        "tomar turnos",
+        "resolución de conflictos"
+      ]
+    },
+    {
+      "id": "friendships-9",
+      "category": "Amistades",
+      "number": 9,
+      "type": "Escenario",
+      "scenario": "Notas que un amigo ya no devuelve tus llamadas ni responde a tus mensajes.",
+      "questions": [
+        "¿Qué podría estar sintiendo él o ella?",
+        "¿Qué puedes hacer?"
+      ],
+      "tags": [
+        "amistad",
+        "tomar perspectiva",
+        "espacio",
+        "preguntar cómo está"
+      ]
+    },
+    {
+      "id": "friendships-10",
+      "category": "Amistades",
+      "number": 10,
+      "type": "Escenario",
+      "scenario": "Un amigo te envía un mensaje diciendo que está teniendo el peor día de todos.",
+      "questions": [
+        "¿Qué puedes hacer?"
+      ],
+      "tags": [
+        "apoyo",
+        "empatía",
+        "amistad"
+      ]
+    },
+    {
+      "id": "friendships-11",
+      "category": "Amistades",
+      "number": 11,
+      "type": "Escenario",
+      "scenario": "Alguien te dice que no eres un verdadero amigo si no le haces una broma a otro compañero.",
+      "questions": [
+        "¿Por qué podrían estar diciendo eso?",
+        "¿Qué puedes hacer o decir?"
+      ],
+      "tags": [
+        "presión social",
+        "integridad",
+        "verdadera amistad"
+      ]
+    },
+    {
+      "id": "friendships-12",
+      "category": "Amistades",
+      "number": 12,
+      "type": "Escenario",
+      "scenario": "Alice le dijo a Megan que ella fue la única que sacó un 100 en el examen de matemáticas porque es muy inteligente.",
+      "questions": [
+        "¿Qué podría estar pensando o sintiendo Megan?",
+        "¿Cómo podría Alice haber compartido el mensaje sin presumir?"
+      ],
+      "tags": [
+        "presumir",
+        "humildad",
+        "empatía",
+        "amistad"
+      ]
+    },
+    {
+      "id": "friendships-13",
+      "category": "Amistades",
+      "number": 13,
+      "type": "Actuación",
+      "scenario": "Habla con un compañero y descubre tres cosas que tienen en común.",
+      "questions": [
+        "¿Cómo podrían las cosas en común iniciar una amistad?"
+      ],
+      "tags": [
+        "intereses compartidos",
+        "amistad",
+        "conversation"
+      ]
+    },
+    {
+      "id": "friendships-14",
+      "category": "Amistades",
+      "number": 14,
+      "type": "Actuación",
+      "scenario": "Piensa en lo que ya sabes sobre tu compañero. Luego, pregúntale sobre algo que le interese para iniciar una conversación.",
+      "questions": [],
+      "tags": [
+        "iniciar conversación",
+        "mostrar interés",
+        "amistad"
+      ]
+    },
+    {
+      "id": "friendships-15",
+      "category": "Amistades",
+      "number": 15,
+      "type": "Escenario",
+      "scenario": "Un estudiante nuevo se agrega a tu grupo de lectura pero no hay suficientes libros para todos.",
+      "questions": [
+        "¿Cómo podría sentirse el estudiante nuevo?",
+        "¿Qué puedes hacer?"
+      ],
+      "tags": [
+        "incluir a otros",
+        "empatía",
+        "compartir"
+      ]
+    },
+    {
+      "id": "friendships-16",
+      "category": "Amistades",
+      "number": 16,
+      "type": "Escenario",
+      "scenario": "Un compañero quiere que le digas la contraseña de tu correo electrónico porque son amigos.",
+      "questions": [
+        "¿Qué deberías hacer?",
+        "¿Qué te dice esto sobre tu amistad?"
+      ],
+      "tags": [
+        "límites",
+        "privacidad",
+        "confianza",
+        "amistad saludable"
+      ]
+    },
+    {
+      "id": "conflicts-1",
+      "category": "Manejo de Conflictos",
+      "number": 1,
+      "type": "Escenario",
+      "scenario": "Estás en la escuela y te das cuenta de que olvidaste hacer tu tarea.",
+      "questions": [
+        "¿Cuáles son algunas formas de resolver el problema?"
+      ],
+      "tags": [
+        "resolución de problemas",
+        "responsabilidad",
+        "honestidad"
+      ]
+    },
+    {
+      "id": "conflicts-2",
+      "category": "Manejo de Conflictos",
+      "number": 2,
+      "type": "Escenario",
+      "scenario": "Tu amigo no responde a tus mensajes y parece que te está ignorando.",
+      "questions": [
+        "¿Cómo puedes manejar el problema?"
+      ],
+      "tags": [
+        "amistad",
+        "resolución de conflictos",
+        "comunicación"
+      ]
+    },
+    {
+      "id": "conflicts-3",
+      "category": "Manejo de Conflictos",
+      "number": 3,
+      "type": "Escenario",
+      "scenario": "Escuchas a alguien decir algo malo sobre un amigo tuyo en el pasillo.",
+      "questions": [
+        "¿Qué puedes hacer?"
+      ],
+      "tags": [
+        "defender a otros",
+        "chismes",
+        "conflict"
+      ]
+    },
+    {
+      "id": "conflicts-4",
+      "category": "Manejo de Conflictos",
+      "number": 4,
+      "type": "Escenario",
+      "scenario": "Un amigo te pide que vayas a su casa pero realmente no quieres ir.",
+      "questions": [
+        "¿Qué puedes hacer?"
+      ],
+      "tags": [
+        "asertividad",
+        "decir que no",
+        "honestidad"
+      ]
+    },
+    {
+      "id": "conflicts-5",
+      "category": "Manejo de Conflictos",
+      "number": 5,
+      "type": "Escenario",
+      "scenario": "Tus papás dicen que puedes tener una fiesta de cumpleaños pero solo invitar a 5 amigos. Ya les dijiste a diez de tus amigos que los ibas a invitar.",
+      "questions": [
+        "¿Cómo puedes resolver el problema?",
+        "¿Qué lección podrías aprender de esto?"
+      ],
+      "tags": [
+        "resolución de problemas",
+        "consecuencias",
+        "planificar con anticipación"
+      ]
+    },
+    {
+      "id": "conflicts-6",
+      "category": "Manejo de Conflictos",
+      "number": 6,
+      "type": "Escenario",
+      "scenario": "Tu mamá te dice que no puedes ir al cine hasta que termines toda tu tarea. La película empieza en 30 minutos y no te daría tiempo.",
+      "questions": [
+        "¿Qué puedes hacer?"
+      ],
+      "tags": [
+        "resolución de problemas",
+        "prioridades",
+        "negociación"
+      ]
+    },
+    {
+      "id": "conflicts-7",
+      "category": "Manejo de Conflictos",
+      "number": 7,
+      "type": "Escenario",
+      "scenario": "Un compañero tomó prestado un bolígrafo especial tuyo y nunca lo devolvió. Ya pasó una semana.",
+      "questions": [
+        "¿Cómo puedes manejar el problema?"
+      ],
+      "tags": [
+        "asertividad",
+        "resolución de conflictos",
+        "límites"
+      ]
+    },
+    {
+      "id": "conflicts-8",
+      "category": "Manejo de Conflictos",
+      "number": 8,
+      "type": "Escenario",
+      "scenario": "Te metes en problemas en clase por hablar cuando en realidad fue tu compañero.",
+      "questions": [
+        "¿Cuáles son algunas formas de manejar el problema?",
+        "¿Cuáles son las consecuencias de esas soluciones?"
+      ],
+      "tags": [
+        "resolución de problemas",
+        "justicia",
+        "consecuencias"
+      ]
+    },
+    {
+      "id": "conflicts-9",
+      "category": "Manejo de Conflictos",
+      "number": 9,
+      "type": "Escenario",
+      "scenario": "Alguien te reta a hacer algo con lo que no te sientes cómodo.",
+      "questions": [
+        "¿Qué puedes hacer?",
+        "¿Cuáles son las consecuencias?"
+      ],
+      "tags": [
+        "presión social",
+        "seguridad",
+        "asertividad",
+        "consecuencias"
+      ]
+    },
+    {
+      "id": "conflicts-10",
+      "category": "Manejo de Conflictos",
+      "number": 10,
+      "type": "Escenario",
+      "scenario": "Estás en la casa de un amigo cuando llega alguien que realmente no te gusta. Inmediatamente quieres irte a casa.",
+      "questions": [
+        "¿Cuáles soluciones se te ocurren?",
+        "¿Cuáles son las consecuencias?"
+      ],
+      "tags": [
+        "resolución de problemas",
+        "incomodidad social",
+        "consecuencias"
+      ]
+    },
+    {
+      "id": "conflicts-11",
+      "category": "Manejo de Conflictos",
+      "number": 11,
+      "type": "Escenario",
+      "scenario": "Estás esperando el autobús cuando una piedrita te golpea en la nuca. Te das la vuelta pero no estás seguro de quién fue. Entonces, ves a un niño riéndose.",
+      "questions": [
+        "¿Qué puedes hacer?",
+        "¿Cómo puedes resolver tu problema?",
+        "¿Cuáles son las consecuencias?"
+      ],
+      "tags": [
+        "resolución de problemas",
+        "acoso",
+        "autocontrol",
+        "consecuencias"
+      ]
+    },
+    {
+      "id": "conflicts-12",
+      "category": "Manejo de Conflictos",
+      "number": 12,
+      "type": "Actuación",
+      "scenario": "Un amigo que olvidó hacer la tarea te pide que le mientas a la maestra y le digas que la hicieron juntos.",
+      "questions": [
+        "¿Cuáles son las formas de manejar el problema?",
+        "¿Cuáles son las consecuencias?"
+      ],
+      "tags": [
+        "honestidad",
+        "integridad",
+        "presión social",
+        "consecuencias"
+      ]
+    },
+    {
+      "id": "conflicts-13",
+      "category": "Manejo de Conflictos",
+      "number": 13,
+      "type": "Escenario",
+      "scenario": "Escuchaste que tu mejor amigo está diciendo rumores y mentiras sobre ti. Estás enojado y no has hablado con tu amigo en tres días.",
+      "questions": [
+        "¿Qué puedes hacer?",
+        "¿Cómo puedes resolver tu problema?"
+      ],
+      "tags": [
+        "resolución de conflictos",
+        "chismes",
+        "amistad",
+        "comunicación"
+      ]
+    },
+    {
+      "id": "conflicts-14",
+      "category": "Manejo de Conflictos",
+      "number": 14,
+      "type": "Escenario",
+      "scenario": "Quieres ir a la fiesta de un amigo pero tus padres dicen que no confían en ti con ese amigo.",
+      "questions": [
+        "¿Qué puedes hacer?",
+        "¿Cuáles son las consecuencias?"
+      ],
+      "tags": [
+        "confianza",
+        "perspectiva de los padres",
+        "consecuencias",
+        "decision-making"
+      ]
+    },
+    {
+      "id": "conflicts-15",
+      "category": "Manejo de Conflictos",
+      "number": 15,
+      "type": "Escenario",
+      "scenario": "Alguien choca contigo en el pasillo a propósito. Tus libros se caen y se ríen mientras se alejan.",
+      "questions": [
+        "¿Cómo puedes manejar el problema?"
+      ],
+      "tags": [
+        "acoso",
+        "autocontrol",
+        "resolución de conflictos"
+      ]
+    },
+    {
+      "id": "conflicts-16",
+      "category": "Manejo de Conflictos",
+      "number": 16,
+      "type": "Actuación",
+      "scenario": "Sigues levantando la mano para compartir tus pensamientos en clase pero la maestra parece ignorarte.",
+      "questions": [
+        "¿Qué puedes hacer?",
+        "¿Cómo puedes manejar el problema?"
+      ],
+      "tags": [
+        "paciencia",
+        "defensa personal",
+        "comportamiento en clase",
+        "resolución de problemas"
+      ]
+    }
+  ]
+}
