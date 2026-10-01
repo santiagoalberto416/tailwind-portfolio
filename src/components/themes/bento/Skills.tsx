@@ -1,6 +1,6 @@
-import BentoCard from "@/components/home/BentoCard";
-import SectionHeading from "@/components/home/SectionHeading";
-import { SectionsIds } from "@/components/home/sections";
+import BentoCard from "@/components/themes/bento/BentoCard";
+import SectionHeading from "@/components/themes/bento/SectionHeading";
+import { SectionsIds } from "@/components/themes/bento/sections";
 import { profile, skills } from "@/data/profile";
 
 // Bento layout for the skill groups (by position): the first group is the

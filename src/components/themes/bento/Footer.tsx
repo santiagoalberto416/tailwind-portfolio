@@ -1,6 +1,6 @@
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
-import Icon from "@/components/home/Icon";
-import { SectionsIds } from "@/components/home/sections";
+import Icon from "@/components/themes/bento/Icon";
+import { SectionsIds } from "@/components/themes/bento/sections";
 import { profile } from "@/data/profile";
 
 const Footer = () => (

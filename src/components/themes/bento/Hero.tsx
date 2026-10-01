@@ -2,10 +2,10 @@ import Image from "next/image";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import BentoCard from "@/components/home/BentoCard";
-import Icon from "@/components/home/Icon";
-import LocalTime from "@/components/home/LocalTime";
-import { SectionsIds } from "@/components/home/sections";
+import BentoCard from "@/components/themes/bento/BentoCard";
+import Icon from "@/components/themes/bento/Icon";
+import LocalTime from "@/components/themes/bento/LocalTime";
+import { SectionsIds } from "@/components/themes/bento/sections";
 import { company, engagements, profile } from "@/data/profile";
 import { R2_BUCKET } from "@/utils/resources";
 

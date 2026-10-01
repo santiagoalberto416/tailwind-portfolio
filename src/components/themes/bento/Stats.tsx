@@ -1,5 +1,5 @@
-import BentoCard from "@/components/home/BentoCard";
-import { SectionsIds } from "@/components/home/sections";
+import BentoCard from "@/components/themes/bento/BentoCard";
+import { SectionsIds } from "@/components/themes/bento/sections";
 import { stats } from "@/data/profile";
 
 // Key numbers from the CV as a row of compact bento tiles.

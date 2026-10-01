@@ -7,10 +7,10 @@ import {
   faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import BentoCard from "@/components/home/BentoCard";
-import Icon from "@/components/home/Icon";
-import SectionHeading from "@/components/home/SectionHeading";
-import { SectionsIds } from "@/components/home/sections";
+import BentoCard from "@/components/themes/bento/BentoCard";
+import Icon from "@/components/themes/bento/Icon";
+import SectionHeading from "@/components/themes/bento/SectionHeading";
+import { SectionsIds } from "@/components/themes/bento/sections";
 import { education, languages, profile } from "@/data/profile";
 import { R2_BUCKET } from "@/utils/resources";
 

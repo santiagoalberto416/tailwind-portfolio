@@ -1,10 +1,10 @@
 import { faArrowRight, faCheck, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faInstagram, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import BentoCard from "@/components/home/BentoCard";
-import Icon from "@/components/home/Icon";
-import SectionHeading from "@/components/home/SectionHeading";
-import { SectionsIds } from "@/components/home/sections";
+import BentoCard from "@/components/themes/bento/BentoCard";
+import Icon from "@/components/themes/bento/Icon";
+import SectionHeading from "@/components/themes/bento/SectionHeading";
+import { SectionsIds } from "@/components/themes/bento/sections";
 import { profile } from "@/data/profile";
 import useContactForm from "@/utils/hooks/useContactForm";
 

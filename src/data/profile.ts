@@ -31,6 +31,8 @@ export type Project = {
   image?: string;
   // Shown as the large tile of the projects bento grid (optional)
   featured?: boolean;
+  // Short glyph shown on the card header when there is no screenshot (optional)
+  glyph?: string;
   link?: {
     path: string;
     text: string;
@@ -213,6 +215,7 @@ export const projects: Project[] = [
     description:
       "A SwiftUI app with a Supabase back end (email auth, PostgreSQL with per-user Row Level Security) offering flashcards, hiragana/katakana quizzes with progressive unlocking, and grammar lessons. Integrates Google ML Kit Digital Ink Recognition for handwriting practice and on-device text-to-speech. Built with an AI-assisted workflow using Claude Code.",
     stack: ["SwiftUI", "Supabase", "ML Kit", "Claude Code"],
+    glyph: "あ",
   },
   {
     title: "Escala Conners",
@@ -230,6 +233,7 @@ export const projects: Project[] = [
     description:
       "80 interactive cards to practice social skills — conversation, empathy, friendship and conflict resolution — grouped by category in a flip-card grid.",
     stack: ["React", "TypeScript", "Tailwind"],
+    glyph: "♡",
     link: { path: "/social-skills-cards", text: "Open cards" },
   },
   {

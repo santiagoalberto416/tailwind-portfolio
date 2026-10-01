@@ -1,0 +1,270 @@
+// Home page — Neo-Brutalism / Bold Editorial.
+// Page-level rules are scoped under `.nb` (the home page wrapper) so the global
+// rules the game and tool pages rely on stay untouched. Reusable pieces
+// (buttons, pills, inputs…) live in Tailwind's `components` layer: they beat
+// the preflight element styles, while utilities passed next to them still win.
+
+$ink: #111111;
+$paper: #fff8e7;
+$sun: #ffd23f;
+$focus: #3d3bf3;
+$ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+// Paint the canvas behind the page too (overscroll, short viewports).
+:root:has(.nb) {
+  background: $paper;
+}
+
+.nb {
+  @apply bg-paper font-display text-ink antialiased;
+  overflow-x: clip; // rotated stickers must never cause horizontal scroll
+  font-optical-sizing: auto;
+
+  ::selection {
+    background: $sun;
+    color: $ink;
+  }
+
+  :is(a, button):focus-visible {
+    outline: 3px solid $focus;
+    outline-offset: 3px;
+  }
+
+  // Dark surfaces (marquee, footer, employer card) get a light focus ring.
+  .nb-dark :is(a, button):focus-visible {
+    outline-color: $sun;
+  }
+}
+
+// globals.scss gives every <p> a bottom margin; same specificity, declared
+// later, so it is reset here while Tailwind margin utilities still apply.
+:where(.nb) p {
+  margin-bottom: 0;
+}
+
+@layer components {
+  // Faint dot grid, like a sheet of engineering paper.
+  .nb-dots {
+    background-image: radial-gradient(rgba(17, 17, 17, 0.14) 1.2px, transparent 1.4px);
+    background-size: 22px 22px;
+  }
+
+  // Skip link: off-screen until focused, then a chunky sticker in the corner.
+  .nb-skip {
+    @apply absolute left-4 top-4 z-[100] -translate-y-[200%] border-3 border-ink bg-sun px-4 py-2 font-mono text-sm font-bold uppercase text-ink shadow-nb rounded-nb;
+
+    &:focus {
+      @apply translate-y-0;
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // Buttons: lift on hover, "press" into the shadow on click
+  // -------------------------------------------------------------------------
+  .nb-btn {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap border-3 border-ink px-5 py-3 font-display text-base font-bold leading-none text-ink rounded-nb;
+    --nb-offset: 6px;
+    --nb-shadow: #{$ink};
+    box-shadow: var(--nb-offset) var(--nb-offset) 0 0 var(--nb-shadow);
+    transition:
+      transform 0.12s ease-out,
+      box-shadow 0.12s ease-out;
+
+    &:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: calc(var(--nb-offset) + 2px) calc(var(--nb-offset) + 2px) 0 0
+        var(--nb-shadow);
+    }
+
+    &:active {
+      transform: translate(var(--nb-offset), var(--nb-offset));
+      box-shadow: 0 0 0 0 var(--nb-shadow);
+    }
+
+    &:disabled {
+      @apply cursor-not-allowed opacity-70;
+      transform: none;
+      box-shadow: var(--nb-offset) var(--nb-offset) 0 0 var(--nb-shadow);
+    }
+
+    // globals.scss squares off every focused element; keep our radius.
+    &:focus-visible {
+      @apply rounded-nb;
+    }
+  }
+
+  .nb-btn--sm {
+    --nb-offset: 3px;
+  }
+
+  .nb-btn--on-dark {
+    --nb-shadow: #{$paper};
+  }
+
+  .nb-icon-btn {
+    @apply h-12 w-12 bg-white p-0;
+  }
+
+  // Interactive cards get the same lift as buttons.
+  .nb-lift {
+    transition:
+      transform 0.15s ease-out,
+      box-shadow 0.15s ease-out;
+
+    &:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 9px 9px 0 0 $ink;
+    }
+  }
+
+  // Outlined tag used for tech stacks.
+  .nb-pill {
+    @apply inline-flex items-center border-2 border-ink bg-white px-2.5 py-1 font-mono text-xs font-bold leading-tight rounded-nb;
+  }
+
+  // Small label used for section numbers, dates and kickers.
+  .nb-label {
+    @apply font-mono text-xs font-bold uppercase tracking-[0.12em] sm:text-sm;
+  }
+
+  // Nav link with a sunflower marker that sweeps in on hover.
+  .nb-navlink {
+    @apply px-2 py-1 font-mono text-sm font-bold uppercase tracking-wider;
+    background: linear-gradient($sun, $sun) no-repeat left bottom / 0 100%;
+    transition: background-size 0.18s ease-out;
+
+    &:hover,
+    &:focus-visible {
+      background-size: 100% 100%;
+    }
+  }
+
+  // Text link with a thick underline that gets a marker fill on hover.
+  .nb-link {
+    @apply font-bold underline decoration-[3px] underline-offset-4;
+    transition: background-color 0.12s ease-out;
+
+    &:hover {
+      @apply bg-sun text-ink;
+    }
+  }
+
+  // Square bullets for highlight lists.
+  .nb-list > li {
+    @apply relative pl-6;
+
+    &::before {
+      @apply absolute left-0 top-[0.55em] h-2.5 w-2.5 border-2 border-ink bg-bubblegum;
+      content: "";
+    }
+  }
+
+  // Form fields: thick border, colored hard shadow on focus.
+  .nb-input {
+    @apply block w-full border-3 border-ink bg-white px-4 py-3 font-display text-base text-ink rounded-nb;
+    transition:
+      transform 0.12s ease-out,
+      box-shadow 0.12s ease-out;
+
+    &::placeholder {
+      @apply text-ink/60;
+    }
+
+    &:focus,
+    &:focus-visible {
+      @apply rounded-nb;
+      outline: none;
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 0 $focus;
+    }
+  }
+
+  // Marquee band: two identical halves scrolled by -50% for a seamless loop.
+  .nb-marquee__track {
+    display: flex;
+    width: max-content;
+    animation: nb-marquee 45s linear infinite;
+  }
+
+  .nb-marquee:hover .nb-marquee__track {
+    animation-play-state: paused;
+  }
+
+  // Hero entrance (stagger with the --delay custom property).
+  .nb-pop {
+    animation: nb-pop 0.55s $ease-snap both;
+    animation-delay: var(--delay, 0s);
+  }
+
+  .nb-stamp {
+    animation: nb-stamp 0.4s $ease-snap both;
+    animation-delay: var(--delay, 0.5s);
+  }
+
+  .nb-pulse {
+    animation: nb-pulse 1.6s steps(2, jump-none) infinite;
+  }
+}
+
+@keyframes nb-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes nb-pop {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+}
+
+@keyframes nb-stamp {
+  from {
+    opacity: 0;
+    scale: 1.5;
+  }
+}
+
+@keyframes nb-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+// Reveal on scroll: only hidden once useReveal() has opted the page in, so the
+// content is always visible without JS. Uses the individual `translate`
+// property so it never fights with rotations or hover transforms.
+.nb-reveal-ready .reveal {
+  transition:
+    opacity 0.45s ease-out,
+    translate 0.45s $ease-snap;
+
+  &:not(.is-visible) {
+    opacity: 0;
+    translate: 0 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .nb {
+    .nb-marquee__track,
+    .nb-pop,
+    .nb-stamp,
+    .nb-pulse {
+      animation: none;
+    }
+
+    .nb-btn,
+    .nb-lift,
+    .nb-input,
+    .nb-navlink,
+    .reveal {
+      transition: none;
+    }
+  }
+}

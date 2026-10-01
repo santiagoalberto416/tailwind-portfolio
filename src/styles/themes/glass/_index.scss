@@ -1,0 +1,7 @@
+// "Liquid Glass" home page. Every rule is scoped under `.lg-home` so none of it
+// leaks into the games and tools pages that share globals.scss.
+@import "foundation";
+@import "background";
+@import "glass";
+@import "nav";
+@import "sections";

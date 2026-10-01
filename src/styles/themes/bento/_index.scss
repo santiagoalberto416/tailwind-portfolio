@@ -174,7 +174,7 @@ body:has(.bento-home) {
 }
 
 // Pulsing "online" status dot.
-.status-dot {
+.bento-home .status-dot {
   position: relative;
   display: inline-flex;
   width: 0.5rem;
@@ -216,7 +216,7 @@ body:has(.bento-home) {
 // Scroll reveal. Elements only start hidden once JS has confirmed it can
 // observe them (`.reveal-ready`), so content is always visible without JS.
 // ---------------------------------------------------------------------------
-.reveal-ready [data-reveal] {
+.bento-home.reveal-ready [data-reveal] {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
@@ -230,7 +230,7 @@ body:has(.bento-home) {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
+  html:has(.bento-home) {
     scroll-behavior: auto;
   }
 
@@ -241,14 +241,14 @@ body:has(.bento-home) {
     transition: none !important;
   }
 
-  .reveal-ready [data-reveal] {
+  .bento-home.reveal-ready [data-reveal] {
     opacity: 1;
     transform: none;
   }
 }
 
 // Hero tiles animate in with CSS on first paint (no JS needed).
-.hero-enter {
+.bento-home .hero-enter {
   animation: hero-enter 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   animation-delay: var(--reveal-delay, 0ms);
 }
@@ -262,7 +262,7 @@ body:has(.bento-home) {
 
 // Makes a whole card clickable through its heading link, while keeping a
 // clear focus ring on the card outline for keyboard users.
-.stretched-link {
+.bento-home .stretched-link {
   &::after {
     content: "";
     position: absolute;

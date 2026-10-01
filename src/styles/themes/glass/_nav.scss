@@ -1,0 +1,139 @@
+// Floating capsule navigation: top-center on desktop, bottom tab bar on mobile.
+
+.lg-home {
+  .liquid-nav {
+    position: fixed;
+    z-index: 50;
+    left: 50%;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    width: calc(100% - 24px);
+    max-width: 460px;
+    transform: translateX(-50%);
+
+    @media (min-width: $bp-md) {
+      top: 18px;
+      bottom: auto;
+      width: auto;
+      max-width: none;
+    }
+  }
+
+  .liquid-nav__capsule {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    border-radius: 999px;
+    background: linear-gradient(
+        150deg,
+        rgba(255, 255, 255, 0.16) 0%,
+        rgba(255, 255, 255, 0.07) 100%
+      ),
+      rgba(10, 14, 44, 0.55);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28),
+      0 18px 40px -14px rgba(2, 4, 24, 0.75);
+  }
+
+  .liquid-nav__brand {
+    display: none;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-family: var(--font-display), sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: #0a0f2e;
+    background: linear-gradient(135deg, #a5f3fc 0%, #c4b5fd 55%, #fecdd3 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7),
+      0 6px 16px -6px rgba(124, 231, 247, 0.8);
+
+    @media (min-width: $bp-md) {
+      display: grid;
+    }
+  }
+
+  .liquid-nav__track {
+    position: relative;
+    flex: 1;
+  }
+
+  .liquid-nav__list {
+    display: flex;
+    justify-content: space-between;
+
+    @media (min-width: $bp-md) {
+      gap: 2px;
+    }
+  }
+
+  .liquid-nav__link {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 8px 6px 6px;
+    min-width: 54px;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+    transition: color 0.3s;
+
+    &:hover,
+    &[aria-current] {
+      color: #fff;
+    }
+
+    @media (min-width: $bp-md) {
+      flex-direction: row;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+  }
+
+  .liquid-nav__icon {
+    width: 17px;
+    height: 17px;
+
+    @media (min-width: $bp-md) {
+      display: none;
+    }
+  }
+
+  .liquid-nav__label {
+    display: none;
+
+    @media (min-width: $bp-md) {
+      display: inline;
+    }
+  }
+
+  .liquid-nav__label--short {
+    @media (min-width: $bp-md) {
+      display: none;
+    }
+  }
+
+  // The liquid pill: slides with a slight overshoot between links
+  .liquid-nav__indicator {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 999px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.26) 0%,
+      rgba(255, 255, 255, 0.12) 100%
+    );
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+      0 6px 18px -6px rgba(124, 231, 247, 0.55);
+    transition: transform 0.6s $ease-liquid, width 0.6s $ease-liquid;
+  }
+}

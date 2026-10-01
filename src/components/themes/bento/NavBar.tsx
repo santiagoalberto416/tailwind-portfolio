@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
-import Icon from "@/components/home/Icon";
-import { SectionsIds, navItems } from "@/components/home/sections";
-import useActiveSection from "@/utils/hooks/useActiveSection";
+import Icon from "@/components/themes/bento/Icon";
+import { SectionsIds, navItems } from "@/components/themes/bento/sections";
+import useActiveSection from "@/components/themes/bento/useActiveSection";
 import { profile } from "@/data/profile";
 
 const sectionIds = navItems.map((item) => item.id);
