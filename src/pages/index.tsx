@@ -1,50 +1,72 @@
-import Header from "@/components/header";
 import Head from "next/head";
-import Content from "@/components/content";
-import { FC, useEffect } from "react";
-import Experience from "@/components/experience";
-import About from "@/components/about";
-import Projects from "@/components/projects";
-import Contact from "@/components/contact";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { FC, useRef } from "react";
+import About from "@/components/home/About";
+import Contact from "@/components/home/Contact";
+import Experience from "@/components/home/Experience";
+import Footer from "@/components/home/Footer";
+import Hero from "@/components/home/Hero";
+import LiquidBackground from "@/components/home/LiquidBackground";
+import NavBar from "@/components/home/NavBar";
+import Projects from "@/components/home/Projects";
+import Skills from "@/components/home/Skills";
+import Stats from "@/components/home/Stats";
+import useRevealOnScroll from "@/utils/hooks/useRevealOnScroll";
+
+const bodyFont = Inter({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const displayFont = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const pageTitle =
+  "Santiago Kirk — Senior Front-End Engineer | Angular · React · TypeScript";
+const pageDescription =
+  "Santiago Kirk is a Senior Front-End Engineer (Angular · React · TypeScript) building large-scale front ends, design systems and shared component libraries for U.S. product teams. Based in Tijuana, Mexico and open to remote.";
 
 const MainPage: FC = () => {
-  useEffect(() => {
-    const hiddenElements = document.querySelectorAll(".hidden-section");
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show-section");
-        } else {
-          entry.target.classList.remove("show-section");
-        }
-      });
-    });
-    hiddenElements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
+  const rootRef = useRef<HTMLDivElement>(null);
+  useRevealOnScroll(rootRef);
 
   return (
-    <div className="root">
+    <div
+      ref={rootRef}
+      className={`lg-home ${bodyFont.variable} ${displayFont.variable}`}
+    >
       <Head>
-        <title>Santiago Kirk Portfolio</title>
-        <meta
-          name="description"
-          content="This is a personal portafolio of Santiago Kirk a Front End React Developer "
-          key="desc"
-        />
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} key="desc" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:type" content="website" />
+        <meta name="theme-color" content="#070a24" />
       </Head>
+
       <a href="#main-content" className="skip-to-content">
         Skip to main content
       </a>
-      <Header />
-      <main id="main-content">
-        <Content />
+
+      <LiquidBackground />
+      <NavBar />
+
+      <main id="main-content" tabIndex={-1}>
+        <Hero />
         <About />
+        <Stats />
+        <Skills />
         <Experience />
         <Projects />
         <Contact />
       </main>
+
+      <Footer />
     </div>
   );
 };
