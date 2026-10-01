@@ -29,6 +29,8 @@ export type Project = {
   stack: string[];
   // Screenshot file name inside the R2 bucket (optional)
   image?: string;
+  // Shown as the large tile of the projects bento grid (optional)
+  featured?: boolean;
   link?: {
     path: string;
     text: string;
@@ -219,6 +221,7 @@ export const projects: Project[] = [
       "Interactive version of the Conners rating scales for parents and teachers: instant scoring with clinical interpretation, autosave, JSON import/export and printable results.",
     stack: ["React", "TypeScript", "Tailwind"],
     image: "conners-scale-screenshoot.png",
+    featured: true,
     link: { path: "/conners-scale", text: "Open tool" },
   },
   {
