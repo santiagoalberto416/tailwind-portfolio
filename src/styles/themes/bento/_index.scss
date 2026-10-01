@@ -1,0 +1,282 @@
+// Home page — "Bento Grid + Dark Mode" design.
+// Everything is scoped under `.bento-home` so the global rules other pages
+// rely on (games, Conners scale, social skills cards) stay untouched.
+
+$home-bg: #0a0a0b;
+
+body:has(.bento-home) {
+  background-color: $home-bg;
+  color-scheme: dark;
+}
+
+.bento-home {
+  --accent-rgb: 190 242 100;
+  --surface: #111113;
+  --line: rgb(255 255 255 / 0.08);
+  --line-strong: rgb(255 255 255 / 0.16);
+
+  position: relative;
+  min-height: 100vh;
+  overflow-x: clip;
+  background-color: $home-bg;
+  color: #ededef;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  ::selection {
+    background: rgb(var(--accent-rgb) / 0.3);
+    color: #fff;
+  }
+
+  // Keyboard focus: one consistent accent ring across the page.
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent-rgb));
+    outline-offset: 3px;
+  }
+}
+
+// Undo the global `p { margin-bottom }` inside the home page while keeping
+// Tailwind margin utilities usable (same specificity as `p`, declared later).
+:where(.bento-home) p {
+  margin-bottom: 0;
+}
+
+// ---------------------------------------------------------------------------
+// Background: soft accent spotlight + faint grid that fades out, plus grain.
+// ---------------------------------------------------------------------------
+.bento-backdrop {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1400px;
+  pointer-events: none;
+  z-index: 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 70% 55% at 50% 0%, #000 30%, transparent 75%);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -420px;
+    width: 1100px;
+    height: 800px;
+    transform: translateX(-50%);
+    background: radial-gradient(closest-side, rgb(var(--accent-rgb) / 0.14), transparent);
+    filter: blur(20px);
+  }
+}
+
+.bento-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+// ---------------------------------------------------------------------------
+// Bento card: 1px hairline border, slightly lifted surface and a spotlight
+// that follows the cursor (--x / --y are set from JS on mouse move).
+// ---------------------------------------------------------------------------
+.bento-card {
+  --x: 50%;
+  --y: 50%;
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.025), transparent 40%), var(--surface);
+  transition: border-color 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+
+  // Fill glow
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
+    background: radial-gradient(
+      420px circle at var(--x) var(--y),
+      rgb(var(--accent-rgb) / 0.07),
+      transparent 45%
+    );
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  // Edge glow, masked to a 1px ring just inside the border (the card clips
+  // its overflow, so the ring can't sit on the border itself).
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    padding: 1px;
+    opacity: 0;
+    background: radial-gradient(
+      260px circle at var(--x) var(--y),
+      rgb(var(--accent-rgb) / 0.55),
+      transparent 50%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--line-strong);
+
+    &::before,
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+// Small pill used for tags / stack items.
+.bento-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgb(255 255 255 / 0.03);
+  padding: 0.25rem 0.625rem;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  letter-spacing: 0.01em;
+  color: #a1a1aa;
+  white-space: nowrap;
+
+  &--lg {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+    color: #e4e4e7;
+  }
+}
+
+// Pulsing "online" status dot.
+.bento-home .status-dot {
+  position: relative;
+  display: inline-flex;
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: none;
+  border-radius: 999px;
+  background: rgb(var(--accent-rgb));
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: inherit;
+    animation: status-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+}
+
+@keyframes status-ping {
+  75%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+// Screenshots: muted until the card is hovered.
+.bento-shot {
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.4s ease;
+  filter: saturate(0.85) brightness(0.92);
+
+  .bento-card:hover & {
+    transform: scale(1.025);
+    filter: none;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Scroll reveal. Elements only start hidden once JS has confirmed it can
+// observe them (`.reveal-ready`), so content is always visible without JS.
+// ---------------------------------------------------------------------------
+.bento-home.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+
+  &.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:has(.bento-home) {
+    scroll-behavior: auto;
+  }
+
+  .bento-home *,
+  .bento-home *::before,
+  .bento-home *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .bento-home.reveal-ready [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// Hero tiles animate in with CSS on first paint (no JS needed).
+.bento-home .hero-enter {
+  animation: hero-enter 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+}
+
+// Makes a whole card clickable through its heading link, while keeping a
+// clear focus ring on the card outline for keyboard users.
+.bento-home .stretched-link {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    border-radius: 1.5rem;
+  }
+
+  &:focus-visible {
+    outline: none;
+
+    &::after {
+      outline: 2px solid rgb(var(--accent-rgb));
+      outline-offset: -2px;
+    }
+  }
+}

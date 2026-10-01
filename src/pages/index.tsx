@@ -1,51 +1,46 @@
-import Header from "@/components/header";
+import { FC } from "react";
 import Head from "next/head";
-import Content from "@/components/content";
-import { FC, useEffect } from "react";
-import Experience from "@/components/experience";
-import About from "@/components/about";
-import Projects from "@/components/projects";
-import Contact from "@/components/contact";
+import BentoHome from "@/components/themes/bento/BentoHome";
+import GlassHome from "@/components/themes/glass/GlassHome";
+import BrutalHome from "@/components/themes/brutal/BrutalHome";
+import StylePicker from "@/components/styleSwitcher/StylePicker";
+import StyleSwitcher from "@/components/styleSwitcher/StyleSwitcher";
+import usePortfolioStyle from "@/components/styleSwitcher/usePortfolioStyle";
+import { PortfolioStyleId } from "@/components/styleSwitcher/portfolioStyles";
+import { profile } from "@/data/profile";
+
+const themes: Record<PortfolioStyleId, FC> = {
+  bento: BentoHome,
+  glass: GlassHome,
+  brutal: BrutalHome,
+};
+
+const pageTitle = `${profile.shortName} — ${profile.role} | ${profile.focus.join(" · ")}`;
+const pageDescription = `${profile.shortName} is a ${profile.role} (${profile.focus.join(" · ")}) based in ${profile.location}. ${profile.headline}`;
 
 const MainPage: FC = () => {
-  useEffect(() => {
-    const hiddenElements = document.querySelectorAll(".hidden-section");
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show-section");
-        } else {
-          entry.target.classList.remove("show-section");
-        }
-      });
-    });
-    hiddenElements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
+  const { style, chooseStyle } = usePortfolioStyle();
+  const Theme = style ? themes[style] : null;
 
   return (
-    <div className="root">
+    <>
       <Head>
-        <title>Santiago Kirk Portfolio</title>
-        <meta
-          name="description"
-          content="This is a personal portafolio of Santiago Kirk a Front End React Developer "
-          key="desc"
-        />
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} key="desc" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:type" content="website" />
       </Head>
-      <a href="#main-content" className="skip-to-content">
-        Skip to main content
-      </a>
-      <Header />
-      <main id="main-content">
-        <Content />
-        <About />
-        <Experience />
-        <Projects />
-        <Contact />
-      </main>
-    </div>
+
+      {Theme && style ? (
+        <>
+          <Theme key={style} />
+          <StyleSwitcher current={style} onChange={chooseStyle} />
+        </>
+      ) : (
+        <StylePicker onSelect={chooseStyle} />
+      )}
+    </>
   );
 };
 

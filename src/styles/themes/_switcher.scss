@@ -1,0 +1,864 @@
+// Style picker (landing), "Change style" button and modal.
+// Every class is prefixed with `ps-` (portfolio style) so it can't collide with
+// the three themes, which are scoped under .bento-home, .lg-home and .nb.
+
+$ps-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+  "Helvetica Neue", Arial, sans-serif;
+$ps-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+// ---------------------------------------------------------------------------
+// Returning visitors: an inline script in _document marks <html> with the
+// saved style before the first paint. Hide the landing and paint that style's
+// background until React swaps in the chosen theme.
+// ---------------------------------------------------------------------------
+html[data-portfolio-style] .ps-landing {
+  visibility: hidden;
+}
+
+html[data-portfolio-style="bento"] {
+  background: #0a0a0b;
+}
+
+html[data-portfolio-style="glass"] {
+  background: #070a24;
+}
+
+html[data-portfolio-style="brutal"] {
+  background: #fff8e7;
+}
+
+body:has(.ps-landing) {
+  background: #09090b;
+}
+
+// ---------------------------------------------------------------------------
+// Landing picker
+// ---------------------------------------------------------------------------
+.ps-landing {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: #09090b;
+  color: #fafafa;
+  font-family: $ps-font;
+  -webkit-font-smoothing: antialiased;
+
+  p {
+    margin: 0;
+  }
+}
+
+// Three soft glows hinting at the three styles
+.ps-landing-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(40rem 26rem at 12% 0%, rgba(190, 242, 100, 0.12), transparent 70%),
+    radial-gradient(42rem 30rem at 55% -8%, rgba(124, 231, 247, 0.14), transparent 70%),
+    radial-gradient(40rem 28rem at 95% 4%, rgba(255, 122, 168, 0.13), transparent 70%);
+}
+
+.ps-landing-inner {
+  position: relative;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 7vw, 5.5rem) 1rem 3rem;
+
+  @media (min-width: 768px) {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+.ps-landing-header {
+  max-width: 44rem;
+  margin: 0 auto clamp(2rem, 5vw, 3.5rem);
+  text-align: center;
+}
+
+.ps-landing-identity {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.375rem 1rem 0.375rem 0.375rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  text-align: left;
+}
+
+.ps-landing-avatar {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #bef264, #7ce7f7 50%, #ff7aa8);
+  color: #0a0a0b;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.ps-landing-name {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.ps-landing-role {
+  display: block;
+  font-size: 0.75rem;
+  color: #a1a1aa;
+  line-height: 1.3;
+}
+
+.ps-landing-title {
+  margin: 1.75rem 0 1rem;
+  font-size: clamp(2rem, 5.2vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.ps-landing-lead {
+  max-width: 34rem;
+  margin: 0 auto !important;
+  font-size: clamp(1rem, 1.6vw, 1.125rem);
+  line-height: 1.6;
+  color: #a1a1aa;
+  text-wrap: pretty;
+}
+
+.ps-landing-note {
+  margin-top: 2rem !important;
+  text-align: center;
+  font-size: 0.8125rem;
+  color: #71717a;
+}
+
+// ---------------------------------------------------------------------------
+// Style option cards (landing + modal)
+// ---------------------------------------------------------------------------
+.ps-options {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+.ps-option {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 0.625rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.035);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.3s $ps-ease, border-color 0.3s ease,
+    background-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.8);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #fafafa;
+    outline-offset: 3px;
+  }
+
+  &[aria-pressed="true"] {
+    border-color: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.07);
+  }
+}
+
+.ps-option-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 1rem 0.625rem 0.625rem;
+}
+
+.ps-option-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ps-option-name {
+  font-size: 1.25rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.ps-option-badge {
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  background: #fafafa;
+  color: #09090b;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.ps-option-tagline {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #a1a1aa;
+}
+
+.ps-option-description {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: #d4d4d8;
+}
+
+.ps-option-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.3s $ps-ease;
+  }
+
+  .ps-option:hover & svg {
+    transform: translateX(4px);
+  }
+}
+
+.ps-options-compact {
+  @media (min-width: 768px) {
+    gap: 1rem;
+  }
+
+  .ps-option {
+    border-radius: 1.25rem;
+    padding: 0.5rem;
+  }
+
+  .ps-option-body {
+    padding: 0.75rem 0.5rem 0.5rem;
+  }
+
+  .ps-option-name {
+    font-size: 1.0625rem;
+  }
+
+  .ps-option-description {
+    font-size: 0.875rem;
+  }
+
+  // On phones the modal lists the styles as compact rows
+  @media (max-width: 767px) {
+    .ps-option {
+      flex-direction: row;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .ps-option > div {
+      width: 8.5rem;
+      flex: none;
+    }
+
+    .ps-option-description {
+      display: none;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Preview mock-ups
+// ---------------------------------------------------------------------------
+.ps-preview {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 1rem;
+  isolation: isolate;
+
+  .ps-options-compact & {
+    border-radius: 0.875rem;
+  }
+}
+
+.ps-bar {
+  display: block;
+  height: 6%;
+  min-height: 4px;
+  border-radius: 999px;
+}
+
+.ps-bar-lg {
+  width: 80%;
+}
+
+.ps-bar-md {
+  width: 58%;
+}
+
+.ps-bar-sm {
+  width: 70%;
+}
+
+.ps-bar-xs {
+  width: 45%;
+}
+
+// Bento -----------------------------------------------------------------------
+.ps-preview-bento {
+  padding: 7%;
+  background:
+    radial-gradient(70% 60% at 30% 0%, rgba(190, 242, 100, 0.12), transparent 70%),
+    #0a0a0b;
+}
+
+.ps-bento-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 5%;
+  height: 100%;
+}
+
+.ps-bento-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 9%;
+  padding: 9%;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+  background: #141416;
+
+  .ps-bar {
+    background: rgba(255, 255, 255, 0.22);
+  }
+}
+
+.ps-bento-intro {
+  grid-row: span 2;
+  justify-content: flex-end;
+
+  .ps-bar-lg {
+    background: rgba(255, 255, 255, 0.85);
+  }
+}
+
+.ps-bento-dot {
+  width: 9px;
+  height: 9px;
+  margin-bottom: auto;
+  border-radius: 999px;
+  background: #bef264;
+  box-shadow: 0 0 12px rgba(190, 242, 100, 0.7);
+}
+
+.ps-bento-cta {
+  width: 40%;
+  height: 12%;
+  margin-top: 4%;
+  border-radius: 999px;
+  background: #bef264;
+}
+
+.ps-bento-photo {
+  grid-row: span 1;
+  background:
+    radial-gradient(circle at 50% 42%, #3f3f46 0 22%, transparent 23%),
+    radial-gradient(ellipse at 50% 100%, #3f3f46 0 45%, transparent 46%),
+    linear-gradient(160deg, #1f1f23, #121214);
+}
+
+.ps-bento-number {
+  font-size: clamp(0.875rem, 2vw, 1.375rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: #fafafa;
+
+  .ps-options-compact & {
+    font-size: clamp(0.75rem, 1.5vw, 1rem);
+  }
+}
+
+.ps-bento-wide {
+  grid-column: span 1;
+}
+
+// Liquid glass ----------------------------------------------------------------
+.ps-preview-glass {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8%;
+  padding: 6% 7%;
+  background: linear-gradient(160deg, #0b1240, #070a24 70%);
+}
+
+.ps-glass-blob {
+  position: absolute;
+  z-index: -1;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  filter: blur(18px);
+  opacity: 0.85;
+}
+
+.ps-glass-blob-a {
+  top: -20%;
+  left: -12%;
+  background: #22d3ee;
+}
+
+.ps-glass-blob-b {
+  top: 10%;
+  right: -18%;
+  background: #8b5cf6;
+}
+
+.ps-glass-blob-c {
+  bottom: -40%;
+  left: 25%;
+  background: #fb7185;
+  opacity: 0.6;
+}
+
+.ps-glass-nav {
+  display: flex;
+  gap: 8px;
+  padding: 2.5% 4%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+  span {
+    width: 18px;
+    height: 5px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.75);
+  }
+}
+
+.ps-glass-card {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8%;
+  width: 100%;
+  padding: 0 8%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.4),
+    0 18px 40px -16px rgba(0, 0, 0, 0.6);
+}
+
+.ps-glass-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+
+  .ps-bar {
+    height: 7px;
+    background: rgba(255, 255, 255, 0.85);
+  }
+
+  .ps-bar-md {
+    background: linear-gradient(90deg, #7ce7f7, #c4b5fd);
+  }
+}
+
+.ps-glass-button {
+  width: 42%;
+  height: 14px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.ps-glass-avatar {
+  width: 30%;
+  aspect-ratio: 1;
+  flex: none;
+  border: 3px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 40%, #c7d2fe 0 22%, transparent 23%),
+    radial-gradient(ellipse at 50% 100%, #c7d2fe 0 42%, transparent 43%),
+    linear-gradient(160deg, #6366f1, #a855f7);
+  box-shadow: 0 0 30px rgba(196, 181, 253, 0.55);
+}
+
+// Neo-brutalism -----------------------------------------------------------------
+.ps-preview-brutal {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff8e7;
+  background-image: radial-gradient(rgba(17, 17, 17, 0.16) 1px, transparent 1.2px);
+  background-size: 10px 10px;
+  color: #111;
+}
+
+.ps-brutal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4% 6%;
+  border-bottom: 2px solid #111;
+}
+
+.ps-brutal-logo,
+.ps-brutal-button {
+  height: 12px;
+  border: 2px solid #111;
+  border-radius: 3px;
+  box-shadow: 2px 2px 0 #111;
+}
+
+.ps-brutal-logo {
+  width: 22%;
+  background: #ffd23f;
+}
+
+.ps-brutal-button {
+  width: 18%;
+  background: #ff7aa8;
+}
+
+.ps-brutal-body {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 6%;
+  padding: 0 6%;
+}
+
+.ps-brutal-type {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ps-brutal-line {
+  display: block;
+  width: 78%;
+  height: 13px;
+  background: #111;
+}
+
+.ps-brutal-highlight {
+  width: 92%;
+  border: 2px solid #111;
+  background: #ff7aa8;
+  box-shadow: 3px 3px 0 #111;
+  transform: rotate(-2deg);
+}
+
+.ps-brutal-short {
+  width: 55%;
+}
+
+.ps-brutal-photo {
+  position: relative;
+  width: 32%;
+  aspect-ratio: 4 / 5;
+  flex: none;
+  border: 2px solid #111;
+  background: #7fe7c4;
+  box-shadow: 4px 4px 0 #111;
+  transform: rotate(3deg);
+}
+
+.ps-brutal-sticker {
+  position: absolute;
+  right: -18%;
+  bottom: 12%;
+  width: 46%;
+  height: 22%;
+  border: 2px solid #111;
+  border-radius: 3px;
+  background: #ffd23f;
+  transform: rotate(-8deg);
+}
+
+.ps-brutal-marquee {
+  height: 12%;
+  margin: 0 -4% 6%;
+  background: #111;
+  transform: rotate(-2deg);
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 14px,
+    rgba(255, 248, 231, 0.85) 14px 40px,
+    transparent 40px 50px
+  );
+  background-size: 100% 4px;
+  background-position: center;
+  background-repeat: repeat-x;
+}
+
+// ---------------------------------------------------------------------------
+// Floating "Change style" button. Skinned per active style via data-style.
+// ---------------------------------------------------------------------------
+.ps-fab {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 45; // under the themes' menus (z-50/60), above page content
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6875rem 1rem 0.6875rem 0.875rem;
+  font-family: $ps-font;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.2s $ps-ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
+
+  &:focus-visible {
+    outline-offset: 3px;
+  }
+}
+
+.ps-fab-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.ps-fab[data-style="bento"] {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(17, 17, 19, 0.85);
+  color: #fafafa;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
+
+  .ps-fab-icon {
+    color: #bef264;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: rgba(190, 242, 100, 0.5);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #bef264;
+  }
+}
+
+.ps-fab[data-style="glass"] {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  background: rgba(20, 26, 70, 0.55);
+  color: #f6f7ff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 16px 40px rgba(4, 6, 30, 0.55);
+  backdrop-filter: blur(18px) saturate(1.6);
+
+  .ps-fab-icon {
+    color: #7ce7f7;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    background: rgba(40, 48, 110, 0.65);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #7ce7f7;
+  }
+
+  // Sit above the glass theme's mobile bottom tab bar
+  @media (max-width: 767px) {
+    bottom: calc(max(12px, env(safe-area-inset-bottom)) + 84px);
+  }
+}
+
+.ps-fab[data-style="brutal"] {
+  border: 3px solid #111;
+  border-radius: 10px;
+  background: #ffd23f;
+  color: #111;
+  box-shadow: 4px 4px 0 #111;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+
+  &:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #111;
+  }
+
+  &:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 #111;
+  }
+
+  &:focus-visible {
+    outline: 3px solid #3d3bf3;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Modal
+// ---------------------------------------------------------------------------
+.ps-dialog {
+  position: relative;
+  z-index: 200;
+  font-family: $ps-font;
+  -webkit-font-smoothing: antialiased;
+
+  p {
+    margin: 0;
+  }
+}
+
+.ps-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 5, 8, 0.72);
+  backdrop-filter: blur(6px);
+  transition: opacity 0.25s ease;
+
+  &[data-closed] {
+    opacity: 0;
+  }
+}
+
+.ps-dialog-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 0.75rem;
+
+  @media (min-width: 768px) {
+    align-items: center;
+    padding: 1.5rem;
+  }
+}
+
+.ps-dialog-panel {
+  width: 100%;
+  max-width: 64rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.75rem;
+  background: #111114;
+  color: #fafafa;
+  box-shadow: 0 40px 120px -20px rgba(0, 0, 0, 0.8);
+  transition: opacity 0.25s ease, transform 0.3s $ps-ease;
+
+  &[data-closed] {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+
+  @media (min-width: 768px) {
+    padding: 1.75rem;
+  }
+}
+
+.ps-dialog-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.ps-dialog-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.ps-dialog-lead {
+  margin-top: 0.25rem !important;
+  font-size: 0.9375rem;
+  color: #a1a1aa;
+}
+
+.ps-dialog-close {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #fafafa;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #fafafa;
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ps-option,
+  .ps-option-cta svg,
+  .ps-fab,
+  .ps-dialog-backdrop,
+  .ps-dialog-panel {
+    transition: none;
+  }
+
+  .ps-option:hover {
+    transform: none;
+  }
+}
