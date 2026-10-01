@@ -26,7 +26,7 @@ const groupIcons: Record<string, IconDefinition> = {
 
 // Logos available in /public for the everyday web stack
 const toolkit = [
-  { name: "Angular", logo: "/angular-icon.png" },
+  { name: "Angular", logo: "/angular-icon.svg" },
   { name: "React", logo: "/react-icon.svg" },
   { name: "TypeScript", logo: "/ts-icon.svg" },
   { name: "JavaScript", logo: "/js-icon.svg" },

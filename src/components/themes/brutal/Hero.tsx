@@ -7,7 +7,7 @@ import { SectionsIds } from "@/components/themes/brutal/sectionIds";
 import { isExternal, socialLinks } from "@/components/themes/brutal/socialLinks";
 
 const focusIcons: Record<string, string> = {
-  Angular: "/angular-icon.png",
+  Angular: "/angular-icon.svg",
   React: "/react-icon.svg",
   TypeScript: "/ts-icon.svg",
 };

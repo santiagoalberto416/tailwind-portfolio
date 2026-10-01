@@ -10,7 +10,7 @@ import { company, engagements, profile } from "@/data/profile";
 import { R2_BUCKET } from "@/utils/resources";
 
 const techStack = [
-  { name: "Angular", logo: "/angular-icon.png" },
+  { name: "Angular", logo: "/angular-icon.svg" },
   { name: "React", logo: "/react-icon.svg" },
   { name: "TypeScript", logo: "/ts-icon.svg" },
   { name: "Tailwind", logo: "/tailwind.svg" },

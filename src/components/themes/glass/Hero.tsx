@@ -9,7 +9,7 @@ import { contactLinks } from "./contactLinks";
 import { SectionsIds } from "./sections";
 
 const focusLogos: Record<string, string> = {
-  Angular: "/angular-icon.png",
+  Angular: "/angular-icon.svg",
   React: "/react-icon.svg",
   TypeScript: "/ts-icon.svg",
 };
