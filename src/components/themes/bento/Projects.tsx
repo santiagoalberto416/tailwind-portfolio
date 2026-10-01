@@ -6,7 +6,7 @@ import Icon from "@/components/themes/bento/Icon";
 import SectionHeading from "@/components/themes/bento/SectionHeading";
 import { SectionsIds } from "@/components/themes/bento/sections";
 import { Project, projects } from "@/data/profile";
-import { R2_BUCKET } from "@/utils/resources";
+import { externalLinkProps, projectImageUrl, displayPath } from "@/utils/resources";
 
 // Featured project first, then text-only tiles (they sit next to the
 // featured one), then the tiles with screenshots.
@@ -14,7 +14,15 @@ const tileOrder = (project: Project) => (project.featured ? 0 : project.image ? 
 const orderedProjects = [...projects].sort((a, b) => tileOrder(a) - tileOrder(b));
 
 // Screenshot inside a minimal browser-window frame.
-const Screenshot = ({ project, sizes }: { project: Project; sizes: string }) => (
+const Screenshot = ({
+  project,
+  image,
+  sizes,
+}: {
+  project: Project;
+  image: string;
+  sizes: string;
+}) => (
   <div className="overflow-hidden rounded-xl border border-white/[0.08] bg-ink-850">
     <div className="flex items-center gap-1.5 border-b border-white/[0.06] px-3 py-2" aria-hidden="true">
       <span className="h-2 w-2 rounded-[999px] bg-white/15" />
@@ -22,13 +30,13 @@ const Screenshot = ({ project, sizes }: { project: Project; sizes: string }) => 
       <span className="h-2 w-2 rounded-[999px] bg-white/15" />
       {project.link && (
         <span className="ml-2 truncate font-geist-mono text-[10px] text-zinc-500">
-          {project.link.path}
+          {displayPath(project.link.path)}
         </span>
       )}
     </div>
     <div className="relative aspect-[16/10] overflow-hidden">
       <Image
-        src={`${R2_BUCKET}/${project.image}`}
+        src={projectImageUrl(image)}
         alt={`Screenshot of ${project.title}`}
         fill
         sizes={sizes}
@@ -53,7 +61,7 @@ const ProjectCard = ({ project, revealDelay }: { project: Project; revealDelay: 
       }`}
     >
       {image && !featured && (
-        <Screenshot project={project} sizes="(min-width: 1024px) 380px, (min-width: 768px) 50vw, 100vw" />
+        <Screenshot project={project} image={image} sizes="(min-width: 1024px) 380px, (min-width: 768px) 50vw, 100vw" />
       )}
 
       <div className="flex flex-1 flex-col gap-4">
@@ -70,6 +78,7 @@ const ProjectCard = ({ project, revealDelay }: { project: Project; revealDelay: 
             <Link
               href={link.path}
               className="stretched-link"
+              {...externalLinkProps(link.path)}
             >
               {project.title}
             </Link>
@@ -108,7 +117,7 @@ const ProjectCard = ({ project, revealDelay }: { project: Project; revealDelay: 
       </div>
 
       {image && featured && (
-        <Screenshot project={project} sizes="(min-width: 1024px) 760px, 100vw" />
+        <Screenshot project={project} image={image} sizes="(min-width: 1024px) 760px, 100vw" />
       )}
     </BentoCard>
   );

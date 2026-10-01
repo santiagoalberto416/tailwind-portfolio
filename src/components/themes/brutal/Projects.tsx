@@ -2,7 +2,7 @@ import { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Project, projects } from "@/data/profile";
-import { R2_BUCKET } from "@/utils/resources";
+import { externalLinkProps, projectImageUrl, displayPath } from "@/utils/resources";
 import { SectionsIds, accentFor } from "@/components/themes/brutal/sectionIds";
 import SectionHeading from "@/components/themes/brutal/SectionHeading";
 
@@ -25,13 +25,13 @@ const ProjectPreview: FC<{ project: Project; index: number }> = ({
         />
       ))}
       <span className="ml-2 truncate font-mono text-xs font-bold">
-        {project.link?.path ?? project.title}
+        {project.link ? displayPath(project.link.path) : project.title}
       </span>
     </div>
 
     {project.image ? (
       <Image
-        src={`${R2_BUCKET}/${project.image}`}
+        src={projectImageUrl(project.image)}
         alt={`Screenshot of ${project.title}`}
         width={960}
         height={600}
@@ -96,6 +96,7 @@ const Projects: FC = () => (
                     <Link
                       href={project.link.path}
                       className="nb-btn w-full bg-white sm:w-auto"
+                      {...externalLinkProps(project.link.path)}
                     >
                       {project.link.text}
                       <span aria-hidden="true">→</span>

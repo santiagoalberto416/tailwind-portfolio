@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CSSProperties, FC } from "react";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Project, projects } from "@/data/profile";
-import { R2_BUCKET } from "@/utils/resources";
+import { externalLinkProps, projectImageUrl } from "@/utils/resources";
 import GlassPanel from "./GlassPanel";
 import Icon from "./Icon";
 import SectionHeading from "./SectionHeading";
@@ -24,7 +24,7 @@ const ProjectMedia: FC<{ project: Project; index: number }> = ({
     return (
       <div className="project-media">
         <Image
-          src={`${R2_BUCKET}/${project.image}`}
+          src={projectImageUrl(project.image)}
           alt={`Screenshot of ${project.title}`}
           fill
           sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
@@ -66,6 +66,7 @@ const ProjectCard: FC<{ project: Project; index: number }> = ({
           <Link
             href={project.link.path}
             className="btn btn--glass btn--small"
+            {...externalLinkProps(project.link.path)}
             aria-label={`${project.link.text}: ${project.title}`}
           >
             {project.link.text}

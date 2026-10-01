@@ -27,7 +27,8 @@ export type Project = {
   tagline: string;
   description: string;
   stack: string[];
-  // Screenshot file name inside the R2 bucket (optional)
+  // Screenshot: a file name inside the R2 bucket, or a "/..." path in /public
+  // (optional)
   image?: string;
   // Shown as the large tile of the projects bento grid (optional)
   featured?: boolean;
@@ -210,6 +211,19 @@ export const engagements: Engagement[] = [
 
 export const projects: Project[] = [
   {
+    title: "Job Radar",
+    tagline: "AI job search radar",
+    description:
+      "My personal job radar: every two hours it checks 13 job boards, scores each new posting against my profile with Claude (fit, location, seniority and red flags) and sends only the best matches to Telegram. Includes a Telegram bot, a report of the skills most in demand and a local web portal that also works as an iPhone app. It only searches and ranks; it never applies or signs in anywhere.",
+    stack: ["Python", "Claude API", "SQLite", "Telegram Bot", "TypeScript"],
+    image: "/job-radar-screenshot.jpg",
+    featured: true,
+    link: {
+      path: "https://github.com/santiagoalberto416/job-radar-public",
+      text: "View on GitHub",
+    },
+  },
+  {
     title: "NihongoTeacher",
     tagline: "iOS app for learning Japanese",
     description:
@@ -224,7 +238,6 @@ export const projects: Project[] = [
       "Interactive version of the Conners rating scales for parents and teachers: instant scoring with clinical interpretation, autosave, JSON import/export and printable results.",
     stack: ["React", "TypeScript", "Tailwind"],
     image: "conners-scale-screenshoot.png",
-    featured: true,
     link: { path: "/conners-scale", text: "Open tool" },
   },
   {
