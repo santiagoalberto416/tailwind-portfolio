@@ -7,6 +7,7 @@ import {
   faPaperPlane,
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
+import HoneypotField from "@/components/HoneypotField";
 import useContactForm from "@/utils/hooks/useContactForm";
 import GlassPanel from "./GlassPanel";
 import Icon from "./Icon";
@@ -60,6 +61,7 @@ const ContactForm: FC = () => {
   return (
     <GlassPanel blur className="contact-form-card" data-reveal>
       <form className="contact-form" onSubmit={handleSubmit}>
+        <HoneypotField />
         <div className="field-row">
           <div className="field">
             <label htmlFor="contact-name">Name</label>

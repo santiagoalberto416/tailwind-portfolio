@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import { HONEYPOT_FIELD_NAME } from "@/components/HoneypotField";
 
 // Web3Forms delivers the message to my inbox straight from the browser, so the
 // site needs no server function. The access key is public by design: it only
@@ -29,8 +30,19 @@ const useContactForm = () => {
     }, 3000);
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Bots fill in the hidden honeypot field. Act as if the message was sent
+    // so they get no hint, but don't deliver it.
+    const honeypot = new FormData(e.currentTarget).get(HONEYPOT_FIELD_NAME);
+    if (honeypot) {
+      clearForm();
+      e.currentTarget.reset();
+      onEmailSent();
+      return;
+    }
+
     setSendingEmail(true);
     setError(null);
 
