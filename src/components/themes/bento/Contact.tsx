@@ -6,6 +6,7 @@ import Icon from "@/components/themes/bento/Icon";
 import SectionHeading from "@/components/themes/bento/SectionHeading";
 import { SectionsIds } from "@/components/themes/bento/sections";
 import { profile } from "@/data/profile";
+import HoneypotField from "@/components/HoneypotField";
 import useContactForm from "@/utils/hooks/useContactForm";
 
 const handleFromUrl = (url: string) => `@${url.replace(/\/$/, "").split("/").pop()}`;
@@ -112,6 +113,7 @@ const Contact = () => {
 
         <BentoCard revealDelay={80} className="p-6 md:p-8 lg:col-span-3">
           <form onSubmit={handleSubmit} className="flex h-full flex-col gap-5">
+            <HoneypotField />
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
                 <label htmlFor="contact-name" className={labelClass}>

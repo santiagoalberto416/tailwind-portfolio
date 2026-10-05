@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { profile } from "@/data/profile";
+import HoneypotField from "@/components/HoneypotField";
 import useContactForm from "@/utils/hooks/useContactForm";
 import { SectionsIds, accentFor } from "@/components/themes/brutal/sectionIds";
 import { isExternal, socialLinks } from "@/components/themes/brutal/socialLinks";
@@ -107,6 +108,7 @@ const Contact: FC = () => {
             aria-labelledby="contact-form-title"
             className="reveal min-w-0 border-3 border-ink bg-lilac p-6 shadow-nb-lg rounded-nb sm:p-8 lg:col-span-7"
           >
+            <HoneypotField />
             <h3
               id="contact-form-title"
               className="mb-6 text-3xl font-extrabold tracking-tight"
